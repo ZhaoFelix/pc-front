@@ -54,35 +54,76 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
-
   {
-    path: '/example',
+    path: '/current',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
+    meta: { title: '实时管理', icon: 'el-icon-s-help' },
+    children:[
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'driver',
+        name: 'Cdriver',
+        component: () => import('@/views/current/index'),
+        meta: { title: '实时司机', icon: 'table' }
       },
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: 'order',
+        name: 'Corder',
+        component: () => import('@/views/current/index'),
+        meta: { title: '实时订单', icon: 'table' }
       }
     ]
   },
+  {
+    path: '/user',
+    component: Layout,
+    name: 'User',
+    meta: { title: '用户管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'wechat',
+        name: 'Wechat',
+        component: () => import('@/views/wechat/index'),
+        meta: { title: '微信用户', icon: 'table' }
+      },
+      {
+        path: 'driver',
+        name: 'Driver',
+        component: () => import('@/views/driver/index'),
+        meta: { title:'司机信息', icon: 'table'}
+      }
+    ]
+  },
+ {
+   path: '/order',
+   component: Layout,
+   meta: { title: '订单管理', icon: 'form'},
+   children: [
+     {
+       path: 'list',
+       name: 'list',
+       component: () => import('@/views/order/index'),
+       meta: { title: '订单列表', icon: 'form'}
+     },
+     {
+      path: 'current',
+      name: 'current',
+      component: () => import('@/views/order/index'),
+      meta: { title: '实时订单', icon: 'form'}
+    }
+   ]
+ },
+ {
+  path: '/admin',
+  component: Layout,
+  children: [
+    {
+      path: 'admin',
+      name: 'admin',
+      component: () => import('@/views/admin/index'),
+      meta: { title: '管理员', icon: 'form'}
+    }
+  ]
+},
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
