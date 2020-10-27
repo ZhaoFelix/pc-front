@@ -57,19 +57,19 @@ export const constantRoutes = [
   {
     path: '/current',
     component: Layout,
-    meta: { title: '实时管理', icon: 'el-icon-s-help' },
+    meta: { title: '实时管理', icon: 'guide' },
     children:[
       {
         path: 'driver',
         name: 'Cdriver',
         component: () => import('@/views/current/index'),
-        meta: { title: '实时司机', icon: 'table' }
+        meta: { title: '实时司机', icon: 'lock' }
       },
       {
         path: 'order',
         name: 'Corder',
         component: () => import('@/views/current/index'),
-        meta: { title: '实时订单', icon: 'table' }
+        meta: { title: '实时订单', icon: 'list' }
       }
     ]
   },
@@ -77,38 +77,38 @@ export const constantRoutes = [
     path: '/user',
     component: Layout,
     name: 'User',
-    meta: { title: '用户管理', icon: 'el-icon-s-help' },
+    meta: { title: '用户管理', icon: 'people' },
     children: [
       {
         path: 'wechat',
         name: 'Wechat',
         component: () => import('@/views/wechat/index'),
-        meta: { title: '微信用户', icon: 'table' }
+        meta: { title: '微信用户', icon: 'wechat' }
       },
       {
         path: 'driver',
         name: 'Driver',
         component: () => import('@/views/driver/index'),
-        meta: { title:'司机信息', icon: 'table'}
+        meta: { title:'司机信息', icon: 'peoples'}
       }
     ]
   },
  {
    path: '/order',
    component: Layout,
-   meta: { title: '订单管理', icon: 'form'},
+   meta: { title: '订单管理', icon: 'shopping'},
    children: [
      {
        path: 'list',
        name: 'list',
        component: () => import('@/views/order/index'),
-       meta: { title: '订单列表', icon: 'form'}
+       meta: { title: '订单列表', icon: 'money'}
      },
      {
       path: 'current',
       name: 'current',
       component: () => import('@/views/order/index'),
-      meta: { title: '实时订单', icon: 'form'}
+      meta: { title: '异常订单', icon: 'bug'}
     }
    ]
  },
@@ -120,7 +120,7 @@ export const constantRoutes = [
       path: 'admin',
       name: 'admin',
       component: () => import('@/views/admin/index'),
-      meta: { title: '管理员', icon: 'form'}
+      meta: { title: '管理员', icon: 'user'}
     }
   ]
 },
