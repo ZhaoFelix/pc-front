@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: '渣土回收',
 
   /**
    * @type {boolean} true | false
@@ -12,5 +12,6 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether show the logo in sidebar
    */
+  // 是否显示左上角的logo
   sidebarLogo: false
 }

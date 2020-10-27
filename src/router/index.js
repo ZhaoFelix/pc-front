@@ -51,14 +51,14 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '控制台', icon: 'dashboard' }
     }]
   },
   {
     path: '/current',
     component: Layout,
     meta: { title: '实时管理', icon: 'guide' },
-    children:[
+    children: [
       {
         path: 'driver',
         name: 'Cdriver',
@@ -89,41 +89,41 @@ export const constantRoutes = [
         path: 'driver',
         name: 'Driver',
         component: () => import('@/views/driver/index'),
-        meta: { title:'司机信息', icon: 'peoples'}
+        meta: { title: '司机信息', icon: 'peoples' }
       }
     ]
   },
- {
-   path: '/order',
-   component: Layout,
-   meta: { title: '订单管理', icon: 'shopping'},
-   children: [
-     {
-       path: 'list',
-       name: 'list',
-       component: () => import('@/views/order/index'),
-       meta: { title: '订单列表', icon: 'money'}
-     },
-     {
-      path: 'current',
-      name: 'current',
-      component: () => import('@/views/order/index'),
-      meta: { title: '异常订单', icon: 'bug'}
-    }
-   ]
- },
- {
-  path: '/admin',
-  component: Layout,
-  children: [
-    {
-      path: 'admin',
-      name: 'admin',
-      component: () => import('@/views/admin/index'),
-      meta: { title: '管理员', icon: 'user'}
-    }
-  ]
-},
+  {
+    path: '/order',
+    component: Layout,
+    meta: { title: '订单管理', icon: 'shopping' },
+    children: [
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/order/index'),
+        meta: { title: '订单列表', icon: 'money' }
+      },
+      {
+        path: 'current',
+        name: 'current',
+        component: () => import('@/views/order/index'),
+        meta: { title: '异常订单', icon: 'bug' }
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    component: Layout,
+    children: [
+      {
+        path: 'admin',
+        name: 'admin',
+        component: () => import('@/views/admin/index'),
+        meta: { title: '管理员', icon: 'user' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
