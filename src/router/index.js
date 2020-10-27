@@ -115,12 +115,38 @@ export const constantRoutes = [
   {
     path: '/admin',
     component: Layout,
+    meta: { title: '管理员', icon: 'lock' },
     children: [
       {
         path: 'admin',
         name: 'admin',
         component: () => import('@/views/admin/index'),
         meta: { title: '管理员', icon: 'user' }
+      },
+      {
+        path: 'admin',
+        name: 'admin',
+        component: () => import('@/views/admin/index'),
+        meta: { title: '角色类型', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/system',
+    component: Layout,
+    meta: { title: '系统管理', icon: 'example' },
+    children: [
+      {
+        path: 'admin',
+        name: 'admin',
+        component: () => import('@/views/admin/index'),
+        meta: { title: '系统信息', icon: 'component' }
+      },
+      {
+        path: 'admin',
+        name: 'admin',
+        component: () => import('@/views/admin/index'),
+        meta: { title: '运行信息', icon: 'international' }
       }
     ]
   },
