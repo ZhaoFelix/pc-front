@@ -124,10 +124,29 @@ export const constantRoutes = [
         meta: { title: '管理员', icon: 'user' }
       },
       {
-        path: 'admin',
-        name: 'admin',
-        component: () => import('@/views/admin/index'),
+        path: 'category',
+        name: 'category',
+        component: () => import('@/views/admin/category'),
         meta: { title: '角色类型', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/estate',
+    component: Layout,
+    meta: { title: '物业管理', icon: 'lock' },
+    children: [
+      {
+        path: 'info',
+        name: 'info',
+        component: () => import('@/views/estate/index'),
+        meta: { title: '物业经理人', icon: 'user' }
+      },
+      {
+        path: 'discount',
+        name: 'discount',
+        component: () => import('@/views/admin/index'),
+        meta: { title: '物业折扣', icon: 'user' }
       }
     ]
   },
