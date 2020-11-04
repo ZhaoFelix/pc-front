@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import {base_path} from  '@/config/config'
+import { base_path } from '@/config/config'
 // 登录
 export function login(data) {
   return request({
@@ -17,8 +17,6 @@ export function getInfo(token) {
     params: { token }
   })
 }
-
-
 
 // 登出
 export function logout() {
