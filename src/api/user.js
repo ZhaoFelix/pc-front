@@ -3,7 +3,7 @@ import { base_path } from '@/config/config'
 // 登录
 export function login(data) {
   return request({
-    url: `${base_path}user/login`,
+    url: `${base_path}login/login`,
     method: 'post',
     data
   })
@@ -12,7 +12,7 @@ export function login(data) {
 // 获取用户信息
 export function getInfo(token) {
   return request({
-    url: `${base_path}user/info`,
+    url: `${base_path}login/info`,
     method: 'get',
     params: { token }
   })
@@ -21,7 +21,7 @@ export function getInfo(token) {
 // 登出
 export function logout() {
   return request({
-    url: `${base_path}user/logout`,
+    url: `${base_path}login/logout`,
     method: 'post'
   })
 }
