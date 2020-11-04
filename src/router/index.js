@@ -152,29 +152,31 @@ export const constantRoutes = [
       }
     ]
   },
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
+]
+export const asyncRoutes = [
   {
     path: '/system',
     component: Layout,
-    meta: { title: '系统管理', icon: 'example' },
+    meta: { title: '系统管理', icon: 'example', roles: ['admin', 'editor'] },
     children: [
       {
         path: 'admin',
         name: 'admin',
         component: () => import('@/views/admin/index'),
-        meta: { title: '系统信息', icon: 'component' }
+        meta: { title: '系统信息', icon: 'component', roles:['admin']},
+
       },
       {
         path: 'admin',
         name: 'admin',
         component: () => import('@/views/admin/index'),
-        meta: { title: '运行信息', icon: 'international' }
+        meta: { title: '运行信息', icon: 'international',roles:['admin'] }
       }
     ]
-  },
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  }
 ]
-
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),

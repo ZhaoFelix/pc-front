@@ -6,7 +6,8 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+    avatar: '',
+    roles: []
   }
 }
 
@@ -24,6 +25,18 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ROLES: (state,type) => {
+    if (type == 1) {
+      // 管理员
+      state.roles = ['admin']
+    } else if (type == 2) {
+      // 调度员
+      state.roles = ['editor']
+    } else {
+     // 普通
+     state.roles = ['viewer']
+    }
   }
 }
 
@@ -52,9 +65,10 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
         let tempData = data[0]
-        const { admin_name } = tempData
+        const { admin_name, admin_type } = tempData
         commit('SET_NAME', admin_name)
         commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+        commit('SET_ROLES', admin_type)
         resolve(tempData)
       }).catch(error => {
         reject(error)
@@ -83,8 +97,27 @@ const actions = {
       commit('RESET_STATE')
       resolve()
     })
+  },
+  async changeRoles({ commit, dispatch }, role) {
+    const token = role + '-token'
+
+    commit('SET_TOKEN', token)
+    setToken(token)
+
+    const { roles } = await dispatch('getInfo')
+
+    resetRouter()
+
+    // generate accessible routes map based on roles
+    const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+    // dynamically add accessible routes
+    router.addRoutes(accessRoutes)
+
+    // reset visited views and cached views
+    dispatch('tagsView/delAllViews', null, { root: true })
   }
 }
+
 
 export default {
   namespaced: true,
