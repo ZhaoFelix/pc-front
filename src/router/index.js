@@ -113,6 +113,27 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/estate',
+    component: Layout,
+    meta: { title: '物业管理', icon: 'lock' },
+    children: [
+      {
+        path: 'info',
+        name: 'info',
+        component: () => import('@/views/estate/index'),
+        meta: { title: '物业经理人', icon: 'user' }
+      },
+      // 仅管理员可见
+      {
+        path: 'discount',
+        name: 'discount',
+        component: () => import('@/views/admin/index'),
+        meta: { title: '物业折扣', icon: 'money' }
+      }
+    ]
+  },
+  // 仅管理员可见
+  {
     path: '/admin',
     component: Layout,
     meta: { title: '管理员', icon: 'lock' },
@@ -128,25 +149,6 @@ export const constantRoutes = [
         name: 'category',
         component: () => import('@/views/admin/category'),
         meta: { title: '角色类型', icon: 'tree' }
-      }
-    ]
-  },
-  {
-    path: '/estate',
-    component: Layout,
-    meta: { title: '物业管理', icon: 'lock' },
-    children: [
-      {
-        path: 'info',
-        name: 'info',
-        component: () => import('@/views/estate/index'),
-        meta: { title: '物业经理人', icon: 'user' }
-      },
-      {
-        path: 'discount',
-        name: 'discount',
-        component: () => import('@/views/admin/index'),
-        meta: { title: '物业折扣', icon: 'user' }
       }
     ]
   },
