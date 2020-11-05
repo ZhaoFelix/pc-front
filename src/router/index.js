@@ -112,9 +112,14 @@ export const constantRoutes = [
       }
     ]
   },
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
+]
+export const asyncRoutes = [
   {
     path: '/estate',
     component: Layout,
+    alwaysShow:true,
     meta: { title: '物业管理', icon: 'lock' },
     children: [
       {
@@ -128,34 +133,31 @@ export const constantRoutes = [
         path: 'discount',
         name: 'discount',
         component: () => import('@/views/admin/index'),
-        meta: { title: '物业折扣', icon: 'money' }
+        meta: { title: '物业折扣', icon: 'money',roles:['admin'] }
       }
     ]
   },
-  // 仅管理员可见
-  {
+   // 仅管理员可见
+   {
     path: '/admin',
     component: Layout,
-    meta: { title: '管理员', icon: 'lock' },
+    alwaysShow:true,
+    meta: { title: '管理员', icon: 'lock', roles:['admin'] },
     children: [
       {
         path: 'admin',
         name: 'admin',
         component: () => import('@/views/admin/index'),
-        meta: { title: '管理员', icon: 'user' }
+        meta: { title: '管理员', icon: 'user',roles:['admin'] }
       },
       {
         path: 'category',
         name: 'category',
         component: () => import('@/views/admin/category'),
-        meta: { title: '角色类型', icon: 'tree' }
+        meta: { title: '角色类型', icon: 'tree',roles:['admin'] }
       }
     ]
   },
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
-]
-export const asyncRoutes = [
   {
     path: '/system',
     component: Layout,
