@@ -98,6 +98,8 @@ const actions = {
       resolve()
     })
   },
+
+  // 修改用于角色
   async changeRoles({ commit, dispatch }, role) {
     const token = role + '-token'
 
@@ -105,7 +107,7 @@ const actions = {
     setToken(token)
 
     const { roles } = await dispatch('getInfo')
-
+    console.log(roles)
     resetRouter()
 
     // generate accessible routes map based on roles

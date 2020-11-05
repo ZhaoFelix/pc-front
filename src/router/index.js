@@ -159,18 +159,19 @@ export const asyncRoutes = [
   {
     path: '/system',
     component: Layout,
-    meta: { title: '系统管理', icon: 'example', roles: ['admin', 'editor'] },
+    alwaysShow: true, // 总是显示根目录
+    meta: { title: '系统管理', icon: 'example', roles: ['admin'] },
     children: [
       {
-        path: 'admin',
-        name: 'admin',
+        path: 'system',
+        name: 'system',
         component: () => import('@/views/admin/index'),
         meta: { title: '系统信息', icon: 'component', roles:['admin']},
 
       },
       {
-        path: 'admin',
-        name: 'admin',
+        path: 'runtime',
+        name: 'runtime',
         component: () => import('@/views/admin/index'),
         meta: { title: '运行信息', icon: 'international',roles:['admin'] }
       }
