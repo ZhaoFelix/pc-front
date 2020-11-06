@@ -112,8 +112,6 @@ export const constantRoutes = [
       }
     ]
   },
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
 ]
 export const asyncRoutes = [
   {
@@ -178,7 +176,9 @@ export const asyncRoutes = [
         meta: { title: '运行信息', icon: 'international',roles:['admin'] }
       }
     ]
-  }
+  },
+   // 404 page must be placed at the end !!!
+   { path: '*', redirect: '/404', hidden: true }
 ]
 const createRouter = () => new Router({
   // mode: 'history', // require service support
