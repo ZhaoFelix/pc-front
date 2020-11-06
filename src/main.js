@@ -14,12 +14,16 @@ import router from './router'
 
 import '@/icons' // icon
 import './permission' // permission control
-
+import * as filters from './filters'  // 全局过滤器
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
+// 注册全局过滤器
+Object.keys(filters).forEach(key => {
+  Vue.filter(key,filters[key])
+})
 Vue.config.productionTip = false
 
 new Vue({
