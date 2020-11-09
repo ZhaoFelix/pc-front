@@ -1,28 +1,31 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">用户名: {{ name }}，角色类型：{{ roles }}</div>
+    <component :is="currentRole" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
+import adminDashboard from './admin'
+import editorDashboard from './editor'
 
 export default {
-  name: "Dashboard",
+  name: 'Dashboard',
+  components: { adminDashboard, editorDashboard },
+  data() {
+    return {
+      currentRole: 'adminDashboard'
+    }
+  },
   computed: {
-    ...mapGetters(["name", "roles"])
-  }
-};
-</script>
-
-<style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
+    ...mapGetters([
+      'roles'
+    ])
+  },
+  created() {
+    if (!this.roles.includes('admin')) {
+      this.currentRole = 'editorDashboard'
+    }
   }
 }
-</style>
+</script>
