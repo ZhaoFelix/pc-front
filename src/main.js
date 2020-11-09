@@ -15,6 +15,14 @@ import router from './router'
 import '@/icons' // icon
 import './permission' // permission control
 import * as filters from './filters'  // 全局过滤器
+
+// 引入全局指令
+import permission from '@/directive/permission/index'
+Vue.use(permission)
+
+import waves from '@/directive/waves'
+Vue.use(waves)
+
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
@@ -25,6 +33,7 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key,filters[key])
 })
 Vue.config.productionTip = false
+
 
 new Vue({
   el: '#app',

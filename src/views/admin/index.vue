@@ -168,7 +168,7 @@ import waves from "@/directive/waves";
 import { mapGetters } from "vuex";
 import md5 from "js-md5";
 import { callbackify } from "util";
-import permission from "@/directive/permission/index.js"; // 权限判断指令
+// import permission from "@/directive/permission/index.js"; // 权限判断指令
 let MD5 = function(pwd) {
   pwd = pwd.toUpperCase();
   pwd = md5(pwd);
@@ -177,7 +177,7 @@ let MD5 = function(pwd) {
 
 export default {
   components: {},
-  directives: { waves, permission },
+
   data() {
     // 密码验证
     var validatePass = (rule, value, callback) => {
