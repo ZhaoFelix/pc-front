@@ -164,11 +164,9 @@
 <script>
 import { addAdmin, queryAdmin, getAdminTypeList } from "@/api/admin/admin";
 import { parseTime } from "@/utils";
-import waves from "@/directive/waves";
 import { mapGetters } from "vuex";
 import md5 from "js-md5";
 import { callbackify } from "util";
-// import permission from "@/directive/permission/index.js"; // 权限判断指令
 let MD5 = function(pwd) {
   pwd = pwd.toUpperCase();
   pwd = md5(pwd);
