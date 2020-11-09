@@ -7,3 +7,20 @@ export function getAdminTypeList() {
         method: 'get',
     })
 }
+
+
+export function queryAdmin() {
+    return request({
+        url:`${base_path}admin/query/all`,
+        method:'get'
+    })
+}
+
+
+export function addAdmin(data) {
+    return request({
+        url:`${base_path}admin/update/add`,
+        method:'post',
+        data
+    })    
+}

@@ -28,9 +28,12 @@
           <span v-else-if="scope.row.admin_type == 2">
             仅能查看和操作指定的数据和页面
           </span>
-          <!-- 临时账号 -->
+          <!-- 普通账号 -->
           <span v-else-if="scope.row.admin_type == 3">
             仅能查看指定的数据和页面
+          </span>
+          <span v-else>
+            临时创建的账号
           </span>
         </template>
       </el-table-column>
