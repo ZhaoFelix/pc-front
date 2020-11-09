@@ -2,7 +2,12 @@
   <div class="app-container">
     <div class="filter-container">
       <!-- TODO: 待添加管理员权限 -->
-      <el-button v-waves type="success" icon="el-icon-edit" @click="addAdmin()"
+      <el-button
+        v-waves
+        v-permission="['admin']"
+        type="success"
+        icon="el-icon-edit"
+        @click="addAdmin()"
         >添加</el-button
       >
     </div>
@@ -163,6 +168,7 @@ import waves from "@/directive/waves";
 import { mapGetters } from "vuex";
 import md5 from "js-md5";
 import { callbackify } from "util";
+import permission from "@/directive/permission/index.js"; // 权限判断指令
 let MD5 = function(pwd) {
   pwd = pwd.toUpperCase();
   pwd = md5(pwd);
@@ -171,7 +177,7 @@ let MD5 = function(pwd) {
 
 export default {
   components: {},
-  directives: { waves },
+  directives: { waves, permission },
   data() {
     // 密码验证
     var validatePass = (rule, value, callback) => {

@@ -33,9 +33,12 @@ const mutations = {
     } else if (type == 2) {
       // 调度员
       state.roles = ['editor']
-    } else {
+    } else if (type == 3) {
      // 普通
      state.roles = ['viewer']
+    } else {
+      // 临时
+      state.roles = ['temp']
     }
   }
 }
