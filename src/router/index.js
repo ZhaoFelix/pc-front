@@ -130,7 +130,7 @@ export const asyncRoutes = [
       {
         path: 'discount',
         name: 'discount',
-        component: () => import('@/views/admin/index'),
+        component: () => import('@/views/estate/discount'),
         meta: { title: '物业折扣', icon: 'money',roles:['admin'] }
       }
     ]
