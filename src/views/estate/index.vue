@@ -10,10 +10,10 @@
       highlight-current-row
       style="margin-top:10px"
     >
-      <el-table-column align="center" label="ID" width="95">
+      <el-table-column align="center" label="ID" width="60">
         <template slot-scope="scope">{{ scope.$index + 1 }}</template>
       </el-table-column>
-      <el-table-column label="物业经理人姓名" align="center">
+      <el-table-column label="物业经理人姓名" align="center" width="110">
         <template slot-scope="scope">
           <span>{{ scope.row.estate_name }}</span>
         </template>
@@ -23,7 +23,18 @@
           <span>{{ scope.row.estate_phone }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="所属公司" align="center">
+
+      <el-table-column label="物业经理人身份证号" align="center">
+        <template slot-scope="scope">
+          <span>{{
+            scope.row.estate_card_id.replace(
+              /^(.{4})(?:\d+)(.{4})$/,
+              "$1********$2"
+            )
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="所属公司" align="center" width="200">
         <template slot-scope="scope">
           <span>{{ scope.row.estate_company }}</span>
         </template>
