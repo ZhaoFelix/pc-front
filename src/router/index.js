@@ -84,13 +84,27 @@ export const constantRoutes = [
         name: 'Wechat',
         component: () => import('@/views/wechat/index'),
         meta: { title: '微信用户', icon: 'wechat' }
-      },
+      }
+    ]
+  },
+  {
+    path: '/driver',
+    component: Layout,
+    name: 'DriverManage',
+    meta: { title: '司机管理', icon: 'people' },
+    children: [
       {
         path: 'driver',
         name: 'Driver',
         component: () => import('@/views/driver/index'),
         meta: { title: '司机信息', icon: 'peoples' }
-      }
+      },
+      {
+        path: 'car',
+        name: 'Car',
+        component: () => import('@/views/driver/car'),
+        meta: { title: '车辆信息', icon: 'peoples' }
+      },
     ]
   },
   {

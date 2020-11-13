@@ -9,3 +9,13 @@ export function getDriverList(params) {
     })
 }
 
+export function getCarList(params) {
+    return request({
+        url: `${base_path}car/query/all`,
+        method: 'get',
+        params
+    })
+}
+
+
+

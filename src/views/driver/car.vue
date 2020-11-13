@@ -10,80 +10,53 @@
       highlight-current-row
       style="margin-top:10px"
     >
-      <el-table-column align="center" label="ID" width="60">
+      <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">{{ scope.$index + 1 }}</template>
       </el-table-column>
-      <el-table-column label="物业经理人姓名" align="center" width="110">
+      <el-table-column label="车牌号" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.estate_name }}</span>
+          <span>{{ scope.row.car_number }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="物业经理人手机号" align="center">
+      <el-table-column label="车辆载重" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.estate_phone }}</span>
+          <span>{{ scope.row.car_load_weight }}</span>
         </template>
       </el-table-column>
-
-      <el-table-column label="物业经理人身份证号" align="center">
+      <el-table-column label="车辆尺寸" align="center" width="170">
         <template slot-scope="scope">
-          <span>{{
-            scope.row.estate_card_id.replace(
-              /^(.{4})(?:\d+)(.{4})$/,
-              "$1********$2"
-            )
-          }}</span>
+          <span>{{ scope.row.car_size }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="所属公司" align="center" width="200">
+      <el-table-column label="车辆渣土证" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.estate_company }}</span>
+          <span>
+            {{
+              scope.row.car_license_img !== null
+                ? scope.row.car_license_img
+                : "暂无"
+            }}
+          </span>
         </template>
       </el-table-column>
-      <el-table-column label="所属物业" align="center">
+      <el-table-column label="车辆运输路线" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.estate_plot }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="所属街道居委会" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.estate_region }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="是否已完成认证" align="center">
-        <template slot-scope="scope">
-          <el-tag type="scope.row.estate_is_auth==1 ? success : danger">{{
-            scope.row.estate_is_auth == 1 ? "已认证" : "未认证"
-          }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="绑定的微信号" align="center">
-        <template slot-scope="scope">
-          <el-tag type="scope.row.wechat_id !=null ? success : danger">{{
-            scope.row.wechat_id != null ? "已绑定" : "未绑定"
-          }}</el-tag>
+          <span>
+            {{ scope.row.car_router_note }}
+          </span>
         </template>
       </el-table-column>
       <el-table-column label="添加时间" align="center">
         <template slot-scope="scope">
           <span>{{
-            scope.row.estate_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
+            scope.row.car_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
           }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="绑定微信号时间" align="center">
-        <template slot-scope="scope">
-          <span v-if="scope.row.estate_wechat_time != null">{{
-            scope.row.estate_wechat_time | parseTime("{y}-{m}-{d} {h}:{i}")
-          }}</span>
-          <el-tag v-else>未绑定微信号</el-tag>
         </template>
       </el-table-column>
       <!-- 操作 -->
-      <!-- TODO:待添加用户角色权限 -->
       <el-table-column
         label="操作"
         align="center"
-        v-if="roles == 2"
         width="290"
         class-name="small-padding fixed-width"
       >
@@ -91,7 +64,6 @@
           <el-tooltip
             class="item"
             effect="dark"
-            v-if="author == row.admin_id"
             content="密码修改"
             placement="top"
           >
@@ -103,13 +75,7 @@
               @click="handleDelete(row)"
             ></el-button>
           </el-tooltip>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            v-if="author == row.admin_id"
-            content="删除"
-            placement="top"
-          >
+          <el-tooltip class="item" effect="dark" content="删除" placement="top">
             <el-button
               type="danger"
               icon="el-icon-delete"
@@ -132,7 +98,7 @@
 </template>
 
 <script>
-import { getEstateList } from "@/api/estate";
+import { getCarList } from "@/api/driver";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
@@ -189,8 +155,7 @@ export default {
       this.listQuery.limit = this.limit;
       this.listQuery.offset = (this.page - 1) * this.limit;
       this.listLoading = true;
-      console.log(this.listQuery);
-      getEstateList(this.listQuery).then(response => {
+      getCarList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
       });
