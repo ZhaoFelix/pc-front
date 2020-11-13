@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 import { base_path } from '@/config/config'
 
-export function getEstateList(params) {
+export function getDriverList(params) {
     return request({
-        url: `${base_path}estate/query/all`,
+        url: `${base_path}driver/query/all`,
         method: 'get',
         params
     })

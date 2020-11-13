@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <!-- TODO：待添加搜索部分的内容 -->
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -10,7 +11,7 @@
       style="margin-top:10px"
     >
       <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">{{ scope.$index }}</template>
+        <template slot-scope="scope">{{ scope.$index + 1 }}</template>
       </el-table-column>
       <el-table-column label="物业经理人姓名" align="center">
         <template slot-scope="scope">
@@ -108,9 +109,13 @@
         </template>
       </el-table-column>
     </el-table>
-    <div slot="tip" style="color:red;margin-top:20px">
-      管理员最多只能添加5个
-    </div>
+    <pagination
+      v-show="total > 0"
+      :total="total"
+      :page.sync="page"
+      :limit.sync="limit"
+      @pagination="fetchData"
+    />
   </div>
 </template>
 
@@ -118,6 +123,7 @@
 import { getEstateList } from "@/api/estate";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
+import Pagination from "@/components/Pagination";
 import md5 from "js-md5";
 import { callbackify } from "util";
 let MD5 = function(pwd) {
@@ -127,14 +133,14 @@ let MD5 = function(pwd) {
 };
 
 export default {
-  components: {},
+  components: { Pagination },
 
   data() {
     return {
       list: [],
       listLoading: false,
-      total: 2,
-      limit: 20,
+      total: 103,
+      limit: 10,
       page: 1,
       keyword: "",
       existID: 0,
@@ -149,7 +155,13 @@ export default {
       },
 
       imageUrl: "",
-      typeList: null
+      typeList: null,
+      listQuery: {
+        limit: 10,
+        offset: 0,
+        status: undefined,
+        keyword: ""
+      }
     };
   },
   computed: {
@@ -161,9 +173,12 @@ export default {
   },
   methods: {
     fetchData() {
-      // this.listQuery.offset = this.page * this.limit;
+      this.list = [];
+      this.listQuery.limit = this.limit;
+      this.listQuery.offset = (this.page - 1) * this.limit;
       this.listLoading = true;
-      getEstateList().then(response => {
+      console.log(this.listQuery);
+      getEstateList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
       });
@@ -177,48 +192,7 @@ export default {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
       this.temp.avatar_url = res.data;
-    },
-    addAdmin() {
-      console.log(this.roles);
-      if (this.list.length >= 5) {
-        this.$message.error("管理员用户最多不能超过5个");
-      } else {
-        // 获取角色类型列表
-        this.fetchCategoryList();
-        this.dialogFormVisible = true;
-      }
-    },
-    createAdmin() {
-      this.$refs["dataForm"].validate(valid => {
-        if (valid) {
-          // 密码使用md5加密
-          this.temp.admin_pwd = MD5(this.temp.admin_pwd);
-          this.temp.admin_repwd = MD5(this.temp.admin_repwd);
-
-          addAdmin(this.temp).then(response => {
-            if (response.message == "success") {
-              this.$message({
-                message: "创建成功",
-                type: "success"
-              });
-              this.dialogFormVisible = false;
-              this.fetchData();
-              // 重置表单内容
-              this.temp = {
-                admin_name: "",
-                admin_login_name: "",
-                admin_pwd: "",
-                admin_repwd: "",
-                admin_type: ""
-              };
-            } else {
-              this.$message.error("创建失败，请创新尝试！");
-            }
-          });
-        }
-      });
-    },
-    updateAdmin() {}
+    }
   }
 };
 </script>
