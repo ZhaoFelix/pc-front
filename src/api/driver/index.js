@@ -17,5 +17,14 @@ export function getCarList(params) {
     })
 }
 
+export function getScheduleList(params) {
+    return request({
+        url: `${base_path}driver/query/schedule`,
+        method: 'get',
+        params
+    })
+}
+
+
 
 

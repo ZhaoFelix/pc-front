@@ -94,6 +94,12 @@ export const constantRoutes = [
     meta: { title: '司机管理', icon: 'people' },
     children: [
       {
+        path: 'Schedule',
+        name: 'Schedule',
+        component: () => import('@/views/driver/schedule'),
+        meta: { title: '司机排班', icon: 'table' }
+      },
+      {
         path: 'driver',
         name: 'Driver',
         component: () => import('@/views/driver/index'),
