@@ -30,188 +30,195 @@ import Layout from '@/layout'
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
-export const constantRoutes = [
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
+export const constantRoutes = [{
+        path: '/login',
+        component: () =>
+            import ('@/views/login/index'),
+        hidden: true
+    },
 
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
+    {
+        path: '/404',
+        component: () =>
+            import ('@/views/404'),
+        hidden: true
+    },
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '控制台', icon: 'dashboard' }
-    }]
-  },
-  {
-    path: '/current',
-    component: Layout,
-    meta: { title: '实时管理', icon: 'guide' },
-    children: [
-      {
-        path: 'driver',
-        name: 'Cdriver',
-        component: () => import('@/views/current/index'),
-        meta: { title: '实时司机', icon: 'lock' }
-      },
-      {
-        path: 'order',
-        name: 'Corder',
-        component: () => import('@/views/current/index'),
-        meta: { title: '实时订单', icon: 'list' }
-      }
-    ]
-  },
-  {
-    path: '/user',
-    component: Layout,
-    name: 'User',
-    meta: { title: '用户管理', icon: 'people' },
-    children: [
-      {
-        path: 'wechat',
-        name: 'Wechat',
-        component: () => import('@/views/wechat/index'),
-        meta: { title: '微信用户', icon: 'wechat' }
-      }
-    ]
-  },
-  {
-    path: '/driver',
-    component: Layout,
-    name: 'DriverManage',
-    meta: { title: '司机管理', icon: 'people' },
-    children: [
-      {
-        path: 'Schedule',
-        name: 'Schedule',
-        component: () => import('@/views/driver/schedule'),
-        meta: { title: '司机排班', icon: 'table' }
-      },
-      {
-        path: 'driver',
-        name: 'Driver',
-        component: () => import('@/views/driver/index'),
-        meta: { title: '司机信息', icon: 'peoples' }
-      },
-      {
-        path: 'car',
-        name: 'Car',
-        component: () => import('@/views/driver/car'),
-        meta: { title: '车辆信息', icon: 'peoples' }
-      },
-    ]
-  },
-  {
-    path: '/order',
-    component: Layout,
-    meta: { title: '订单管理', icon: 'shopping' },
-    children: [
-      {
-        path: 'list',
-        name: 'list',
-        component: () => import('@/views/order/index'),
-        meta: { title: '订单列表', icon: 'money' }
-      },
-      {
-        path: 'current',
-        name: 'current',
-        component: () => import('@/views/order/index'),
-        meta: { title: '异常订单', icon: 'bug' }
-      }
-    ]
-  },
+    {
+        path: '/',
+        component: Layout,
+        redirect: '/dashboard',
+        children: [{
+            path: 'dashboard',
+            name: 'Dashboard',
+            component: () =>
+                import ('@/views/dashboard/index'),
+            meta: { title: '控制台', icon: 'dashboard' }
+        }]
+    },
+    {
+        path: '/current',
+        component: Layout,
+        meta: { title: '实时管理', icon: 'guide' },
+        children: [{
+                path: 'driver',
+                name: 'Cdriver',
+                component: () =>
+                    import ('@/views/current/index'),
+                meta: { title: '实时司机', icon: 'lock' }
+            },
+            {
+                path: 'order',
+                name: 'Corder',
+                component: () =>
+                    import ('@/views/current/index'),
+                meta: { title: '实时订单', icon: 'list' }
+            }
+        ]
+    },
+    {
+        path: '/user',
+        component: Layout,
+        name: 'User',
+        meta: { title: '用户管理', icon: 'people' },
+        children: [{
+            path: 'wechat',
+            name: 'Wechat',
+            component: () =>
+                import ('@/views/wechat/index'),
+            meta: { title: '微信用户', icon: 'wechat' }
+        }]
+    },
+    {
+        path: '/driver',
+        component: Layout,
+        name: 'DriverManage',
+        meta: { title: '司机管理', icon: 'people' },
+        children: [{
+                path: 'Schedule',
+                name: 'Schedule',
+                component: () =>
+                    import ('@/views/driver/schedule'),
+                meta: { title: '司机排班', icon: 'table' }
+            },
+            {
+                path: 'driver',
+                name: 'Driver',
+                component: () =>
+                    import ('@/views/driver/index'),
+                meta: { title: '司机信息', icon: 'peoples' }
+            },
+            {
+                path: 'car',
+                name: 'Car',
+                component: () =>
+                    import ('@/views/driver/car'),
+                meta: { title: '车辆信息', icon: 'peoples' }
+            },
+        ]
+    },
+    {
+        path: '/order',
+        component: Layout,
+        meta: { title: '订单管理', icon: 'shopping' },
+        children: [{
+                path: 'list',
+                name: 'list',
+                component: () =>
+                    import ('@/views/order/index'),
+                meta: { title: '订单列表', icon: 'money' }
+            },
+            {
+                path: 'current',
+                name: 'current',
+                component: () =>
+                    import ('@/views/order/error'),
+                meta: { title: '异常订单', icon: 'bug' }
+            }
+        ]
+    },
 ]
-export const asyncRoutes = [
-  {
-    path: '/estate',
-    component: Layout,
-    alwaysShow:true,
-    meta: { title: '物业管理', icon: 'lock' },
-    children: [
-      {
-        path: 'info',
-        name: 'info',
-        component: () => import('@/views/estate/index'),
-        meta: { title: '物业经理人', icon: 'user' }
-      },
-      // 仅管理员可见
-      {
-        path: 'discount',
-        name: 'discount',
-        component: () => import('@/views/estate/discount'),
-        meta: { title: '物业折扣', icon: 'money',roles:['admin'] }
-      }
-    ]
-  },
-   // 仅管理员可见
-   {
-    path: '/admin',
-    component: Layout,
-    alwaysShow:true,
-    meta: { title: '管理员', icon: 'lock', roles:['admin'] },
-    children: [
-      {
-        path: 'admin',
-        name: 'admin',
-        component: () => import('@/views/admin/index'),
-        meta: { title: '管理员', icon: 'user',roles:['admin'] }
-      },
-      {
-        path: 'category',
-        name: 'category',
-        component: () => import('@/views/admin/category'),
-        meta: { title: '角色类型', icon: 'tree',roles:['admin'] }
-      }
-    ]
-  },
-  {
-    path: '/system',
-    component: Layout,
-    alwaysShow: true, // 总是显示根目录
-    meta: { title: '系统管理', icon: 'example', roles: ['admin'] },
-    children: [
-      {
-        path: 'system',
-        name: 'system',
-        component: () => import('@/views/admin/index'),
-        meta: { title: '系统信息', icon: 'component', roles:['admin']},
+export const asyncRoutes = [{
+        path: '/estate',
+        component: Layout,
+        alwaysShow: true,
+        meta: { title: '物业管理', icon: 'lock' },
+        children: [{
+                path: 'info',
+                name: 'info',
+                component: () =>
+                    import ('@/views/estate/index'),
+                meta: { title: '物业经理人', icon: 'user' }
+            },
+            // 仅管理员可见
+            {
+                path: 'discount',
+                name: 'discount',
+                component: () =>
+                    import ('@/views/estate/discount'),
+                meta: { title: '物业折扣', icon: 'money', roles: ['admin'] }
+            }
+        ]
+    },
+    // 仅管理员可见
+    {
+        path: '/admin',
+        component: Layout,
+        alwaysShow: true,
+        meta: { title: '管理员', icon: 'lock', roles: ['admin'] },
+        children: [{
+                path: 'admin',
+                name: 'admin',
+                component: () =>
+                    import ('@/views/admin/index'),
+                meta: { title: '管理员', icon: 'user', roles: ['admin'] }
+            },
+            {
+                path: 'category',
+                name: 'category',
+                component: () =>
+                    import ('@/views/admin/category'),
+                meta: { title: '角色类型', icon: 'tree', roles: ['admin'] }
+            }
+        ]
+    },
+    {
+        path: '/system',
+        component: Layout,
+        alwaysShow: true, // 总是显示根目录
+        meta: { title: '系统管理', icon: 'example', roles: ['admin'] },
+        children: [{
+                path: 'system',
+                name: 'system',
+                component: () =>
+                    import ('@/views/admin/index'),
+                meta: { title: '系统信息', icon: 'component', roles: ['admin'] },
 
-      },
-      {
-        path: 'runtime',
-        name: 'runtime',
-        component: () => import('@/views/admin/index'),
-        meta: { title: '运行信息', icon: 'international',roles:['admin'] }
-      }
-    ]
-  },
-   // 404 page must be placed at the end !!!
-   { path: '*', redirect: '/404', hidden: true }
+            },
+            {
+                path: 'runtime',
+                name: 'runtime',
+                component: () =>
+                    import ('@/views/admin/index'),
+                meta: { title: '运行信息', icon: 'international', roles: ['admin'] }
+            }
+        ]
+    },
+    // 404 page must be placed at the end !!!
+    { path: '*', redirect: '/404', hidden: true }
 ]
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
 })
 
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter()
-  router.matcher = newRouter.matcher // reset router
+    const newRouter = createRouter()
+    router.matcher = newRouter.matcher // reset router
 }
 
 export default router
