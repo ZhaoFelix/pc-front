@@ -71,7 +71,7 @@ export const constantRoutes = [{
                 path: 'order',
                 name: 'Corder',
                 component: () =>
-                    import ('@/views/current/index'),
+                    import ('@/views/current/order'),
                 meta: { title: '实时订单', icon: 'list' }
             }
         ]
