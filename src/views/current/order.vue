@@ -61,21 +61,38 @@
           </span>
         </template>
       </el-table-column>
+      <el-table-column label="下单类型" align="center">
+        <template slot-scope="scope">
+          <el-tag
+            :type="scope.row.user_order_type == 0 ? 'success' : 'danger'"
+            >{{
+              scope.row.user_order_type == 0 ? "居民下单" : "物业下单"
+            }}</el-tag
+          >
+        </template>
+      </el-table-column>
+      <el-table-column label="装修类型" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.order_type == 1 ? 'success' : 'danger'">{{
+            scope.row.order_type == 1 ? "普通装修" : "商业装修"
+          }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="订单价格" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.order_price }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="最终支付价格" align="center">
+      <el-table-column label="最终价格" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.order_final_price }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="当前订单状态" align="center">
+      <el-table-column label="订单状态" align="center" width="120">
         <template slot-scope="scope">
           <el-tag :type="scope.row.order_status == 1 ? 'success' : 'danger'">{{
-            scope.row.wechat_id === 1 ? "已支付待派单" : "待支付"
+            scope.row.order_status === 1 ? "已支付待派单" : "待支付"
           }}</el-tag>
         </template>
       </el-table-column>
@@ -101,10 +118,15 @@
             size="small"
             type="danger"
             v-if="row.order_status == 0"
+            @click="cancelOrder(row)"
             >取消订单</el-button
           >
           <!-- 仅完成支付的订单可以指派司机 -->
-          <el-button plain size="small" v-if="row.order_status == 1"
+          <el-button
+            plain
+            size="small"
+            v-if="row.order_status == 1"
+            @click="showDriverDialog(row)"
             >指派司机</el-button
           >
           <!-- 支付后与实际不符的可以调整价格 -->
@@ -112,7 +134,8 @@
             plain
             size="small"
             type="danger"
-            v-if="row.order_status == 1"
+            v-if="row.order_status == 1 || row.order_status == 0"
+            @click="assignPrice(row)"
             >调整价格</el-button
           >
         </template>
@@ -151,7 +174,7 @@
                 <el-radio
                   :label="scope.$index"
                   v-model="driverRadio"
-                  @change.native="getCurrentRow(scope.row)"
+                  @change.native="getDriverCurrentRow(scope.row)"
                   >{{ "" }}</el-radio
                 >
               </template>
@@ -188,7 +211,7 @@
                 <el-radio
                   :label="scope.$index"
                   v-model="carRadio"
-                  @change.native="getCurrentRow(scope.row)"
+                  @change.native="getCarCurrentRow(scope.row)"
                   >{{ "" }}</el-radio
                 >
               </template>
@@ -223,6 +246,10 @@
           </el-table>
         </el-form-item>
       </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="assignDriver">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -231,13 +258,16 @@
 import {
   getCurrentOrderList,
   getCurrentDriverByType,
-  getCurrentCarByType
+  getCurrentCarByType,
+  cancelOrderByAdmin,
+  assignDriver
 } from "@/api/order";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
 import md5 from "js-md5";
 import { callbackify } from "util";
+import { thistle } from "color-name";
 let MD5 = function(pwd) {
   pwd = pwd.toUpperCase();
   pwd = md5(pwd);
@@ -275,14 +305,12 @@ export default {
       driverRadio: "",
       driverTable: [],
       carTable: [],
-      driverVisible: true,
+      driverVisible: false,
       dialogFormVisible: false,
       temp: {
-        admin_name: "",
-        admin_login_name: "",
-        admin_pwd: "",
-        admin_repwd: "",
-        admin_type: ""
+        order_id: "",
+        car_id: "",
+        driver_id: ""
       },
 
       imageUrl: "",
@@ -314,30 +342,64 @@ export default {
         this.listLoading = false;
       });
     },
-    //  编辑
-    handleEdit(row) {
-      console.log(row);
-    },
-    // 撤销
-    handleCancel() {},
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      this.temp.avatar_url = res.data;
-    },
     selectType() {
       this.driverTable = []; // 防止数据累加，每次查询前置空数据
       getCurrentDriverByType({ type: this.selected_type }).then(response => {
         this.driverTable = response.data;
       });
-      console.log("测试");
       getCurrentCarByType({ type: this.selected_type }).then(response => {
         this.carTable = response.data;
       });
     },
-    getCurrentRow(row) {
+    // 取消未支付的订单
+    cancelOrder(row) {
+      this.$confirm("此操作将永久取消订单, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          cancelOrderByAdmin({ order_id: row.order_id }).then(response => {
+            this.$message({
+              type: "success",
+              message: "取消成功!"
+            });
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消操作"
+          });
+        });
+    },
+    showDriverDialog(row) {
+      this.driverVisible = true;
+      this.temp.order_id = row.order_id;
+    },
+    getDriverCurrentRow(row) {
       // 获取选中数据   row表示选中这一行的数据，可以从里面提取所需要的值
       console.log(row);
+      this.temp.driver_id = row.driver_id;
+    },
+    getCarCurrentRow(row) {
+      // 获取选中数据   row表示选中这一行的数据，可以从里面提取所需要的值
+      console.log(row);
+      this.temp.car_id = row.car_id;
+    },
+    // 指派司机
+    assignDriver() {
+      assignDriver(this.temp).then(response => {
+        this.driverVisible = false;
+        this.$message({
+          message: "订单指派司机成功！",
+          type: "success"
+        });
+        // 重新获取数据
+        this.fetchData();
+      });
     }
+    //
   }
 };
 </script>

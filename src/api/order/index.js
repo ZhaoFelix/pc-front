@@ -26,3 +26,21 @@ export function getCurrentCarByType(params) {
         params
     })
 }
+
+// 调度员取消订单
+export function cancelOrderByAdmin(params) {
+    return request({
+        url: `${base_path}operatedOrder/order/cancel`,
+        method: 'get',
+        params
+    })
+}
+
+// 指派司机
+export function assignDriver(params) {
+    return request({
+        url: `${base_path}operatedOrder/order/assign`,
+        method: 'get',
+        params
+    })
+}
