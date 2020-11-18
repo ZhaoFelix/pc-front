@@ -73,39 +73,6 @@
           <el-tag v-else>未绑定微信号</el-tag>
         </template>
       </el-table-column>
-      <!-- 操作 -->
-      <el-table-column
-        label="操作"
-        align="center"
-        width="290"
-        class-name="small-padding fixed-width"
-      >
-        <template slot-scope="{ row }">
-          <el-tooltip
-            class="item"
-            effect="dark"
-            content="密码修改"
-            placement="top"
-          >
-            <el-button
-              type="primary"
-              icon="el-icon-edit"
-              circle
-              plain
-              @click="handleDelete(row)"
-            ></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除" placement="top">
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              circle
-              plain
-              @click="handleDelete(row)"
-            ></el-button>
-          </el-tooltip>
-        </template>
-      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"

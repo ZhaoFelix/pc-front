@@ -39,6 +39,25 @@
           </span>
         </template>
       </el-table-column>
+      <el-table-column label="车辆渣土证号" align="center">
+        <template slot-scope="scope">
+          <span>
+            {{
+              scope.row.car_license_number !== 0
+                ? scope.row.car_license_number
+                : "暂无"
+            }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column label="是否是备车" align="center">
+        <template slot-scope="scope">
+          <el-tag
+            :type="scope.row.car_is_substitues == 1 ? 'success' : 'danger'"
+            >{{ scope.row.car_is_substitues == 1 ? "是" : "否" }}</el-tag
+          >
+        </template>
+      </el-table-column>
       <el-table-column label="车辆运输路线" align="center">
         <template slot-scope="scope">
           <span>
@@ -54,38 +73,6 @@
         </template>
       </el-table-column>
       <!-- 操作 -->
-      <el-table-column
-        label="操作"
-        align="center"
-        width="290"
-        class-name="small-padding fixed-width"
-      >
-        <template slot-scope="{ row }">
-          <el-tooltip
-            class="item"
-            effect="dark"
-            content="密码修改"
-            placement="top"
-          >
-            <el-button
-              type="primary"
-              icon="el-icon-edit"
-              circle
-              plain
-              @click="handleDelete(row)"
-            ></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除" placement="top">
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              circle
-              plain
-              @click="handleDelete(row)"
-            ></el-button>
-          </el-tooltip>
-        </template>
-      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -117,7 +104,7 @@ export default {
     return {
       list: [],
       listLoading: false,
-      total: 103,
+      total: 34,
       limit: 10,
       page: 1,
       keyword: "",
