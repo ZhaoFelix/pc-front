@@ -1,5 +1,17 @@
 <template>
   <div class="app-container">
+    <el-row :gutter="10">
+      <el-col :span="6">
+        <el-input v-model="keyword" placeholder="请输入司机手机号"></el-input
+      ></el-col>
+      <el-col :span="4"
+        ><el-button
+          :type="isSearch ? 'danger' : 'success'"
+          @click="searchByKeyword"
+          >{{ isSearch ? "取消" : "搜索" }}</el-button
+        ></el-col
+      >
+    </el-row>
     <!-- TODO：待添加搜索部分的内容 -->
     <el-table
       v-loading="listLoading"
@@ -85,7 +97,7 @@
 </template>
 
 <script>
-import { getDriverList } from "@/api/driver";
+import { getDriverList, getDriverListByKeyword } from "@/api/driver";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
@@ -104,12 +116,12 @@ export default {
     return {
       list: [],
       listLoading: false,
-      total: 103,
+      total: 0,
       limit: 10,
       page: 1,
       keyword: "",
       existID: 0,
-
+      isSearch: false,
       dialogFormVisible: false,
       temp: {
         admin_name: "",
@@ -145,45 +157,26 @@ export default {
       getDriverList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
+        this.total = response.total;
       });
     },
-    //  编辑
-    handleEdit(row) {
-      console.log(row);
-    },
-    // 撤销
-    handleCancel() {},
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      this.temp.avatar_url = res.data;
+    searchByKeyword() {
+      if (this.keyword == "" && !this.isSearch) {
+        this.$message("请先输入手机号");
+      } else if (this.keyword != "" && !this.isSearch) {
+        this.isSearch = !this.isSearch;
+        getDriverListByKeyword({ keyword: this.keyword }).then(response => {
+          this.list = response.data;
+          this.total = this.list.length;
+        });
+      } else if (this.isSearch) {
+        this.isSearch = !this.isSearch;
+        this.fetchData();
+        this.keyword = "";
+      }
     }
   }
 };
 </script>
 
-<style scoped>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-  border-radius: 89px;
-}
-</style>
+<style scoped></style>

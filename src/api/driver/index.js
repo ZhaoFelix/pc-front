@@ -34,6 +34,16 @@ export function getCarListByKeyword(params) {
 }
 
 
+export function getDriverListByKeyword(params) {
+    return request({
+        url: `${base_path}driver/query/queryByKeyword`,
+        method: 'get',
+        params
+    })
+}
+
+
+
 
 
 
