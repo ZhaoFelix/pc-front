@@ -10,80 +10,50 @@
       highlight-current-row
       style="margin-top:10px"
     >
-      <!-- <el-table-column align="center" label="ID" width="60">
-        <template slot-scope="scope">{{ scope.$index + 1 }}</template>
-      </el-table-column> -->
       <el-table-column align="center" label="ID" width="60">
-        <template>index</template>
+        <template slot-scope="scope">{{ scope.$index + 1 }}</template>
       </el-table-column>
-      <el-table-column label="用户名" align="center">
-        <template>
-          <span>用户名</span>
+      <el-table-column label="openID" align="center" width="260">
+        <template slot-scope="scope">
+          <span>{{ scope.row.wechat_open_id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="微信号" align="center">
-        <template>
-          <span>微信号</span>
+      <el-table-column label="微信昵称" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.wechat_nickname }}</span>
         </template>
       </el-table-column>
-
-      
+      <el-table-column label="微信头像" align="center" width="100">
+        <template slot-scope="scope">
+          <img :src="scope.row.wechat_avatar" alt="" class="wechat-avatar" />
+        </template>
+      </el-table-column>
+      <el-table-column label="微信注册地" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.wechat_region }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="用户类型" align="center">
+        <template slot-scope="scope">
+          <el-tag type="scope.row.user_type==1 ? success : danger">{{
+            scope.row.user_type == 1 ? "物业经理人" : "普通用户"
+          }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="注册时间" align="center" width="200">
-        <template>
+        <template slot-scope="scope">
+          <span>{{
+            scope.row.wechat_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="最近登录时间" align="center" width="200">
+        <template slot-scope="scope">
           <span>注册时间</span>
         </template>
       </el-table-column>
-      
-      <!-- <el-table-column label="所属街道居委会" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.estate_region }}</span>
-        </template>
-      </el-table-column> -->
-
-      
-      
       <!-- 操作 -->
       <!-- TODO:待添加用户角色权限 -->
-      <el-table-column
-        label="操作"
-        align="center"
-        v-if="roles == 2"
-        width="290"
-        class-name="small-padding fixed-width"
-      >
-        <template slot-scope="{ row }">
-          <el-tooltip
-            class="item"
-            effect="dark"
-            v-if="author == row.admin_id"
-            content="密码修改"
-            placement="top"
-          >
-            <el-button
-              type="primary"
-              icon="el-icon-edit"
-              circle
-              plain
-              @click="handleDelete(row)"
-            ></el-button>
-          </el-tooltip>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            v-if="author == row.admin_id"
-            content="删除"
-            placement="top"
-          >
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              circle
-              plain
-              @click="handleDelete(row)"
-            ></el-button>
-          </el-tooltip>
-        </template>
-      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -96,7 +66,7 @@
 </template>
 
 <script>
-import { getEstateList } from "@/api/estate";
+import { getWechatList } from "@/api/wechat";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
@@ -115,7 +85,7 @@ export default {
     return {
       list: [],
       listLoading: false,
-      total: 9,
+      total: 0,
       limit: 10,
       page: 1,
       keyword: "",
@@ -134,9 +104,7 @@ export default {
       typeList: null,
       listQuery: {
         limit: 10,
-        offset: 0,
-        status: undefined,
-        keyword: ""
+        offset: 0
       }
     };
   },
@@ -154,48 +122,21 @@ export default {
       this.listQuery.offset = (this.page - 1) * this.limit;
       this.listLoading = true;
       console.log(this.listQuery);
-      getEstateList(this.listQuery).then(response => {
+      getWechatList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
+        this.total = response.total;
       });
-    },
-    //  编辑
-    handleEdit(row) {
-      console.log(row);
-    },
-    // 撤销
-    handleCancel() {},
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      this.temp.avatar_url = res.data;
     }
   }
 };
 </script>
 
 <style scoped>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
+.wechat-avatar {
+  width: 78px;
+  height: 78px;
   display: block;
-  border-radius: 89px;
+  border-radius: 39px;
 }
 </style>
