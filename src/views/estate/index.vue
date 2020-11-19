@@ -1,5 +1,17 @@
 <template>
   <div class="app-container">
+    <el-row :gutter="10">
+      <el-col :span="6">
+        <el-input v-model="keyword" placeholder="请输入司机手机号"></el-input
+      ></el-col>
+      <el-col :span="4"
+        ><el-button
+          :type="isSearch ? 'danger' : 'success'"
+          @click="searchByKeyword"
+          >{{ isSearch ? "取消" : "搜索" }}</el-button
+        ></el-col
+      >
+    </el-row>
     <!-- TODO：待添加搜索部分的内容 -->
     <el-table
       v-loading="listLoading"
@@ -132,7 +144,7 @@
 </template>
 
 <script>
-import { getEstateList } from "@/api/estate";
+import { getEstateList, getEstateListByKeyword } from "@/api/estate";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
@@ -155,8 +167,7 @@ export default {
       limit: 10,
       page: 1,
       keyword: "",
-      existID: 0,
-
+      isSearch: false,
       dialogFormVisible: false,
       temp: {
         admin_name: "",
@@ -193,17 +204,23 @@ export default {
       getEstateList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
+        this.total = response.total;
       });
     },
-    //  编辑
-    handleEdit(row) {
-      console.log(row);
-    },
-    // 撤销
-    handleCancel() {},
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      this.temp.avatar_url = res.data;
+    searchByKeyword() {
+      if (this.keyword == "" && !this.isSearch) {
+        this.$message("请先输入手机号");
+      } else if (this.keyword != "" && !this.isSearch) {
+        this.isSearch = !this.isSearch;
+        getEstateListByKeyword({ keyword: this.keyword }).then(response => {
+          this.list = response.data;
+          this.total = this.list.length;
+        });
+      } else if (this.isSearch) {
+        this.isSearch = !this.isSearch;
+        this.fetchData();
+        this.keyword = "";
+      }
     }
   }
 };

@@ -9,3 +9,10 @@ export function getEstateList(params) {
     })
 }
 
+export function getEstateListByKeyword(params) {
+    return request({
+        url: `${base_path}estate/query/queryByKeyword`,
+        method: 'get',
+        params
+    })
+}
