@@ -1,88 +1,185 @@
 <template>
   <div>
-    <center>
-      <table class="cardTable">
-      <tr>
-        <td>
+    <el-card class="bgCard">
+      <p>运输中司机：</p>
+      <div>
+        <center>
+          <table class="cardTable">
+          <tr>
+            <td>
 
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>司机</span>
-               
-            </div>
-            <div v-for="o in 1" :key="o" class="text item">
-              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-            </div>
-          </el-card>
-        </td>
-        <td>
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>司机</span>
-               
-            </div>
-            <div v-for="o in 1" :key="o" class="text item">
-              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-            </div>
-          </el-card>
-        </td>
-        <td>
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>司机</span>
-               
-            </div>
-            <div v-for="o in 1" :key="o" class="text item">
-              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-            </div>
-          </el-card>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>司机</span>
-               
-            </div>
-            <div v-for="o in 1" :key="o" class="text item">
-              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-            </div>
-          </el-card>
-        </td>
-        <td>
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>司机</span>
-               
-            </div>
-            <div v-for="o in 1" :key="o" class="text item">
-              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-            </div>
-          </el-card>
-        </td>
-        <td>
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>司机</span>
-               
-            </div>
-            <div v-for="o in 1" :key="o" class="text item">
-              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-            </div>
-          </el-card>
-        </td>
-      </tr>
-    </table>
-    </center>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <br>
+    </el-card>
+
+
+    <el-card class="bgCard">
+      <p>空闲中司机：</p>
+      <div>
+        <center>
+          <table class="cardTable">
+          <tr>
+            <td>
+
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+            <td>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>司机</span>
+                  
+                </div>
+                <div v-for="o in 1" :key="o" class="text item">
+                  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </div>
+              </el-card>
+            </td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <br>
+    </el-card>
+    
   </div>
+  
 </template>
 
     
 <style scoped>
+  .onMission{
+    background: rgb(226, 76, 76);
+  }
+  .free{
+    background: rgb(63, 188, 197);
+  }
   .cardTable{
-    width: 90%;
-    margin: 2%;
+    width: 97%;
+    margin: 1%;
 
   }
   .text {
@@ -102,11 +199,16 @@
     clear: both
   }
 
+  .bgCard{
+    margin: 3%;
+    width: 95%
+  }
+
   .box-card {
     width: 400px;
     /* margin: 5%; */
     
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     /* margin-left: 10%; */
     /* margin-right: 10%; */ 
   }
