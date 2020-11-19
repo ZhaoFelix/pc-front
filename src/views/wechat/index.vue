@@ -25,7 +25,22 @@
       </el-table-column>
       <el-table-column label="微信头像" align="center" width="100">
         <template slot-scope="scope">
-          <img :src="scope.row.wechat_avatar" alt="" class="wechat-avatar" />
+          <viewer
+            :images="[
+              scope.row.wechat_avatar,
+              scope.row.wechat_avatar,
+              scope.row.wechat_avatar
+            ]"
+          >
+            <!-- TODO:测试，待修改 -->
+            <img
+              v-for="i in 3"
+              :key="i"
+              :src="scope.row.wechat_avatar"
+              alt=""
+              class="wechat-avatar"
+            />
+          </viewer>
         </template>
       </el-table-column>
       <el-table-column label="微信注册地" align="center">
