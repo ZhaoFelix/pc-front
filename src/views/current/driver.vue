@@ -4,13 +4,14 @@
       <table class="cardTable">
       <tr>
         <td>
+
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>司机</span>
-              <el-button style="float: right; padding: 3px 0" type="text">展开</el-button>
+               
             </div>
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
+            <div v-for="o in 1" :key="o" class="text item">
+              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
             </div>
           </el-card>
         </td>
@@ -18,10 +19,10 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>司机</span>
-              <el-button style="float: right; padding: 3px 0" type="text">展开</el-button>
+               
             </div>
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
+            <div v-for="o in 1" :key="o" class="text item">
+              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
             </div>
           </el-card>
         </td>
@@ -29,10 +30,10 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>司机</span>
-              <el-button style="float: right; padding: 3px 0" type="text">展开</el-button>
+               
             </div>
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
+            <div v-for="o in 1" :key="o" class="text item">
+              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
             </div>
           </el-card>
         </td>
@@ -42,21 +43,10 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>司机</span>
-              <el-button style="float: right; padding: 3px 0" type="text">展开</el-button>
+               
             </div>
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
-            </div>
-          </el-card>
-        </td>
-        <td>
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>司机</span>
-              <el-button style="float: right; padding: 3px 0" type="text">展开</el-button>
-            </div>
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
+            <div v-for="o in 1" :key="o" class="text item">
+              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
             </div>
           </el-card>
         </td>
@@ -64,10 +54,21 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>司机</span>
-              <el-button style="float: right; padding: 3px 0" type="text">展开</el-button>
+               
             </div>
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
+            <div v-for="o in 1" :key="o" class="text item">
+              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+            </div>
+          </el-card>
+        </td>
+        <td>
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>司机</span>
+               
+            </div>
+            <div v-for="o in 1" :key="o" class="text item">
+              <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
             </div>
           </el-card>
         </td>
@@ -111,3 +112,38 @@
   }
 </style>>
 
+
+
+<script>
+  export default {
+    data() {
+      return {
+        data: [{
+          label: '信息1',
+          children: [{
+            label: '二级 1-1',
+          }]
+        }, {
+          label: '信息2',
+          children: [{
+            label: '二级 1-1',
+          }]
+        }, {
+          label: '信息3',
+          children: [{
+            label: '二级 1-1',
+          }]
+        }],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        }
+      };
+    },
+    methods: {
+      handleNodeClick(data) {
+        console.log(data);
+      }
+    }
+  };
+</script>
