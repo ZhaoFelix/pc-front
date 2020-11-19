@@ -117,7 +117,7 @@ export default {
     return {
       list: [],
       listLoading: false,
-      total: 34,
+      total: 0,
       limit: 10,
       page: 1,
       keyword: "",
@@ -158,7 +158,7 @@ export default {
       getCarList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
-        this.total = this.list.length;
+        this.total = response.total;
       });
     },
     //  编辑
@@ -178,7 +178,6 @@ export default {
         this.isSearch = !this.isSearch;
         getCarListByKeyword({ keyword: this.keyword }).then(response => {
           this.list = response.data;
-          this.total = this.list.length;
         });
       } else if (this.isSearch) {
         this.isSearch = !this.isSearch;
