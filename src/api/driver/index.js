@@ -25,6 +25,15 @@ export function getScheduleList(params) {
     })
 }
 
+export function getCarListByKeyword(params) {
+    return request({
+        url: `${base_path}car/query/queryByKeyword`,
+        method: 'get',
+        params
+    })
+}
+
+
 
 
 
