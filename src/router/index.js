@@ -64,7 +64,7 @@ export const constantRoutes = [{
                 path: 'driver',
                 name: 'Cdriver',
                 component: () =>
-                    import ('@/views/current/index'),
+                    import ('@/views/current/driver'),
                 meta: { title: '实时司机', icon: 'lock' }
             },
             {
