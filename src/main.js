@@ -4,6 +4,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'viewerjs/dist/viewer.css'
 
 import '@/styles/index.scss' // global css
 
@@ -21,6 +22,24 @@ Vue.use(permission)
 
 import waves from '@/directive/waves'
 Vue.use(waves)
+
+
+import viewer from 'v-viewer'
+Vue.use(viewer,{
+    defaultOptions: {
+      zIndex: 9999,
+      navbar:false,
+      toolbar: {
+        zoomIn: 4,
+        prev: 4,
+        reset: 4,
+        next: 4,
+        zoomOut: 4
+      },
+      title: 0
+    }
+  
+})
 
 
 // 如果想要中文版 element-ui，按如下方式声明

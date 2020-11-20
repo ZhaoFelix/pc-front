@@ -25,7 +25,9 @@
       </el-table-column>
       <el-table-column label="微信头像" align="center" width="100">
         <template slot-scope="scope">
-          <img :src="scope.row.wechat_avatar" alt="" class="wechat-avatar" />
+          <viewer :images="[scope.row.wechat_avatar]">
+            <img :src="scope.row.wechat_avatar" alt="" class="wechat-avatar" />
+          </viewer>
         </template>
       </el-table-column>
       <el-table-column label="微信注册地" align="center">
@@ -49,7 +51,16 @@
       </el-table-column>
       <el-table-column label="最近登录时间" align="center" width="200">
         <template slot-scope="scope">
-          <span>注册时间</span>
+          <span v-if="scope.row.wechat_last_time != null">
+            {{
+              scope.row.wechat_last_time | parseTime("{y}-{m}-{d} {h}:{i}")
+            }}</span
+          >
+          <span v-else>
+            {{
+              scope.row.wechat_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
+            }}
+          </span>
         </template>
       </el-table-column>
       <!-- 操作 -->
