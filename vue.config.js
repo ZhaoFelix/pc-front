@@ -1,7 +1,6 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
-
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -24,7 +23,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '.',
+  publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
@@ -56,9 +55,34 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+    // 添加大打包element-ui和vue
+    externals: {
+      vue:'Vue',
+      'element-ui':'ELEMENT'
+    }, 
+     
   },
   chainWebpack(config) {
+    // Gzip压缩
+    // 使用cdn方式引入element和vue
+    const cdn = {
+      css: [
+        // element-ui css
+        'https://unpkg.com/element-ui/lib/theme-chalk/index.css'
+      ],
+      js: [
+        // vue must at first!
+        'https://unpkg.com/vue/dist/vue.js',
+        // element-ui js
+        'https://unpkg.com/element-ui/lib/index.js'
+      ]
+    }
+    config.plugin('html')
+    .tap(args => {
+      args[0].cdn = cdn
+      return args
+    })
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
       {
