@@ -1,3 +1,11 @@
+<!--
+ * @Author: Felix
+ * @Email: felix@qingmaoedu.com
+ * @Date: 2020-11-17 13:09:00
+ * @LastEditTime: 2020-12-06 15:26:54
+ * @FilePath: /pc-front/src/views/wechat/index.vue
+ * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
+-->
 <template>
   <div class="app-container">
     <!-- TODO：待添加搜索部分的内容 -->
