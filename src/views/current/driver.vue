@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-06 16:12:33
+ * @LastEditTime: 2020-12-06 16:35:18
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -30,7 +30,6 @@
                         <div>content</div>
                       </el-collapse-item>
                       <el-collapse-item title="实时行程" name="3">
-                        <!-- 图片仅为测试，百度上拉下来的 -->
                         <div>
                           <img
                             src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2214980092,2961462071&fm=26&gp=0.jpg"
