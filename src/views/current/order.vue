@@ -8,12 +8,12 @@
       border
       fit
       highlight-current-row
-      style="margin-top:10px"
+      style="margin-top:10px;width:100%;"
     >
-      <el-table-column align="center" label="ID" width="60">
+      <!-- <el-table-column align="center" label="ID" width="60">
         <template slot-scope="scope">{{ scope.$index + 1 }}</template>
-      </el-table-column>
-      <el-table-column label="订单号" align="center" width="110">
+      </el-table-column> -->
+      <el-table-column label="订单号" align="center" min-width="190" fixed>
         <template slot-scope="scope">
           <span>{{ scope.row.order_number }}</span>
         </template>
@@ -25,7 +25,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="用户手机号" align="center">
+      <el-table-column label="用户手机号" align="center" min-width="110">
         <template slot-scope="scope">
           <span>
             {{ scope.row.user_phone }}
@@ -35,33 +35,37 @@
       <el-table-column label="用户地址" align="center" width="200">
         <template slot-scope="scope">
           <span>
-            {{ scope.row.user_adress }}
+            {{ scope.row.user_address }}
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="渣土面积" align="center">
+      <el-table-column label="渣土面积" align="center" min-width="100">
         <template slot-scope="scope">
           <span>
-            {{ scope.row.order_size }}
+            {{ scope.row.order_size + "(平方米)" }}
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="渣土图片" align="center">
+      <el-table-column label="渣土图片" align="center" min-width="200">
         <template slot-scope="scope">
           <!-- TODO:待显示图片 -->
-          <span>
-            {{ scope.row.user_place_order_img }}
-          </span>
+          <img
+            v-for="(item, index) in JSON.parse(scope.row.user_place_order_img)"
+            :key="index"
+            :src="item.url"
+            alt=""
+            class="image-thumb"
+          />
         </template>
       </el-table-column>
-      <el-table-column label="用户预约时间" align="center">
+      <el-table-column label="用户预约时间" align="center" min-width="150">
         <template slot-scope="scope">
           <span>
-            {{ scope.row.user_reserve_time }}
+            {{ scope.row.user_reserve_time | parseTime("{y}-{m}-{d} {h}:{i}") }}
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="下单类型" align="center">
+      <el-table-column label="下单类型" align="center" min-width="100">
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.user_order_type == 0 ? 'success' : 'danger'"
@@ -71,7 +75,7 @@
           >
         </template>
       </el-table-column>
-      <el-table-column label="装修类型" align="center">
+      <el-table-column label="装修类型" align="center" min-width="100">
         <template slot-scope="scope">
           <el-tag :type="scope.row.order_type == 1 ? 'success' : 'danger'">{{
             scope.row.order_type == 1 ? "普通装修" : "商业装修"
@@ -80,11 +84,11 @@
       </el-table-column>
       <el-table-column label="订单价格" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.order_price }}</span>
+          <span style="color:red">{{ scope.row.order_price.toFixed(2) }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="最终价格" align="center">
+      <el-table-column label="支付价格" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.order_final_price }}</span>
         </template>
@@ -96,7 +100,7 @@
           }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="添加时间" align="center">
+      <el-table-column label="添加时间" align="center" min-width="180">
         <template slot-scope="scope">
           <span>{{
             scope.row.order_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
@@ -110,6 +114,7 @@
         align="center"
         class-name="small-padding fixed-width"
         width="300"
+        fixed="right"
       >
         <template slot-scope="{ row }">
           <!-- 仅未完成支付的订单可以被取消 -->
@@ -404,4 +409,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.image-thumb {
+  width: 80px;
+  height: 80px;
+}
+</style>
