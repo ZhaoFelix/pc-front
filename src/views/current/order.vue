@@ -42,7 +42,7 @@
       <el-table-column label="渣土面积" align="center" min-width="100">
         <template slot-scope="scope">
           <span>
-            {{ scope.row.order_size + "(平方米)" }}
+            {{ scope.row.order_size + " m²" }}
           </span>
         </template>
       </el-table-column>
@@ -90,7 +90,7 @@
 
       <el-table-column label="支付价格" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.order_final_price }}</span>
+          <span style="color:red">{{ scope.row.order_final_price }}</span>
         </template>
       </el-table-column>
       <el-table-column label="订单状态" align="center" width="120">
@@ -122,7 +122,7 @@
             plain
             size="small"
             type="danger"
-            v-if="row.order_status == 0"
+            v-if="row.order_status == 1"
             @click="cancelOrder(row)"
             >取消订单</el-button
           >
@@ -394,6 +394,13 @@ export default {
     },
     // 指派司机
     assignDriver() {
+      if (this.temp.car_id == "" || this.temp.driver_id == "") {
+        this.$message({
+          message: "请先选择司机和车辆",
+          type: "error"
+        });
+        return;
+      }
       assignDriver(this.temp).then(response => {
         this.driverVisible = false;
         this.$message({
