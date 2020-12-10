@@ -49,13 +49,17 @@
       <el-table-column label="渣土图片" align="center" min-width="200">
         <template slot-scope="scope">
           <!-- TODO:待显示图片 -->
-          <img
-            v-for="(item, index) in JSON.parse(scope.row.user_place_order_img)"
-            :key="index"
-            :src="item.url"
-            alt=""
-            class="image-thumb"
-          />
+          <viewer :images="[scope.row.wechat_avatar]">
+            <img
+              v-for="(item, index) in JSON.parse(
+                scope.row.user_place_order_img
+              )"
+              :key="index"
+              :src="item.url"
+              alt=""
+              class="image-thumb"
+            />
+          </viewer>
         </template>
       </el-table-column>
       <el-table-column label="用户预约时间" align="center" min-width="150">
@@ -420,5 +424,6 @@ export default {
 .image-thumb {
   width: 80px;
   height: 80px;
+  padding: 5px;
 }
 </style>
