@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-10 14:42:56
+ * @LastEditTime: 2020-12-14 18:49:40
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -15,9 +15,18 @@ import { import } from '@babel/types';
         <el-card class="cardTable" v-for="(item, index) in list" :key="index">
           <div slot="header" class="clearfix">
             <span>{{ "订单号：" + item.order_number }}</span>
-            <span class="order-status">{{
-              item.order_status == 6 ? "已完成" : "进行中"
-            }}</span>
+            <span class="order-status" v-if="item.order_status == 3">
+              已指派司机
+            </span>
+            <span class="order-status" v-if="item.order_status == 4">
+              司机前往目的地
+            </span>
+            <span class="order-status" v-if="item.order_status == 5">
+              渣土运输中
+            </span>
+            <span class="order-status" v-if="item.order_status == 6">
+              已完成
+            </span>
           </div>
           <div v-for="o in 1" :key="o" class="text item">
             <el-collapse v-model="activeNames" @change="handleChange">
@@ -88,7 +97,7 @@ import { import } from '@babel/types';
                     <viewer :images="[]">
                       <img
                         v-for="(item, index) in JSON.parse(
-                          item.user_place_order_img
+                          item.driver_reach_img
                         )"
                         :key="index"
                         :src="item.url"
@@ -98,7 +107,7 @@ import { import } from '@babel/types';
                     </viewer>
                   </center>
                   <span class="title-style">处理时间：</span>
-                  <span>2020-12-23 14:00:00</span>
+                  <span>{{ item.driver_reach_time }}</span>
                 </div>
                 <div v-if="item.driver_reach_img != null" class="divider"></div>
                 <div v-if="item.driver_get_img != null">
@@ -106,9 +115,7 @@ import { import } from '@babel/types';
                   <center>
                     <viewer :images="[]">
                       <img
-                        v-for="(item, index) in JSON.parse(
-                          item.user_place_order_img
-                        )"
+                        v-for="(item, index) in JSON.parse(item.driver_get_img)"
                         :key="index"
                         :src="item.url"
                         alt=""
@@ -117,7 +124,7 @@ import { import } from '@babel/types';
                     </viewer>
                   </center>
                   <span class="title-style">处理时间：</span>
-                  <span>2020-12-23 14:00:00</span>
+                  <span>{{ item.driver_get_time }}</span>
                 </div>
                 <div class="divider"></div>
                 <div v-if="item.driver_complete_img != null">
@@ -126,7 +133,7 @@ import { import } from '@babel/types';
                     <viewer :images="[]">
                       <img
                         v-for="(item, index) in JSON.parse(
-                          item.user_place_order_img
+                          item.driver_complete_img
                         )"
                         :key="index"
                         :src="item.url"
@@ -136,7 +143,7 @@ import { import } from '@babel/types';
                     </viewer>
                   </center>
                   <span class="title-style">处理时间：</span>
-                  <span>2020-12-23 14:00:00</span>
+                  <span>{{ item.driver_complete_time }}</span>
                 </div>
               </el-collapse-item>
               <!-- <el-collapse-item title="联系方式" name="4">
