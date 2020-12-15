@@ -87,7 +87,8 @@ export const constantRoutes = [{
             component: () =>
                 import ('@/views/wechat/index'),
             meta: { title: '微信用户', icon: 'wechat' }
-        }]
+        }
+    ]
     },
     {
         path: '/driver',
@@ -151,13 +152,13 @@ export const asyncRoutes = [{
                 meta: { title: '物业经理人', icon: 'user' }
             },
             // 仅管理员可见
-            {
-                path: 'discount',
-                name: 'discount',
-                component: () =>
-                    import ('@/views/estate/discount'),
-                meta: { title: '物业折扣', icon: 'money', roles: ['admin'] }
-            }
+            // {
+            //     path: 'discount',
+            //     name: 'discount',
+            //     component: () =>
+            //         import ('@/views/estate/discount'),
+            //     meta: { title: '物业折扣', icon: 'money', roles: ['admin'] }
+            // }
         ]
     },
     // 仅管理员可见
@@ -182,28 +183,29 @@ export const asyncRoutes = [{
             }
         ]
     },
-    {
-        path: '/system',
-        component: Layout,
-        alwaysShow: true, // 总是显示根目录
-        meta: { title: '系统管理', icon: 'example', roles: ['admin'] },
-        children: [{
-                path: 'system',
-                name: 'system',
-                component: () =>
-                    import ('@/views/admin/index'),
-                meta: { title: '系统信息', icon: 'component', roles: ['admin'] },
+    // 系统服务信息
+    // {
+    //     path: '/system',
+    //     component: Layout,
+    //     alwaysShow: true, // 总是显示根目录
+    //     meta: { title: '系统管理', icon: 'example', roles: ['admin'] },
+    //     children: [{
+    //             path: 'system',
+    //             name: 'system',
+    //             component: () =>
+    //                 import ('@/views/admin/index'),
+    //             meta: { title: '系统信息', icon: 'component', roles: ['admin'] },
 
-            },
-            {
-                path: 'runtime',
-                name: 'runtime',
-                component: () =>
-                    import ('@/views/admin/index'),
-                meta: { title: '运行信息', icon: 'international', roles: ['admin'] }
-            }
-        ]
-    },
+    //         },
+    //         {
+    //             path: 'runtime',
+    //             name: 'runtime',
+    //             component: () =>
+    //                 import ('@/views/admin/index'),
+    //             meta: { title: '运行信息', icon: 'international', roles: ['admin'] }
+    //         }
+    //     ]
+    // },
     // 404 page must be placed at the end !!!
     { path: '*', redirect: '/404', hidden: true }
 ]

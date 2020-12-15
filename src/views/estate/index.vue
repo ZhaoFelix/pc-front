@@ -2,7 +2,10 @@
   <div class="app-container">
     <el-row :gutter="10">
       <el-col :span="6">
-        <el-input v-model="keyword" placeholder="请输入司机手机号"></el-input
+        <el-input
+          v-model="keyword"
+          placeholder="请输入手机号进行查询"
+        ></el-input
       ></el-col>
       <el-col :span="4"
         ><el-button
@@ -63,14 +66,15 @@
       </el-table-column>
       <el-table-column label="是否已完成认证" align="center">
         <template slot-scope="scope">
-          <el-tag type="scope.row.estate_is_auth==1 ? success : danger">{{
-            scope.row.estate_is_auth == 1 ? "已认证" : "未认证"
-          }}</el-tag>
+          <el-tag
+            :type="scope.row.estate_is_auth == 1 ? 'success' : 'danger'"
+            >{{ scope.row.estate_is_auth == 1 ? "已认证" : "未认证" }}</el-tag
+          >
         </template>
       </el-table-column>
       <el-table-column label="绑定的微信号" align="center">
         <template slot-scope="scope">
-          <el-tag type="scope.row.wechat_id !=null ? success : danger">{{
+          <el-tag :type="scope.row.wechat_id != null ? 'success' : 'danger'">{{
             scope.row.wechat_id != null ? "已绑定" : "未绑定"
           }}</el-tag>
         </template>

@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-17 13:09:00
- * @LastEditTime: 2020-12-06 15:26:54
+ * @LastEditTime: 2020-12-15 15:33:42
  * @FilePath: /pc-front/src/views/wechat/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -45,9 +45,15 @@
       </el-table-column>
       <el-table-column label="用户类型" align="center">
         <template slot-scope="scope">
-          <el-tag type="scope.row.user_type==1 ? success : danger">{{
-            scope.row.user_type == 1 ? "物业经理人" : "普通用户"
-          }}</el-tag>
+          <el-tag v-if="scope.row.user_type == 1" type="success">
+            物业经理人
+          </el-tag>
+          <el-tag v-else-if="scope.row.user_type == 2" type="danger">
+            注册司机
+          </el-tag>
+          <el-tag v-else>
+            普通用户
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="注册时间" align="center" width="200">
