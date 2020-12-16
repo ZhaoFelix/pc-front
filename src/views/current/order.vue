@@ -130,7 +130,7 @@
             plain
             size="small"
             type="danger"
-            v-if="row.order_status == 1"
+            v-if="row.order_status == 0"
             @click="cancelOrder(row)"
             >取消订单</el-button
           >
@@ -147,9 +147,17 @@
             plain
             size="small"
             type="danger"
-            v-if="row.order_status == 1 || row.order_status == 0"
-            @click="assignPrice(row)"
-            >调整价格</el-button
+            v-if="row.order_type == 1 && row.order_price == null"
+            @click="assignPriceDialog(row)"
+            >确定价格</el-button
+          >
+          <el-button
+            plain
+            size="small"
+            type="danger"
+            v-if="row.order_type == 0 && row.order_gap_price == null"
+            @click="assignPriceDialog(row)"
+            >调整差价</el-button
           >
         </template>
       </el-table-column>
@@ -264,6 +272,17 @@
         <el-button type="primary" @click="assignDriver">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog title="请订单价格" :visible.sync="priceVisible" width="20%">
+      <el-input
+        v-model="assignInfo.assignPrice"
+        placeholder="请输入价格"
+        type="Number"
+      ></el-input>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="priceVisible = false">取 消</el-button>
+        <el-button type="primary" @click="assignPrice">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -273,7 +292,8 @@ import {
   getCurrentDriverByType,
   getCurrentCarByType,
   cancelOrderByAdmin,
-  assignDriver
+  assignDriver,
+  assignPrice
 } from "@/api/order";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
@@ -301,7 +321,6 @@ let form = {
 };
 export default {
   components: { Pagination },
-
   data() {
     return {
       list: [],
@@ -320,12 +339,17 @@ export default {
       carTable: [],
       driverVisible: false,
       dialogFormVisible: false,
+      priceVisible: false,
       temp: {
         order_id: "",
         car_id: "",
         driver_id: ""
       },
-
+      assignInfo: {
+        orderId: null,
+        orderType: null,
+        assignPrice: null
+      },
       imageUrl: "",
       typeList: null,
       listQuery: {
@@ -418,8 +442,24 @@ export default {
         // 重新获取数据
         this.fetchData();
       });
+    },
+    // 调整价格
+    assignPriceDialog(row) {
+      this.priceVisible = true;
+      this.assignInfo.orderId = row.order_id;
+      this.assignInfo.orderType = row.order_type;
+    },
+    assignPrice() {
+      assignPrice(this.assignInfo).then(response => {
+        this.priceVisible = false;
+        this.$message({
+          message: response.data.message,
+          type: "success"
+        });
+        // 重新获取数据
+        this.fetchData();
+      });
     }
-    //
   }
 };
 </script>
