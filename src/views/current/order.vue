@@ -88,7 +88,11 @@
       </el-table-column>
       <el-table-column label="订单价格" align="center">
         <template slot-scope="scope">
-          <span style="color:red">{{ scope.row.order_price.toFixed(2) }}</span>
+          <span style="color:red">{{
+            scope.row.order_price == null
+              ? "未确定"
+              : scope.row.order_price.toFixed(2)
+          }}</span>
         </template>
       </el-table-column>
 
