@@ -103,9 +103,15 @@
       </el-table-column>
       <el-table-column label="订单状态" align="center" width="120">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.order_status == 1 ? 'success' : 'danger'">{{
-            scope.row.order_status === 1 ? "已支付待派单" : "待支付"
-          }}</el-tag>
+          <el-tag v-if="scope.row.order_status == 0" type="danger">
+            待支付
+          </el-tag>
+          <el-tag v-if="scope.row.order_status == 7" type="danger">
+            待补差价
+          </el-tag>
+          <el-tag v-if="scope.row.order_status == 1" type="success"
+            >已支付待派单</el-tag
+          >
         </template>
       </el-table-column>
       <el-table-column label="添加时间" align="center" min-width="180">
@@ -155,7 +161,7 @@
             plain
             size="small"
             type="danger"
-            v-if="row.order_type == 0 && row.order_gap_price == null"
+            v-if="row.order_type == 0 && row.order_gap_price == 0"
             @click="assignPriceDialog(row)"
             >调整差价</el-button
           >
