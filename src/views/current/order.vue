@@ -81,8 +81,8 @@
       </el-table-column>
       <el-table-column label="装修类型" align="center" min-width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.order_type == 1 ? 'success' : 'danger'">{{
-            scope.row.order_type == 1 ? "普通装修" : "商业装修"
+          <el-tag :type="scope.row.order_type == 0 ? 'success' : 'danger'">{{
+            scope.row.order_type == 0 ? "普通装修" : "商业装修"
           }}</el-tag>
         </template>
       </el-table-column>

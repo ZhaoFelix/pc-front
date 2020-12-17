@@ -3,14 +3,14 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-14 18:49:40
+ * @LastEditTime: 2020-12-17 13:55:12
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
 <template>
   <div>
     <el-card class="bgCard">
-      <p>运输中司机：</p>
+      <h3>运输中司机：</h3>
       <div>
         <el-card class="cardTable" v-for="(item, index) in list" :key="index">
           <div slot="header" class="clearfix">
@@ -45,6 +45,14 @@ import { import } from '@babel/types';
                   </span>
                   <span>
                     {{ item.user_address }}
+                  </span>
+                </div>
+                <div>
+                  <span class="title-style">
+                    预约时间：
+                  </span>
+                  <span style="color:red">
+                    {{ item.user_reserve_time }}
                   </span>
                 </div>
                 <div>
@@ -91,6 +99,23 @@ import { import } from '@babel/types';
                 </div>
               </el-collapse-item>
               <el-collapse-item title="实时行程" name="3">
+                <div v-if="item.driver_go_des != null">
+                  <span class="title-style">
+                    司机接单时间：
+                  </span>
+                  <span style="color:red">
+                    {{ item.driver_go_des }}
+                  </span>
+                </div>
+                <div v-if="item.driver_reach_des != null">
+                  <span class="title-style">
+                    到达目的地时间：
+                  </span>
+                  <span style="color:red">
+                    {{ item.driver_reach_des }}
+                  </span>
+                </div>
+                <div v-if="item.driver_reach_img != null" class="divider"></div>
                 <div v-if="item.driver_reach_img != null">
                   <span class="title-style">渣土现场:</span>
                   <center>
@@ -145,10 +170,19 @@ import { import } from '@babel/types';
                   <span class="title-style">处理时间：</span>
                   <span>{{ item.driver_complete_time }}</span>
                 </div>
+                <div
+                  v-if="item.driver_complete_time != null"
+                  class="divider"
+                ></div>
+                <div v-if="item.driver_complete_time != null">
+                  <span class="title-style">
+                    完成时间：
+                  </span>
+                  <span style="color:red">
+                    {{ item.driver_complete_time }}
+                  </span>
+                </div>
               </el-collapse-item>
-              <!-- <el-collapse-item title="联系方式" name="4">
-                <div>content</div>
-              </el-collapse-item> -->
             </el-collapse>
           </div>
         </el-card>
@@ -186,6 +220,7 @@ export default {
 .cardTable {
   width: 25%;
   margin: 1%;
+  float: left;
 }
 .text {
   font-size: 14px;
