@@ -98,7 +98,9 @@
 
       <el-table-column label="支付价格" align="center">
         <template slot-scope="scope">
-          <span style="color:red">{{ scope.row.order_final_price }}</span>
+          <span style="color:red">{{
+            scope.row.order_final_price + scope.row.second_pay_price
+          }}</span>
         </template>
       </el-table-column>
       <el-table-column label="订单状态" align="center" width="120">
@@ -111,6 +113,9 @@
           </el-tag>
           <el-tag v-if="scope.row.order_status == 1" type="success"
             >已支付待派单</el-tag
+          >
+          <el-tag v-if="scope.row.order_status == 4" type="success"
+            >司机到达现场</el-tag
           >
         </template>
       </el-table-column>
@@ -161,13 +166,32 @@
             plain
             size="small"
             type="danger"
-            v-if="row.order_type == 0 && row.order_gap_price == 0"
+            v-if="
+              row.order_type == 0 &&
+                row.order_gap_price == 0 &&
+                row.order_status == 4
+            "
             @click="assignPriceDialog(row)"
             >调整差价</el-button
           >
         </template>
       </el-table-column>
     </el-table>
+    <!-- 使用注意 -->
+    <div class="tip">
+      <h3 style="color:red">注意：</h3>
+      <ul>
+        <li>
+          调整差价：该操纵仅能操作普通装修的订单，且只有当司机到达现场确定后才能进行价格调整，每个订单只能调整一次差价；
+        </li>
+        <li>
+          确定价格：该操作仅对商业装修的订单有效，且每个订单只能进行一次价格确定；
+        </li>
+        <li>
+          取消订单：取消订单对所有类型的未支付订单有效，订单取消后将无法进行恢复和支付。
+        </li>
+      </ul>
+    </div>
     <!-- TODO:取消订单 -->
 
     <!-- 指派司机 -->
@@ -379,7 +403,7 @@ export default {
       this.listQuery.limit = this.limit;
       this.listQuery.offset = (this.page - 1) * this.limit;
       this.listLoading = true;
-      console.log(this.listQuery);
+
       getCurrentOrderList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
@@ -421,13 +445,9 @@ export default {
       this.temp.order_id = row.order_id;
     },
     getDriverCurrentRow(row) {
-      // 获取选中数据   row表示选中这一行的数据，可以从里面提取所需要的值
-      console.log(row);
       this.temp.driver_id = row.driver_id;
     },
     getCarCurrentRow(row) {
-      // 获取选中数据   row表示选中这一行的数据，可以从里面提取所需要的值
-      console.log(row);
       this.temp.car_id = row.car_id;
     },
     // 指派司机
@@ -475,5 +495,8 @@ export default {
   width: 80px;
   height: 80px;
   padding: 5px;
+}
+.tip li {
+  line-height: 18px;
 }
 </style>
