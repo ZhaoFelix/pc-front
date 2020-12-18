@@ -10,98 +10,120 @@
       highlight-current-row
       style="margin-top:10px"
     >
-      <!-- <el-table-column align="center" label="ID" width="60">
-        <template slot-scope="scope">{{ scope.$index + 1 }}</template>
-      </el-table-column> -->
-      <el-table-column align="center" label="ID" width="60">
-        <template>index</template>
+      <el-table-column align="center" label="订单号" min-width="130" fixed="">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.order_number }}
+          </span></template
+        >
       </el-table-column>
-
-      <el-table-column label="订单司机" align="center" width="110">
-        <template>
-          <span>司机</span>
+      <el-table-column align="center" label="用户微信">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.wechat_nickname }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="用户名">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.order_user_name }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="用户手机号">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.user_phone }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="订单地址" min-width="150">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.user_address }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="接单司机">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.driver_name }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="司机手机号">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.driver_phone }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="下单形式">
+        <template slot-scope="scope"
+          ><el-tag
+            :type="scope.row.order_user_type == 1 ? 'success' : 'danger'"
+          >
+            {{ scope.row.order_user_type == 1 ? "物业下单" : "普通下单" }}
+          </el-tag></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="订单类型">
+        <template slot-scope="scope"
+          ><el-tag :type="scope.row.order_type == 1 ? 'success' : 'danger'">
+            {{ scope.row.order_type == 1 ? "商业装修" : "普通装修" }}
+          </el-tag></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="用户预约时间" min-width="100">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.user_reserve_time | parseTime("{y}-{m}-{d} {h}:{i}") }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="订单完成时间" min-width="100">
+        <template slot-scope="scope"
+          ><span v-if="scope.row.driver_complete_time != null">
+            {{
+              scope.row.driver_complete_time | parseTime("{y}-{m}-{d} {h}:{i}")
+            }}
+          </span>
+          <el-tag v-else type="danger">
+            未完成
+          </el-tag>
         </template>
       </el-table-column>
-
-
-      <el-table-column label="订单号" align="center" width="300">
-        <template>
-          <span>订单号</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="订单简述" align="center">
-        <template>
-          <span>订单简述</span>
-        </template>
-      </el-table-column>
-      
-
-      <el-table-column label="订单状态" align="center" width="110">
+      <el-table-column label="订单状态" align="center">
         <template slot-scope="scope">
-          <el-tag type="scope.row.wechat_id !=null ? success : danger">{{
-            scope.row.wechat_id != null ? "已完成" : "运输中"
-          }}</el-tag>
+          <el-tag v-if="scope.row.order_status == 2" type="info">
+            已取消
+          </el-tag>
+          <el-tag v-else-if="scope.row.order_status == 6" type="sucess">
+            已完成
+          </el-tag>
+          <el-tag v-else-if="scope.row.order_status == 7" type="sucess">
+            补差价
+          </el-tag>
+          <el-tag v-else type="warning">进行中 </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="订单时间" align="center" width="200">
+      <el-table-column label="价格" align="center">
         <template slot-scope="scope">
-          <span>{{
-            scope.row.estate_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
+          <span style="color:red">{{
+            "￥ " + (scope.row.order_final_price + scope.row.second_pay_price)
           }}</span>
         </template>
       </el-table-column>
-
-      
-      <!-- <el-table-column label="所属街道居委会" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.estate_region }}</span>
-        </template>
-      </el-table-column> -->
-
-      
-      
       <!-- 操作 -->
       <!-- TODO:待添加用户角色权限 -->
       <el-table-column
         label="操作"
         align="center"
-        v-if="roles == 2"
-        width="290"
         class-name="small-padding fixed-width"
+        fixed="right"
       >
-        <template slot-scope="{ row }">
-          <el-tooltip
-            class="item"
-            effect="dark"
-            v-if="author == row.admin_id"
-            content="密码修改"
-            placement="top"
-          >
-            <el-button
-              type="primary"
-              icon="el-icon-edit"
-              circle
-              plain
-              @click="handleDelete(row)"
-            ></el-button>
-          </el-tooltip>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            v-if="author == row.admin_id"
-            content="删除"
-            placement="top"
-          >
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              circle
-              plain
-              @click="handleDelete(row)"
-            ></el-button>
-          </el-tooltip>
-        </template>
+        <template slot-scope="{ row }"> </template>
       </el-table-column>
     </el-table>
     <pagination
@@ -115,7 +137,7 @@
 </template>
 
 <script>
-import { getEstateList } from "@/api/estate";
+import { getOrderAll } from "@/api/order";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
@@ -172,8 +194,8 @@ export default {
       this.listQuery.limit = this.limit;
       this.listQuery.offset = (this.page - 1) * this.limit;
       this.listLoading = true;
-      console.log(this.listQuery);
-      getEstateList(this.listQuery).then(response => {
+
+      getOrderAll(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
       });
