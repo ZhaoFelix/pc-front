@@ -6,7 +6,6 @@
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
 import resize from "./mixins/resize";
-
 export default {
   mixins: [resize],
   props: {
@@ -28,6 +27,10 @@ export default {
     },
     chartData: {
       type: Object,
+      required: true
+    },
+    XData: {
+      type: Array,
       required: true
     }
   },
@@ -61,10 +64,10 @@ export default {
       this.chart = echarts.init(this.$el, "macarons");
       this.setOptions(this.chartData);
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions({ expectedData } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周期"],
+          data: this.XData,
           boundaryGap: false,
           axisTick: {
             show: false
@@ -94,7 +97,7 @@ export default {
         },
         series: [
           {
-            name: "expected",
+            name: "订单数",
             itemStyle: {
               normal: {
                 color: "#FF005A",
@@ -109,26 +112,6 @@ export default {
             data: expectedData,
             animationDuration: 2800,
             animationEasing: "cubicInOut"
-          },
-          {
-            name: "actual",
-            smooth: true,
-            type: "line",
-            itemStyle: {
-              normal: {
-                color: "#3888fa",
-                lineStyle: {
-                  color: "#3888fa",
-                  width: 2
-                },
-                areaStyle: {
-                  color: "#f3f8ff"
-                }
-              }
-            },
-            data: actualData,
-            animationDuration: 2800,
-            animationEasing: "quadraticOut"
           }
         ]
       });
