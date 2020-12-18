@@ -122,6 +122,7 @@
         align="center"
         class-name="small-padding fixed-width"
         fixed="right"
+        v-if="isOperateable"
       >
         <template slot-scope="{ row }"> </template>
       </el-table-column>
@@ -161,7 +162,7 @@ export default {
       page: 1,
       keyword: "",
       existID: 0,
-
+      isOperateable: false,
       dialogFormVisible: false,
       temp: {
         admin_name: "",

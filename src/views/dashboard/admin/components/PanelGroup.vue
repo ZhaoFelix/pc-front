@@ -11,7 +11,7 @@
           </div>
           <count-to
             :start-val="0"
-            :end-val="N"
+            :end-val="basicData.driver_count"
             :duration="2600"
             class="card-panel-num"
           />
@@ -29,7 +29,7 @@
           </div>
           <count-to
             :start-val="0"
-            :end-val="N"
+            :end-val="basicData.estate_count"
             :duration="3200"
             class="card-panel-num"
           />
@@ -47,7 +47,7 @@
           </div>
           <count-to
             :start-val="0"
-            :end-val="N"
+            :end-val="basicData.user_count"
             :duration="3600"
             class="card-panel-num"
           />
@@ -65,7 +65,7 @@
           </div>
           <count-to
             :start-val="0"
-            :end-val="N"
+            :end-val="basicData.order_count"
             :duration="3000"
             class="card-panel-num"
           />
@@ -77,21 +77,28 @@
 
 <script>
 import CountTo from "vue-count-to";
-
+import { queryBasic } from "@/api/dashboard";
 export default {
   components: {
     CountTo
   },
   data() {
     return {
-      N: 10,
-      A: 20
+      basicData: {}
     };
   },
   methods: {
     handleSetLineChartData(type) {
       this.$emit("handleSetLineChartData", type);
+    },
+    fetchData() {
+      queryBasic().then(response => {
+        this.basicData = response.data[0];
+      });
     }
+  },
+  mounted() {
+    this.fetchData();
   }
 };
 </script>
