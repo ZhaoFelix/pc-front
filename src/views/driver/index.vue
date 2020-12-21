@@ -59,7 +59,7 @@
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.driver_is_auth == 1 ? 'success' : 'danger'"
-            >{{ scope.row.estate_is_auth == 1 ? "已认证" : "未认证" }}</el-tag
+            >{{ scope.row.driver_is_auth == 1 ? "已认证" : "未认证" }}</el-tag
           >
         </template>
       </el-table-column>
