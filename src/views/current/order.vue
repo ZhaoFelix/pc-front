@@ -72,9 +72,9 @@
       <el-table-column label="下单类型" align="center" min-width="100">
         <template slot-scope="scope">
           <el-tag
-            :type="scope.row.user_order_type == 0 ? 'success' : 'danger'"
+            :type="scope.row.order_user_type == 0 ? 'success' : 'danger'"
             >{{
-              scope.row.user_order_type == 0 ? "居民下单" : "物业下单"
+              scope.row.order_user_type == 0 ? "居民下单" : "物业下单"
             }}</el-tag
           >
         </template>
