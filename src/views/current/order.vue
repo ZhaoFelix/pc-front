@@ -10,9 +10,6 @@
       highlight-current-row
       style="margin-top:10px;width:100%;"
     >
-      <!-- <el-table-column align="center" label="ID" width="60">
-        <template slot-scope="scope">{{ scope.$index + 1 }}</template>
-      </el-table-column> -->
       <el-table-column label="订单号" align="center" min-width="190" fixed>
         <template slot-scope="scope">
           <span>{{ scope.row.order_number }}</span>
@@ -64,7 +61,7 @@
       </el-table-column>
       <el-table-column label="用户预约时间" align="center" min-width="150">
         <template slot-scope="scope">
-          <span>
+          <span style="color:red">
             {{ scope.row.user_reserve_time | parseTime("{y}-{m}-{d} {h}:{i}") }}
           </span>
         </template>
@@ -114,8 +111,20 @@
           <el-tag v-if="scope.row.order_status == 1" type="success"
             >已支付待派单</el-tag
           >
-          <el-tag v-if="scope.row.order_status == 4" type="success"
+          <el-tag v-if="scope.row.order_status == 2" type="warning"
+            >已取消</el-tag
+          >
+          <el-tag v-if="scope.row.order_status == 4" type="info"
             >司机到达现场</el-tag
+          >
+          <el-tag v-if="scope.row.order_status == 3" type="info"
+            >待司机出发</el-tag
+          >
+          <el-tag v-if="scope.row.order_status == 5" type="info"
+            >司机运输中</el-tag
+          >
+          <el-tag v-if="scope.row.order_status == 6" type="sucess"
+            >已完成</el-tag
           >
         </template>
       </el-table-column>
@@ -370,6 +379,7 @@ export default {
       driverVisible: false,
       dialogFormVisible: false,
       priceVisible: false,
+      selected_reserve_time: null,
       temp: {
         order_id: "",
         car_id: "",
@@ -394,7 +404,6 @@ export default {
     ...mapGetters(["roles"])
   },
   created() {
-    // console.log(this.roles, this.author);
     this.fetchData();
   },
   methods: {
@@ -403,7 +412,6 @@ export default {
       this.listQuery.limit = this.limit;
       this.listQuery.offset = (this.page - 1) * this.limit;
       this.listLoading = true;
-
       getCurrentOrderList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
@@ -411,7 +419,10 @@ export default {
     },
     selectType() {
       this.driverTable = []; // 防止数据累加，每次查询前置空数据
-      getCurrentDriverByType({ type: this.selected_type }).then(response => {
+      getCurrentDriverByType({
+        type: this.selected_type,
+        time: this.selected_reserve_time
+      }).then(response => {
         this.driverTable = response.data;
       });
       getCurrentCarByType({ type: this.selected_type }).then(response => {
@@ -443,6 +454,7 @@ export default {
     showDriverDialog(row) {
       this.driverVisible = true;
       this.temp.order_id = row.order_id;
+      this.selected_reserve_time = row.user_reserve_time;
     },
     getDriverCurrentRow(row) {
       this.temp.driver_id = row.driver_id;
@@ -492,8 +504,8 @@ export default {
 
 <style scoped>
 .image-thumb {
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   padding: 5px;
 }
 .tip li {
