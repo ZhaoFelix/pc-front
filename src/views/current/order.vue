@@ -87,7 +87,7 @@
         <template slot-scope="scope">
           <span style="color:red">{{
             scope.row.order_price == null
-              ? "未确定"
+              ? "待确定"
               : scope.row.order_price.toFixed(2)
           }}</span>
         </template>
@@ -103,7 +103,7 @@
       <el-table-column label="订单状态" align="center" width="120">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.order_status == 0" type="danger">
-            待支付
+            {{ scope.row.order_price == null ? "待定价" : "待支付" }}
           </el-tag>
           <el-tag v-if="scope.row.order_status == 7" type="danger">
             待补差价
