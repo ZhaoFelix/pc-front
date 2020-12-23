@@ -124,7 +124,11 @@
         fixed="right"
         v-if="isOperateable"
       >
-        <el-button plain size="small" @click="orderDetial(row)">详情</el-button>
+        <template slot-scope="scope">
+          <el-button plain size="small" @click="orderDetial(scope.row)"
+            >详情</el-button
+          >
+        </template>
       </el-table-column>
     </el-table>
     <pagination
@@ -135,7 +139,12 @@
       @pagination="fetchData"
     />
     <!-- 订单详情 -->
-    <el-dialog title="订单详情" :visible.sync="detailVisible" width="40%">
+    <el-dialog
+      title="订单详情"
+      :visible.sync="detailVisible"
+      width="20%"
+      center
+    >
       <el-card
         class="cardTable"
         v-for="(item, index) in orderDetail"
@@ -157,7 +166,7 @@
           </span>
         </div>
         <div v-for="o in 1" :key="o" class="text item">
-          <el-collapse v-model="activeNames" @change="handleChange">
+          <el-collapse v-model="activeNames">
             <el-collapse-item title="用户信息" name="1">
               <div>
                 <span class="title-style">
@@ -187,13 +196,13 @@
                 <span class="title-style">渣土图片:</span>
                 <center>
                   <viewer :images="[]">
-                    <img
+                    <el-image
                       v-for="(item, index) in JSON.parse(
                         item.user_place_order_img
                       )"
                       :key="index"
                       :src="item.url"
-                      alt=""
+                      fit="cover"
                       class="image-thumb"
                     />
                   </viewer>
@@ -248,13 +257,13 @@
                 <span class="title-style">渣土现场:</span>
                 <center>
                   <viewer :images="[]">
-                    <img
+                    <el-image
                       v-for="(item, index) in JSON.parse(item.driver_reach_img)"
                       :key="index"
                       :src="item.url"
-                      alt=""
+                      fit="cover"
                       class="image-thumb"
-                    />
+                    ></el-image>
                   </viewer>
                 </center>
                 <span class="title-style">处理时间：</span>
@@ -265,11 +274,11 @@
                 <span class="title-style">渣土装车:</span>
                 <center>
                   <viewer :images="[]">
-                    <img
+                    <el-image
                       v-for="(item, index) in JSON.parse(item.driver_get_img)"
                       :key="index"
                       :src="item.url"
-                      alt=""
+                      fit="cover"
                       class="image-thumb"
                     />
                   </viewer>
@@ -282,13 +291,13 @@
                 <span class="title-style">渣土倾倒:</span>
                 <center>
                   <viewer :images="[]">
-                    <img
+                    <el-image
                       v-for="(item, index) in JSON.parse(
                         item.driver_complete_img
                       )"
                       :key="index"
                       :src="item.url"
-                      alt=""
+                      fit="cover"
                       class="image-thumb"
                     />
                   </viewer>
@@ -317,7 +326,7 @@
 </template>
 
 <script>
-import { getOrderAll } from "@/api/order";
+import { getOrderAll, getOrderDetail } from "@/api/order";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
@@ -342,8 +351,9 @@ export default {
       page: 1,
       keyword: "",
       existID: 0,
+      activeNames: ["1", "2", "3"],
       isOperateable: true,
-      detailVisible: true,
+      detailVisible: false,
       temp: {
         admin_name: "",
         admin_login_name: "",
@@ -387,8 +397,10 @@ export default {
       this.temp.avatar_url = res.data;
     },
     orderDetial(row) {
-      getonGoingDriver().then(response => {
-        this.list = response.data;
+      console.log(row);
+      getOrderDetail({ order_number: row.order_number }).then(response => {
+        this.detailVisible = true;
+        this.orderDetail = response.data;
       });
     }
   }
@@ -419,5 +431,34 @@ export default {
   height: 178px;
   display: block;
   border-radius: 89px;
+}
+
+.image-thumb {
+  width: 25%;
+  height: 80px;
+  padding: 5px;
+}
+
+.title-style {
+  font-weight: bold;
+}
+
+.divider {
+  height: 1px;
+  background: rgb(0, 0, 0, 0.05);
+  width: 100%;
+  margin: 4px 0;
+}
+
+.order-status {
+  float: right;
+  color: red;
+}
+>>> .el-dialog__body {
+  padding: 10px 10px;
+}
+
+>>> .el-collapse-item__content {
+  padding-bottom: 5px;
 }
 </style>
