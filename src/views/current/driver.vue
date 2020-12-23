@@ -3,12 +3,36 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-23 13:21:44
+ * @LastEditTime: 2020-12-23 15:23:42
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
 <template>
   <div>
+    <el-card class="bgCard">
+      <el-collapse v-model="topActivite" @change="handleChange">
+        <el-collapse-item title="今日值班司机" name="1">
+          <el-card
+            v-for="(item, index) in todayList"
+            :key="index"
+            class="schdule-card"
+          >
+            <div class="custom-cell">
+              <span class="title">
+                姓名：
+              </span>
+              <span>{{ item.driver_name }}</span>
+            </div>
+            <div class="custom-cell">
+              <span class="title">
+                路线：
+              </span>
+              <span>{{ item.router_note }}</span>
+            </div>
+          </el-card>
+        </el-collapse-item>
+      </el-collapse>
+    </el-card>
     <el-card class="bgCard">
       <h3>运输中司机：</h3>
       <div>
@@ -195,11 +219,13 @@ import { import } from '@babel/types';
   </div>
 </template>
 <script>
-import { getonGoingDriver } from "@/api/driver";
+import { getonGoingDriver, getTodayDriver } from "@/api/driver";
 export default {
   data() {
     return {
-      list: []
+      list: [],
+      topActivite: [],
+      todayList: []
     };
   },
   methods: {
@@ -209,11 +235,17 @@ export default {
         this.listLoading = false;
       });
     },
+    fetchTodayData() {
+      getTodayDriver().then(response => {
+        this.todayList = response.data;
+      });
+    },
     handleChange(val) {
       console.log(val);
     }
   },
   created() {
+    this.fetchTodayData();
     this.fetchData();
   }
 };
@@ -239,8 +271,8 @@ export default {
 }
 
 .bgCard {
-  margin: 1%;
-  width: 98%;
+  margin: 0.5%;
+  width: 99%;
 }
 
 .image-thumb {
@@ -263,5 +295,21 @@ export default {
 .order-status {
   float: right;
   color: red;
+}
+
+.schdule-card {
+  width: 7%;
+  float: left;
+  margin: 0 8px 8px;
+  text-align: center;
+}
+.custom-cell {
+  padding: 2px;
+}
+.title {
+  font-weight: bold;
+}
+>>> .el-card__body {
+  padding: 10px;
 }
 </style>
