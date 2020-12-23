@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-17 13:55:12
+ * @LastEditTime: 2020-12-23 13:21:44
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -59,13 +59,13 @@ import { import } from '@babel/types';
                   <span class="title-style">渣土图片:</span>
                   <center>
                     <viewer :images="[]">
-                      <img
+                      <el-image
                         v-for="(item, index) in JSON.parse(
                           item.user_place_order_img
                         )"
                         :key="index"
                         :src="item.url"
-                        alt=""
+                        fit="cover"
                         class="image-thumb"
                       />
                     </viewer>
@@ -120,13 +120,14 @@ import { import } from '@babel/types';
                   <span class="title-style">渣土现场:</span>
                   <center>
                     <viewer :images="[]">
-                      <img
+                      <el-image
                         v-for="(item, index) in JSON.parse(
                           item.driver_reach_img
                         )"
                         :key="index"
                         :src="item.url"
-                        alt=""
+                        fit="cover"
+                        lazy
                         class="image-thumb"
                       />
                     </viewer>
@@ -139,12 +140,13 @@ import { import } from '@babel/types';
                   <span class="title-style">渣土装车:</span>
                   <center>
                     <viewer :images="[]">
-                      <img
+                      <el-image
                         v-for="(item, index) in JSON.parse(item.driver_get_img)"
                         :key="index"
                         :src="item.url"
-                        alt=""
+                        fit="cover"
                         class="image-thumb"
+                        lazy
                       />
                     </viewer>
                   </center>
@@ -156,14 +158,15 @@ import { import } from '@babel/types';
                   <span class="title-style">渣土倾倒:</span>
                   <center>
                     <viewer :images="[]">
-                      <img
+                      <el-image
                         v-for="(item, index) in JSON.parse(
                           item.driver_complete_img
                         )"
                         :key="index"
                         :src="item.url"
-                        alt=""
+                        fit="cover"
                         class="image-thumb"
+                        lazy
                       />
                     </viewer>
                   </center>

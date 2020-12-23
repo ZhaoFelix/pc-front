@@ -45,15 +45,14 @@
       </el-table-column>
       <el-table-column label="渣土图片" align="center" min-width="200">
         <template slot-scope="scope">
-          <!-- TODO:待显示图片 -->
           <viewer :images="[scope.row.wechat_avatar]">
-            <img
+            <el-image
               v-for="(item, index) in JSON.parse(
                 scope.row.user_place_order_img
               )"
               :key="index"
               :src="item.url"
-              alt=""
+              fit="cover"
               class="image-thumb"
             />
           </viewer>
