@@ -138,6 +138,15 @@
       :limit.sync="limit"
       @pagination="fetchData"
     />
+    <!-- 说明 -->
+    <div class="comment">
+      <span class="comment-title">说明</span>
+      <ul>
+        <li>
+          此页面只显示已完成和已指派司机的订单。
+        </li>
+      </ul>
+    </div>
     <!-- 订单详情 -->
     <el-dialog
       title="订单详情"
@@ -460,5 +469,10 @@ export default {
 
 >>> .el-collapse-item__content {
   padding-bottom: 5px;
+}
+
+.comment-title {
+  font-weight: bold;
+  font-size: 15px;
 }
 </style>

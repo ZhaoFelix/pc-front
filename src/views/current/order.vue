@@ -442,6 +442,7 @@ export default {
               type: "success",
               message: "取消成功!"
             });
+            this.fetchData();
           });
         })
         .catch(() => {
