@@ -135,7 +135,7 @@ export const asyncRoutes = [
     path: "/estate",
     component: Layout,
     alwaysShow: true,
-    meta: { title: "物业管理", icon: "lock" },
+    meta: { title: "物业管理", icon: "peoples" },
     children: [
       {
         path: "info",
@@ -143,14 +143,6 @@ export const asyncRoutes = [
         component: () => import("@/views/estate/index"),
         meta: { title: "物业经理人", icon: "user" }
       }
-      // 仅管理员可见
-      // {
-      //     path: 'discount',
-      //     name: 'discount',
-      //     component: () =>
-      //         import ('@/views/estate/discount'),
-      //     meta: { title: '物业折扣', icon: 'money', roles: ['admin'] }
-      // }
     ]
   },
   // 仅管理员可见
