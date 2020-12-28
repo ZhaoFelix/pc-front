@@ -35,10 +35,10 @@ const mutations = {
       // 调度员
       state.roles = ["2"];
     } else if (type == 3) {
-      // 普通
+      // 二级调度员
       state.roles = ["3"];
     } else {
-      // 临时
+      // 临时账号
       state.roles = ["4"];
     }
   }

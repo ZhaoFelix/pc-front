@@ -4,7 +4,7 @@
       <!-- TODO: 待添加管理员权限 -->
       <el-button
         v-waves
-        v-permission="['admin']"
+        v-permission="['1']"
         type="success"
         icon="el-icon-edit"
         @click="addAdmin()"
@@ -37,7 +37,7 @@
         <template slot-scope="scope">
           <span v-if="scope.row.admin_type == 1">管理员</span>
           <span v-else-if="scope.row.admin_type == 2">调度员</span>
-          <span v-if="scope.row.admin_type == 3">普通账号</span>
+          <span v-if="scope.row.admin_type == 3">二级调度员</span>
           <span v-if="scope.row.admin_type == 4">临时账号</span>
         </template>
       </el-table-column>
@@ -99,9 +99,9 @@
         </template>
       </el-table-column>
     </el-table>
-    <div slot="tip" style="color:red;margin-top:20px">
+    <!-- <div slot="tip" style="color:red;margin-top:20px">
       管理员最多只能添加5个
-    </div>
+    </div> -->
     <!-- 添加 -->
     <el-dialog :visible.sync="dialogFormVisible" width="25%">
       <el-form
@@ -122,6 +122,20 @@
               :key="item.admin_type_id"
               :label="item.admin_type_name"
               :value="item.admin_type"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="isThird" label="第三方车队" prop="admin_third_id">
+          <el-select
+            v-model="temp.admin_third_id"
+            placeholder="请指定第三方车队"
+          >
+            <el-option
+              v-for="item in thirdList"
+              :key="item.third_id"
+              :label="item.third_name"
+              :value="item.third_id"
             >
             </el-option>
           </el-select>
@@ -162,7 +176,12 @@
 </template>
 
 <script>
-import { addAdmin, queryAdmin, getAdminTypeList } from "@/api/admin/admin";
+import {
+  addAdmin,
+  queryAdmin,
+  getAdminTypeList,
+  queryThirdList
+} from "@/api/admin/admin";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import md5 from "js-md5";
@@ -209,8 +228,17 @@ export default {
     };
     //  角色类型验证
     var typeValidate = (rule, value, callback) => {
-      if (value == 0) {
+      console.log("角色类型验证", value);
+      if (value == null) {
         callback(new Error("请选择角色类型"));
+      } else {
+        callback();
+      }
+    };
+    // 第三方车队
+    var thirdValidate = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error("请指定第三方车队"));
       } else {
         callback();
       }
@@ -223,14 +251,14 @@ export default {
       page: 1,
       keyword: "",
       existID: 0,
-
       dialogFormVisible: false,
       temp: {
         admin_name: "",
         admin_login_name: "",
         admin_pwd: "",
         admin_repwd: "",
-        admin_type: ""
+        admin_type: null,
+        admin_third_id: null
       },
       rules: {
         admin_name: [{ required: true, message: "必填", trigger: "blur" }],
@@ -244,12 +272,33 @@ export default {
           { required: true, validator: reValidatePass, trigger: "blur" }
         ],
         admin_type: [
-          { required: true, validator: typeValidate, trigger: "blur" }
+          { required: true, validator: typeValidate, trigger: "change" }
+        ],
+        admin_third_id: [
+          {
+            required: true,
+            validator: thirdValidate,
+            trigger: "change"
+          }
         ]
       },
       imageUrl: "",
-      typeList: null
+      typeList: null,
+      thirdList: null,
+      isThird: false
     };
+  },
+  watch: {
+    "temp.admin_type": {
+      handler(newVal, oldValu) {
+        if (newVal == 3) {
+          this.isThird = true;
+          this.fetchThirstList();
+        } else {
+          this.isThird = false;
+        }
+      }
+    }
   },
   computed: {
     ...mapGetters(["roles"])
@@ -270,6 +319,12 @@ export default {
     fetchCategoryList() {
       getAdminTypeList().then(response => {
         this.typeList = response.data;
+      });
+    },
+    // 查询第三方车队列表
+    fetchThirstList() {
+      queryThirdList().then(response => {
+        this.thirdList = response.data;
       });
     },
     //  编辑
@@ -298,11 +353,12 @@ export default {
           // 密码使用md5加密
           this.temp.admin_pwd = MD5(this.temp.admin_pwd);
           this.temp.admin_repwd = MD5(this.temp.admin_repwd);
-
+          this.temp.admin_third_id =
+            this.temp.admin_third_id == null ? 0 : this.temp.admin_third_id;
           addAdmin(this.temp).then(response => {
             if (response.message == "success") {
               this.$message({
-                message: "创建成功",
+                message: "添加成功",
                 type: "success"
               });
               this.dialogFormVisible = false;
@@ -313,10 +369,11 @@ export default {
                 admin_login_name: "",
                 admin_pwd: "",
                 admin_repwd: "",
-                admin_type: ""
+                admin_type: null,
+                admin_third_id: null
               };
             } else {
-              this.$message.error("创建失败，请创新尝试！");
+              this.$message.error("添加失败，请创新尝试！");
             }
           });
         }

@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-10-26 13:36:47
- * @LastEditTime: 2020-12-28 10:18:24
+ * @LastEditTime: 2020-12-28 10:23:07
  * @FilePath: /pc-front/src/permission.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -44,24 +44,22 @@ router.beforeEach(async (to, from, next) => {
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
           const { admin_type } = await store.dispatch("user/getInfo");
           let roles = [];
-          console.log(admin_type);
           if (admin_type == 1) {
             roles = ["1"];
           } else if (admin_type == 2) {
             roles = ["2"];
-          } else {
+          } else if (admin_type == 3) {
             roles = ["3"];
+          } else {
+            roles = ["4"];
           }
-
           // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch(
             "permission/generateRoutes",
             roles
           );
-
           // dynamically add accessible routes
           router.addRoutes(accessRoutes);
-
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true });
