@@ -150,19 +150,19 @@ export const asyncRoutes = [
     path: "/admin",
     component: Layout,
     alwaysShow: true,
-    meta: { title: "管理员", icon: "lock", roles: ["admin"] },
+    meta: { title: "管理员", icon: "lock", roles: ["1"] },
     children: [
       {
         path: "admin",
         name: "admin",
         component: () => import("@/views/admin/index"),
-        meta: { title: "管理员", icon: "user", roles: ["admin"] }
+        meta: { title: "管理员", icon: "user", roles: ["1"] }
       },
       {
         path: "category",
         name: "category",
         component: () => import("@/views/admin/category"),
-        meta: { title: "角色类型", icon: "tree", roles: ["admin"] }
+        meta: { title: "角色类型", icon: "tree", roles: ["1"] }
       }
     ]
   },

@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2020-12-18 14:48:01
+ * @LastEditTime: 2020-12-28 10:11:06
  * @FilePath: /pc-front/src/views/dashboard/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -28,7 +28,8 @@ export default {
     ...mapGetters(["roles"])
   },
   created() {
-    if (!this.roles.includes("admin")) {
+    console.log(this.roles);
+    if (!this.roles.includes("1")) {
       this.currentRole = "editorDashboard";
     }
   }
