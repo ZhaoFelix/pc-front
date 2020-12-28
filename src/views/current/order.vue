@@ -147,8 +147,9 @@
           <!-- 仅未完成支付的订单可以被取消 -->
           <el-button
             plain
-            size="small"
+            size="mini"
             type="danger"
+            v-permission="['1']"
             v-if="row.order_status == 0"
             @click="cancelOrder(row)"
             >取消订单</el-button
@@ -156,24 +157,34 @@
           <!-- 仅完成支付的订单可以指派司机 -->
           <el-button
             plain
-            size="small"
+            size="mini"
             v-if="row.order_status == 1"
             @click="showDriverDialog(row)"
             >指派司机</el-button
           >
+          <el-button
+            plain
+            size="mini"
+            type="info"
+            v-if="row.order_status == 1"
+            @click="showDriverDialog(row)"
+            >指派车队长</el-button
+          >
           <!-- 支付后与实际不符的可以调整价格 -->
           <el-button
             plain
-            size="small"
+            size="mini"
             type="danger"
+            v-permission="['1']"
             v-if="row.order_type == 1 && row.order_price == null"
             @click="assignPriceDialog(row)"
             >确定价格</el-button
           >
           <el-button
             plain
-            size="small"
+            size="mini"
             type="danger"
+            v-permission="['1']"
             v-if="
               row.order_type == 0 &&
                 row.order_gap_price == 0 &&
@@ -211,7 +222,7 @@
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="选择司机">
           <el-select
-            v-model="selectedDriver"
+            v-model="temp.driver_id"
             clearable
             filterable
             placeholder="请选择"
@@ -256,22 +267,12 @@ import {
 } from "@/api/order";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
-import Pagination from "@/components/Pagination";
-import md5 from "js-md5";
-import { callbackify } from "util";
-import { thistle } from "color-name";
-let MD5 = function(pwd) {
-  pwd = pwd.toUpperCase();
-  pwd = md5(pwd);
-  return pwd;
-};
 
 let form = {
   driverId: null,
   orderNumber: null
 };
 export default {
-  components: { Pagination },
   data() {
     return {
       list: [],
@@ -289,10 +290,8 @@ export default {
       driverVisible: false,
       dialogFormVisible: false,
       priceVisible: false,
-      selected_reserve_time: null,
       temp: {
         order_id: "",
-        car_id: "",
         driver_id: ""
       },
       assignInfo: {
@@ -367,21 +366,18 @@ export default {
     showDriverDialog(row) {
       this.driverVisible = true;
       this.temp.order_id = row.order_id;
-      this.selected_reserve_time = row.user_reserve_time;
-    },
-    getDriverCurrentRow(row) {
-      this.temp.driver_id = row.driver_id;
     },
 
     // 指派司机
     assignDriver() {
-      if (this.temp.car_id == "" || this.temp.driver_id == "") {
+      if (this.temp.driver_id == "") {
         this.$message({
           message: "请先选择司机和车辆",
           type: "error"
         });
         return;
       }
+
       assignDriver(this.temp).then(response => {
         this.driverVisible = false;
         this.$message({
