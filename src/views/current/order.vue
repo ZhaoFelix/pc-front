@@ -238,10 +238,11 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="driverVisible = false">取 消</el-button>
         <el-button type="primary" @click="assignDriver">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 调整价格 -->
     <el-dialog title="请订单价格" :visible.sync="priceVisible" width="20%">
       <el-input
         v-model="assignInfo.assignPrice"
@@ -251,6 +252,31 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="priceVisible = false">取 消</el-button>
         <el-button type="primary" @click="assignPrice">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 指定车队长 -->
+    <el-dialog title="请选择车队长" :visible.sync="driverVisible" width="20%">
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="选择车队长">
+          <el-select
+            v-model="temp.driver_id"
+            clearable
+            filterable
+            placeholder="请选择"
+          >
+            <el-option
+              v-for="item in driverTable"
+              :key="item.driver_id"
+              :label="item.driver_name"
+              :value="item.driver_id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="driverLeaderVisible = false">取 消</el-button>
+        <el-button type="primary" @click="assignDriverLeader">确 定</el-button>
       </span>
     </el-dialog>
   </div>
