@@ -206,103 +206,24 @@
     <el-dialog
       title="请选择指派的司机"
       :visible.sync="driverVisible"
-      width="40%"
+      width="20%"
     >
       <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="路线类型">
-          <el-radio-group v-model="selected_type">
-            <el-radio
-              v-for="item in router_type"
-              :label="item.type"
-              :key="item.type"
-              @change="selectType"
-              >{{ item.note }}</el-radio
-            >
-          </el-radio-group>
-        </el-form-item>
         <el-form-item label="选择司机">
-          <el-table
-            ref="singleTable"
-            :data="driverTable"
-            highlight-current-row
-            style="width: 100%"
-            height="250"
+          <el-select
+            v-model="selectedDriver"
+            clearable
+            filterable
+            placeholder="请选择"
           >
-            <el-table-column label="选择" align="center" width="65">
-              <template scope="scope">
-                <el-radio
-                  :label="scope.$index"
-                  v-model="driverRadio"
-                  @change.native="getDriverCurrentRow(scope.row)"
-                  >{{ "" }}</el-radio
-                >
-              </template>
-            </el-table-column>
-            <el-table-column label="姓名" width="120">
-              <template slot-scope="scope">
-                <span>{{ scope.row.driver_name }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="路线" width="120">
-              <template slot-scope="scope">
-                <span>{{ scope.row.router_note }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="替班说明">
-              <template slot-scope="scope">
-                <span>{{
-                  scope.row.driver_is_substitutes == 1 ? "替班" : "非替班"
-                }}</span>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-form-item>
-        <el-form-item label="选择车辆">
-          <el-table
-            ref="singleTable"
-            :data="carTable"
-            highlight-current-row
-            style="width: 100%"
-            height="250"
-          >
-            <el-table-column label="选择" align="center" width="65">
-              <template scope="scope">
-                <el-radio
-                  :label="scope.$index"
-                  v-model="carRadio"
-                  @change.native="getCarCurrentRow(scope.row)"
-                  >{{ "" }}</el-radio
-                >
-              </template>
-            </el-table-column>
-            <el-table-column label="车牌号" width="120">
-              <template slot-scope="scope">
-                <span>{{ scope.row.car_number }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="尺寸" width="150">
-              <template slot-scope="scope">
-                <span>{{ scope.row.car_size }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="载重" width="120">
-              <template slot-scope="scope">
-                <span>{{ scope.row.car_load_weight }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="路线说明" width="120">
-              <template slot-scope="scope">
-                <span>{{ scope.row.car_router_note }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="备车说明">
-              <template slot-scope="scope">
-                <span>{{
-                  scope.row.car_is_substitutes == 1 ? "备车" : "非备车"
-                }}</span>
-              </template>
-            </el-table-column>
-          </el-table>
+            <el-option
+              v-for="item in driverTable"
+              :key="item.driver_id"
+              :label="item.driver_name"
+              :value="item.driver_id"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -345,14 +266,6 @@ let MD5 = function(pwd) {
   return pwd;
 };
 
-let router_type = [
-  { type: 1, note: "东风" },
-  { type: 2, note: "网格" },
-  { type: 3, note: "拉臂" },
-  { type: 4, note: "第三方" },
-  { type: 5, note: "桶装" }
-];
-
 let form = {
   driverId: null,
   orderNumber: null
@@ -367,13 +280,11 @@ export default {
       limit: 10,
       page: 1,
       keyword: "",
-      existID: 0,
-      router_type,
-      selected_type: 0,
       form,
       carRadio: "",
       driverRadio: "",
       driverTable: [],
+      selectedDriver: "",
       carTable: [],
       driverVisible: false,
       dialogFormVisible: false,
@@ -405,6 +316,15 @@ export default {
   created() {
     this.fetchData();
   },
+  watch: {
+    driverVisible: {
+      handler(newVal, oldVal) {
+        if (newVal) {
+          this.fetchDriverList();
+        }
+      }
+    }
+  },
   methods: {
     fetchData() {
       this.list = [];
@@ -416,16 +336,9 @@ export default {
         this.listLoading = false;
       });
     },
-    selectType() {
-      this.driverTable = []; // 防止数据累加，每次查询前置空数据
-      getCurrentDriverByType({
-        type: this.selected_type,
-        time: this.selected_reserve_time
-      }).then(response => {
+    fetchDriverList() {
+      getCurrentDriverByType().then(response => {
         this.driverTable = response.data;
-      });
-      getCurrentCarByType({ type: this.selected_type }).then(response => {
-        this.carTable = response.data;
       });
     },
     // 取消未支付的订单
@@ -459,9 +372,7 @@ export default {
     getDriverCurrentRow(row) {
       this.temp.driver_id = row.driver_id;
     },
-    getCarCurrentRow(row) {
-      this.temp.car_id = row.car_id;
-    },
+
     // 指派司机
     assignDriver() {
       if (this.temp.car_id == "" || this.temp.driver_id == "") {
