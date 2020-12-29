@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-18 13:29:45
- * @LastEditTime: 2020-12-23 09:40:21
+ * @LastEditTime: 2020-12-29 10:39:50
  * @FilePath: /pc-front/src/api/order/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -18,7 +18,7 @@ export function getCurrentOrderList(params) {
 }
 
 // 按照路线类型查询当前可指派的司机
-export function getCurrentDriverByType(params) {
+export function getDriverList(params) {
   return request({
     url: `${base_path}operatedOrder/driver/query`,
     method: "get",
@@ -69,6 +69,7 @@ export function getOrderAll(params) {
     params
   });
 }
+
 // 查询订单详情
 export function getOrderDetail(params) {
   return request({

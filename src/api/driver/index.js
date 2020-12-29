@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-23 15:18:23
+ * @LastEditTime: 2020-12-29 08:52:50
  * @FilePath: /pc-front/src/api/driver/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -14,6 +14,14 @@ export function getDriverList(params) {
     url: `${base_path}driver/query/all`,
     method: "get",
     params
+  });
+}
+
+// 查询车队长列表
+export function getDriverLeader() {
+  return request({
+    url: `${base_path}driver/query/third`,
+    method: "get"
   });
 }
 

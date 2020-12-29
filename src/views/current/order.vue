@@ -167,7 +167,7 @@
             size="mini"
             type="info"
             v-if="row.order_status == 1"
-            @click="showDriverDialog(row)"
+            @click="showDriverLeaderDialog(row)"
             >指派车队长</el-button
           >
           <!-- 支付后与实际不符的可以调整价格 -->
@@ -255,20 +255,24 @@
       </span>
     </el-dialog>
     <!-- 指定车队长 -->
-    <el-dialog title="请选择车队长" :visible.sync="driverVisible" width="20%">
-      <el-form ref="form" :model="form" label-width="80px">
+    <el-dialog
+      title="请选择车队长"
+      :visible.sync="driverLeaderVisible"
+      width="20%"
+    >
+      <el-form ref="form" :model="form" label-width="100px">
         <el-form-item label="选择车队长">
           <el-select
-            v-model="temp.driver_id"
+            v-model="temp.third_id"
             clearable
             filterable
             placeholder="请选择"
           >
             <el-option
-              v-for="item in driverTable"
-              :key="item.driver_id"
-              :label="item.driver_name"
-              :value="item.driver_id"
+              v-for="item in thirdTable"
+              :key="item.dthird_id"
+              :label="item.third_name"
+              :value="item.third_id"
             >
             </el-option>
           </el-select>
@@ -285,12 +289,13 @@
 <script>
 import {
   getCurrentOrderList,
-  getCurrentDriverByType,
-  getCurrentCarByType,
   cancelOrderByAdmin,
   assignDriver,
-  assignPrice
+  assignPrice,
+  getDriverList
 } from "@/api/order";
+
+import { getDriverLeader } from "@/api/driver";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 
@@ -311,14 +316,20 @@ export default {
       carRadio: "",
       driverRadio: "",
       driverTable: [],
+      thirdTable: [],
       selectedDriver: "",
       carTable: [],
       driverVisible: false,
+      driverLeaderVisible: false,
       dialogFormVisible: false,
       priceVisible: false,
       temp: {
         order_id: "",
         driver_id: ""
+      },
+      third_temp: {
+        order_id: "",
+        third_id: ""
       },
       assignInfo: {
         orderId: null,
@@ -348,6 +359,13 @@ export default {
           this.fetchDriverList();
         }
       }
+    },
+    driverLeaderVisible: {
+      handler(newVal, oldVal) {
+        if (newVal) {
+          this.fetchDriverLeaderList();
+        }
+      }
     }
   },
   methods: {
@@ -362,8 +380,14 @@ export default {
       });
     },
     fetchDriverList() {
-      getCurrentDriverByType().then(response => {
+      console.log("获取司机列表");
+      getDriverList().then(response => {
         this.driverTable = response.data;
+      });
+    },
+    fetchDriverLeaderList() {
+      getDriverLeader().then(response => {
+        this.thirdTable = response.data;
       });
     },
     // 取消未支付的订单
@@ -393,7 +417,10 @@ export default {
       this.driverVisible = true;
       this.temp.order_id = row.order_id;
     },
-
+    showDriverLeaderDialog(row) {
+      this.driverLeaderVisible = true;
+      this.third_temp.order_id = row.order_id;
+    },
     // 指派司机
     assignDriver() {
       if (this.temp.driver_id == "") {
@@ -403,7 +430,24 @@ export default {
         });
         return;
       }
-
+      assignDriver(this.temp).then(response => {
+        this.driverVisible = false;
+        this.$message({
+          message: "订单指派司机成功！",
+          type: "success"
+        });
+        // 重新获取数据
+        this.fetchData();
+      });
+    },
+    assignDriverLeader() {
+      if (this.temp.driver_id == "") {
+        this.$message({
+          message: "请先选择司机和车辆",
+          type: "error"
+        });
+        return;
+      }
       assignDriver(this.temp).then(response => {
         this.driverVisible = false;
         this.$message({
