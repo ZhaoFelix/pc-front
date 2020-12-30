@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-29 08:52:50
+ * @LastEditTime: 2020-12-30 10:16:34
  * @FilePath: /pc-front/src/api/driver/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -22,6 +22,15 @@ export function getDriverLeader() {
   return request({
     url: `${base_path}driver/query/third`,
     method: "get"
+  });
+}
+
+// 订单分配
+export function setDriverLeader(params) {
+  return request({
+    url: `${base_path}driver/update/third`,
+    method: "get",
+    params
   });
 }
 

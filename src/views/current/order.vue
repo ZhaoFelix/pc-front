@@ -263,7 +263,7 @@
       <el-form ref="form" :model="form" label-width="100px">
         <el-form-item label="选择车队长">
           <el-select
-            v-model="temp.third_id"
+            v-model="third_temp.third_id"
             clearable
             filterable
             placeholder="请选择"
@@ -295,7 +295,7 @@ import {
   getDriverList
 } from "@/api/order";
 
-import { getDriverLeader } from "@/api/driver";
+import { getDriverLeader, setDriverLeader } from "@/api/driver";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 
@@ -419,6 +419,7 @@ export default {
     },
     showDriverLeaderDialog(row) {
       this.driverLeaderVisible = true;
+      console.log(row);
       this.third_temp.order_id = row.order_id;
     },
     // 指派司机
@@ -441,17 +442,17 @@ export default {
       });
     },
     assignDriverLeader() {
-      if (this.temp.driver_id == "") {
+      if (this.third_temp.driver_id == "") {
         this.$message({
-          message: "请先选择司机和车辆",
+          message: "请先选择车队",
           type: "error"
         });
         return;
       }
-      assignDriver(this.temp).then(response => {
-        this.driverVisible = false;
+      setDriverLeader(this.third_temp).then(response => {
+        this.driverLeaderVisible = false;
         this.$message({
-          message: "订单指派司机成功！",
+          message: "订单分派成功！",
           type: "success"
         });
         // 重新获取数据
