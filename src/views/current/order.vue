@@ -163,11 +163,12 @@
           <el-button
             plain
             size="mini"
-            v-permission="['1', '2']"
-            v-if="row.order_status == 1 && row.order_third_id == 0"
+            v-permission="['1', '2', '3']"
+            v-if="row.order_status == 1"
             @click="showDriverDialog(row)"
             >指派司机</el-button
           >
+
           <el-button
             plain
             size="mini"
