@@ -7,7 +7,8 @@ const getDefaultState = () => {
     token: getToken(),
     name: "",
     avatar: "",
-    roles: []
+    roles: [],
+    third: ""
   };
 };
 
@@ -41,6 +42,9 @@ const mutations = {
       // 临时账号
       state.roles = ["4"];
     }
+  },
+  SET_THIRD: (state, value) => {
+    state.third = value;
   }
 };
 
@@ -72,14 +76,14 @@ const actions = {
             return reject("Verification failed, please Login again.");
           }
           let tempData = data[0];
-          const { admin_name, admin_type } = tempData;
+          const { admin_name, admin_type, admin_third_id } = tempData;
           commit("SET_NAME", admin_name);
           commit(
             "SET_AVATAR",
             "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
           );
-
           commit("SET_ROLES", admin_type);
+          commit("SET_THIRD", admin_third_id);
           resolve(tempData);
         })
         .catch(error => {

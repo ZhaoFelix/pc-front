@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-30 10:26:26
- * @LastEditTime: 2020-12-30 10:27:07
+ * @LastEditTime: 2020-12-31 09:15:08
  * @FilePath: /pc-front/src/views/current/js/order.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -66,7 +66,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["roles"])
+    ...mapGetters(["roles", "third"])
   },
   created() {
     this.fetchData();
@@ -93,6 +93,7 @@ export default {
       this.listQuery.limit = this.limit;
       this.listQuery.offset = (this.page - 1) * this.limit;
       this.listLoading = true;
+      this.listQuery.third_id = this.third;
       getCurrentOrderList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;

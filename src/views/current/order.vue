@@ -65,7 +65,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="下单类型" align="center" min-width="100">
+      <!-- <el-table-column label="下单类型" align="center" min-width="100">
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.order_user_type == 0 ? 'success' : 'danger'"
@@ -74,7 +74,7 @@
             }}</el-tag
           >
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="装修类型" align="center" min-width="100">
         <template slot-scope="scope">
           <el-tag :type="scope.row.order_type == 0 ? 'success' : 'danger'">{{
@@ -82,20 +82,20 @@
           }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="订单价格" align="center">
+      <el-table-column label="订单价格" align="center" min-width="100">
         <template slot-scope="scope">
           <span style="color:red">{{
             scope.row.order_price == null
               ? "待确定"
-              : scope.row.order_price.toFixed(2)
+              : "￥ " + scope.row.order_price.toFixed(2)
           }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="支付价格" align="center">
+      <el-table-column label="支付价格" align="center" min-width="100">
         <template slot-scope="scope">
           <span style="color:red">{{
-            scope.row.order_final_price + scope.row.second_pay_price
+            "￥" + (scope.row.order_final_price + scope.row.second_pay_price)
           }}</span>
         </template>
       </el-table-column>
@@ -125,6 +125,11 @@
           <el-tag v-if="scope.row.order_status == 6" type="sucess"
             >已完成</el-tag
           >
+        </template>
+      </el-table-column>
+      <el-table-column label="二级派发" align="center" min-width="180">
+        <template slot-scope="scope">
+          <span>{{ scope.row.third_name }}</span>
         </template>
       </el-table-column>
       <el-table-column label="添加时间" align="center" min-width="180">
@@ -159,7 +164,7 @@
             plain
             size="mini"
             v-permission="['1', '2']"
-            v-if="row.order_status == 1"
+            v-if="row.order_status == 1 && row.order_third_id == 0"
             @click="showDriverDialog(row)"
             >指派司机</el-button
           >
@@ -168,7 +173,7 @@
             size="mini"
             type="info"
             v-permission="['1', '2']"
-            v-if="row.order_status == 1"
+            v-if="row.order_status == 1 && row.order_third_id == 0"
             @click="showDriverLeaderDialog(row)"
             >指派车队长</el-button
           >
@@ -245,7 +250,7 @@
       </span>
     </el-dialog>
     <!-- 调整价格 -->
-    <el-dialog title="请订单价格" :visible.sync="priceVisible" width="20%">
+    <el-dialog title="订单价格" :visible.sync="priceVisible" width="20%">
       <el-input
         v-model="assignInfo.assignPrice"
         placeholder="请输入价格"
