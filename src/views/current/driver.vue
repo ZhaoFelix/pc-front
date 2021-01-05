@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-26 14:51:04
+ * @LastEditTime: 2021-01-05 09:10:36
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -154,29 +154,6 @@ import { import } from '@babel/types';
                   <span>{{ item.driver_get_time }}</span>
                 </div>
                 <div class="divider"></div>
-                <div v-if="item.driver_complete_img != null">
-                  <span class="title-style">渣土倾倒:</span>
-                  <center>
-                    <viewer :images="[]">
-                      <el-image
-                        v-for="(item, index) in JSON.parse(
-                          item.driver_complete_img
-                        )"
-                        :key="index"
-                        :src="item.url"
-                        fit="cover"
-                        class="image-thumb"
-                        lazy
-                      />
-                    </viewer>
-                  </center>
-                  <span class="title-style">处理时间：</span>
-                  <span>{{ item.driver_complete_time }}</span>
-                </div>
-                <div
-                  v-if="item.driver_complete_time != null"
-                  class="divider"
-                ></div>
                 <div v-if="item.driver_complete_time != null">
                   <span class="title-style">
                     完成时间：
