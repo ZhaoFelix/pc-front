@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-30 10:26:26
- * @LastEditTime: 2021-01-05 10:30:35
+ * @LastEditTime: 2021-01-05 10:40:53
  * @FilePath: /pc-front/src/views/current/js/order.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -100,8 +100,7 @@ export default {
       });
     },
     fetchDriverList() {
-      console.log("获取司机列表");
-      getDriverList().then(response => {
+      getDriverList({ third: this.third }).then(response => {
         this.driverTable = response.data;
       });
     },
@@ -139,7 +138,6 @@ export default {
     },
     showDriverLeaderDialog(row) {
       this.driverLeaderVisible = true;
-      console.log(row);
       this.third_temp.order_id = row.order_id;
     },
     // 指派司机
@@ -151,7 +149,7 @@ export default {
         });
         return;
       }
-      this.temp.third = this.third;
+
       assignDriver(this.temp).then(response => {
         this.driverVisible = false;
         this.$message({

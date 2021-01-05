@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2020-12-30 10:16:34
+ * @LastEditTime: 2021-01-05 10:38:06
  * @FilePath: /pc-front/src/api/driver/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -42,14 +42,6 @@ export function getCarList(params) {
   });
 }
 
-export function getScheduleList(params) {
-  return request({
-    url: `${base_path}driver/query/schedule`,
-    method: "get",
-    params
-  });
-}
-
 export function getCarListByKeyword(params) {
   return request({
     url: `${base_path}car/query/queryByKeyword`,
@@ -69,14 +61,6 @@ export function getDriverListByKeyword(params) {
 export function getonGoingDriver() {
   return request({
     url: `${base_path}ongoing/driver`,
-    method: "get"
-  });
-}
-
-// 查询今日值班司机
-export function getTodayDriver() {
-  return request({
-    url: `${base_path}driver/query/today`,
     method: "get"
   });
 }
