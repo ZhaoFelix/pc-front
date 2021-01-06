@@ -127,7 +127,7 @@
           >
         </template>
       </el-table-column>
-      <el-table-column label="二级派发" align="center" min-width="180">
+      <el-table-column label="二级指派" align="center" min-width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.third_name }}</span>
         </template>
@@ -164,7 +164,7 @@
             plain
             size="mini"
             v-permission="['1', '2', '3']"
-            v-if="row.order_status == 1"
+            v-if="row.order_status == 1 && row.order_third_id == third"
             @click="showDriverDialog(row)"
             >指派司机</el-button
           >
