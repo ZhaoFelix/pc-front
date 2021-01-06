@@ -82,6 +82,14 @@
           }}</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="指定清运点" align="center" min-width="100">
+        <template slot-scope="scope">
+          <el-tag
+            :type="scope.row.order_is_assign == 1 ? 'success' : 'danger'"
+            >{{ scope.row.order_is_assign == 1 ? "是" : "否" }}</el-tag
+          >
+        </template>
+      </el-table-column>
       <el-table-column label="订单价格" align="center" min-width="100">
         <template slot-scope="scope">
           <span style="color:red">{{
@@ -132,7 +140,7 @@
           <span>{{ scope.row.third_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="添加时间" align="center" min-width="180">
+      <el-table-column label="下单时间" align="center" min-width="180">
         <template slot-scope="scope">
           <span>{{
             scope.row.order_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
