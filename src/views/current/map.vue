@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-06 14:15:27
- * @LastEditTime: 2021-01-06 15:57:48
+ * @LastEditTime: 2021-01-06 16:53:01
  * @FilePath: /pc-front/src/views/current/map.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -13,7 +13,7 @@ import { import } from '@babel/types';
 
 <script>
 import AMap from "@/utils/AMap";
-
+import config from "@/config/config";
 export default {
   name: "Amap",
   data() {
@@ -23,17 +23,18 @@ export default {
       location: {
         lan: 121.462503,
         lat: 30.948094
-      }
+      },
+      plugins: ["AMap.Geocoder"],
+      key: config.mapKey
     };
   },
   methods: {
     async initAmap() {
-      console.log("函数调用");
       try {
-        this.resMap = await AMap();
+        this.resMap = await AMap(this.key, this.plugins);
         this.map = new this.resMap.Map("map", {
           resizeEnable: true, //是否监控地图容器尺寸变化
-          zooms: [3, 19], //设置地图级别范围
+          zooms: [6, 19], //设置地图级别范围
           zoom: 12, //初始化地图层级
           zoomEnable: true, // 是否缩放
           scrollWheel: true, // 是否支持滚轮缩放
@@ -42,7 +43,13 @@ export default {
           buildingAnimation: true, // 模块消失是否有动画效果
           center: [this.location.lan, this.location.lat] //初始化地图中心点
         });
+        this.resMap.plugin("AMap.TooBar", function() {
+          var toolBar = this.resMap.ToolBar();
+          this.resMap.addControl(toolBar);
+        });
+
         this.addMarker();
+        this.drawRouterPath();
       } catch (err) {
         console.error(err);
       }
@@ -56,7 +63,9 @@ export default {
       });
       this.map.add(this.marker);
       this.map.setFitView();
-    }
+    },
+    //绘制路径
+    drawRouterPath() {}
   },
 
   created: {},
