@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2021-01-05 09:10:36
+ * @LastEditTime: 2021-01-06 09:16:33
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -58,7 +58,7 @@ import { import } from '@babel/types';
                 <div>
                   <span class="title-style">渣土图片:</span>
                   <center>
-                    <viewer :images="[]">
+                    <viewer :images="[item.user_place_order_img]">
                       <el-image
                         v-for="(item, index) in JSON.parse(
                           item.user_place_order_img
@@ -119,7 +119,7 @@ import { import } from '@babel/types';
                 <div v-if="item.driver_reach_img != null">
                   <span class="title-style">渣土现场:</span>
                   <center>
-                    <viewer :images="[]">
+                    <viewer :images="[item.driver_reach_img]">
                       <el-image
                         v-for="(item, index) in JSON.parse(
                           item.driver_reach_img
@@ -139,7 +139,7 @@ import { import } from '@babel/types';
                 <div v-if="item.driver_get_img != null">
                   <span class="title-style">渣土装车:</span>
                   <center>
-                    <viewer :images="[]">
+                    <viewer :images="[item.driver_get_img]">
                       <el-image
                         v-for="(item, index) in JSON.parse(item.driver_get_img)"
                         :key="index"
@@ -177,7 +177,8 @@ export default {
   data() {
     return {
       list: [],
-      topActivite: []
+
+      activeNames: []
     };
   },
   methods: {
