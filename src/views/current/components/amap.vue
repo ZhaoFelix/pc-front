@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-01-07 14:22:35
+ * @LastEditTime: 2021-01-07 15:16:54
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -15,6 +15,7 @@
 <script>
 import { lazyAMapApiLoaderInstance } from "vue-amap";
 import { getLocation } from "./common";
+import carImage from "@/assets/car.png";
 const exampleComponents = {
   props: ["text"],
   template: `<div>text from  parent: {{text}}</div>`
@@ -39,15 +40,35 @@ export default {
     //添加点标记
     loadMarkers() {
       var positions = [
-        [116.493195, 39.993253],
-        [116.473195, 39.993253],
-        [116.453195, 39.993253],
-        [116.493195, 39.973253],
-        [116.473195, 39.973253],
-        [116.453195, 39.973253],
-        [116.493195, 39.953253],
-        [116.473195, 39.953253],
-        [116.453195, 39.953253]
+        [
+          this.center[0] + (Math.random() - 0.5) * 0.2,
+          this.center[1] + (Math.random() - 0.5) * 0.2
+        ],
+        [
+          this.center[0] + (Math.random() - 0.5) * 0.2,
+          this.center[1] + (Math.random() - 0.5) * 0.2
+        ],
+
+        [
+          this.center[0] + (Math.random() - 0.5) * 0.2,
+          this.center[1] + (Math.random() - 0.5) * 0.2
+        ],
+        [
+          this.center[0] + (Math.random() - 0.5) * 0.2,
+          this.center[1] + (Math.random() - 0.5) * 0.2
+        ],
+        [
+          this.center[0] + (Math.random() - 0.5) * 0.2,
+          this.center[1] + (Math.random() - 0.5) * 0.2
+        ],
+        [
+          this.center[0] + (Math.random() - 0.5) * 0.2,
+          this.center[1] + (Math.random() - 0.5) * 0.2
+        ],
+        [
+          this.center[0] + (Math.random() - 0.5) * 0.2,
+          this.center[1] + (Math.random() - 0.5) * 0.2
+        ]
       ];
       var anchor = [
         "bottom-left",
@@ -87,15 +108,14 @@ export default {
         this.map.add(pos_marker[i]);
 
         // 创建一个 Icon
-        var imageUrl =
-          "//a.amap.com/jsapi_demos/static/demo-center/marker/icon.png";
+        var imageUrl = carImage;
         icon[i] = new AMap.Icon({
           // 图标尺寸
-          size: new AMap.Size(46, 28),
+          size: new AMap.Size(30, 30),
           // 图标的取图地址
           image: imageUrl,
           // 图标所用图片大小
-          imageSize: new AMap.Size(46, 28)
+          imageSize: new AMap.Size(30, 30)
         });
         // 将 Icon 传入 marker
         var labelOffset = new AMap.Pixel(-23, -28);
@@ -103,11 +123,11 @@ export default {
           position: positions[i],
           icon: icon[i],
           anchor: anchor[i], //设置锚点
-          offset: new AMap.Pixel(0, 0), //设置偏移量
-          label: {
-            content: labelContent,
-            offset: labelOffset
-          }
+          offset: new AMap.Pixel(0, 0) //设置偏移量
+          //   label: {
+          //     content: labelContent,
+          //     offset: labelOffset
+          //   }
         });
         this.map.add(marker[i]);
       }
@@ -119,7 +139,9 @@ export default {
       this.map = new AMap.Map("amap-vue", {
         center: this.center,
         zoom: this.zoom,
-        zooms: this.zooms
+        zooms: this.zooms,
+        viewMode: "3D", //开启3D视图,默认为关闭
+        features: ["bg", "road", "building", "point"]
       });
       //   插件相关配置
       var toolBar = new AMap.ToolBar({
