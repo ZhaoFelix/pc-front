@@ -295,25 +295,6 @@
                 <span class="title-style">处理时间：</span>
                 <span>{{ item.driver_get_time }}</span>
               </div>
-              <div class="divider"></div>
-              <div v-if="item.driver_complete_img != null">
-                <span class="title-style">渣土倾倒:</span>
-                <center>
-                  <viewer :images="[]">
-                    <el-image
-                      v-for="(item, index) in JSON.parse(
-                        item.driver_complete_img
-                      )"
-                      :key="index"
-                      :src="item.url"
-                      fit="cover"
-                      class="image-thumb"
-                    />
-                  </viewer>
-                </center>
-                <span class="title-style">处理时间：</span>
-                <span>{{ item.driver_complete_time }}</span>
-              </div>
               <div
                 v-if="item.driver_complete_time != null"
                 class="divider"
