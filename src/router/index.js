@@ -54,17 +54,17 @@ export const constantRoutes = [
     component: Layout,
     meta: { title: "实时管理", icon: "guide" },
     children: [
+      // {
+      //   path: "map",
+      //   name: "Map",
+      //   component: () => import("@/views/current/map"),
+      //   meta: { title: "实时地图", icon: "international" }
+      // },
       {
         path: "map",
         name: "Map",
-        component: () => import("@/views/current/map"),
-        meta: { title: "实时地图", icon: "international" }
-      },
-      {
-        path: "map2",
-        name: "Map",
         component: () => import("@/views/current/map2"),
-        meta: { title: "实时地图2", icon: "international" }
+        meta: { title: "实时地图", icon: "international" }
       },
       {
         path: "driver",
