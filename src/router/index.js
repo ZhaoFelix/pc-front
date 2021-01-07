@@ -61,6 +61,12 @@ export const constantRoutes = [
         meta: { title: "实时地图", icon: "international" }
       },
       {
+        path: "map2",
+        name: "Map",
+        component: () => import("@/views/current/map2"),
+        meta: { title: "实时地图2", icon: "international" }
+      },
+      {
         path: "driver",
         name: "Cdriver",
         component: () => import("@/views/current/driver"),

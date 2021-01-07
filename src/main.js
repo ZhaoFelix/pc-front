@@ -2,18 +2,16 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-10-26 13:36:47
- * @LastEditTime: 2021-01-06 15:28:12
+ * @LastEditTime: 2021-01-07 08:42:19
  * @FilePath: /pc-front/src/main.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
 import Vue from "vue";
-
 import "normalize.css/normalize.css"; // A modern alternative to CSS resets
-import config from "@/config/config";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import "viewerjs/dist/viewer.css";
-
+import "@/plugin/aMap";
 import "@/styles/index.scss"; // global css
 
 import App from "./App";
