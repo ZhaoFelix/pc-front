@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-01-07 15:16:54
+ * @LastEditTime: 2021-01-08 08:30:57
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -16,10 +16,6 @@
 import { lazyAMapApiLoaderInstance } from "vue-amap";
 import { getLocation } from "./common";
 import carImage from "@/assets/car.png";
-const exampleComponents = {
-  props: ["text"],
-  template: `<div>text from  parent: {{text}}</div>`
-};
 export default {
   name: "Amap",
   data() {
@@ -71,15 +67,13 @@ export default {
         ]
       ];
       var anchor = [
-        "bottom-left",
-        "bottom-center",
-        "bottom-right",
-        "middle-left",
-        "center",
-        "middle-right",
-        "top-left",
-        "top-center",
-        "top-right"
+        "沪A63BED",
+        "沪A63BED",
+        "沪A63BED",
+        "沪A63BED",
+        "沪A63BED",
+        "沪A63BED",
+        "沪A63BED"
       ];
       var pos_icon = [];
       var pos_marker = [];
@@ -89,47 +83,26 @@ export default {
         // 创建一个 Icon
         pos_icon[i] = new AMap.Icon({
           // 图标尺寸
-          size: new AMap.Size(12, 12),
+          size: new AMap.Size(30, 30),
           // 图标的取图地址
-          image:
-            "//a.amap.com/jsapi_demos/static/demo-center/marker/marker.png",
+          image: carImage,
           // 图标所用图片大小
-          imageSize: new AMap.Size(12, 12)
+          imageSize: new AMap.Size(30, 30)
         });
-        var labelContent =
-          "<div class='labelContent'>anchor:" + anchor[i] + "</div>";
+        var labelContent = "<div class='labelContent'>" + anchor[i] + "</div>";
+        var labelOffset = new AMap.Pixel(-20, -20); // top left
         // 将 Icon 传入 marker
         pos_marker[i] = new AMap.Marker({
           position: positions[i],
           icon: pos_icon[i],
           anchor: "center", //设置锚点
-          offset: new AMap.Pixel(0, 0) //设置偏移量
+          offset: new AMap.Pixel(0, 0), //设置偏移量
+          label: {
+            content: labelContent,
+            offset: labelOffset
+          }
         });
         this.map.add(pos_marker[i]);
-
-        // 创建一个 Icon
-        var imageUrl = carImage;
-        icon[i] = new AMap.Icon({
-          // 图标尺寸
-          size: new AMap.Size(30, 30),
-          // 图标的取图地址
-          image: imageUrl,
-          // 图标所用图片大小
-          imageSize: new AMap.Size(30, 30)
-        });
-        // 将 Icon 传入 marker
-        var labelOffset = new AMap.Pixel(-23, -28);
-        marker[i] = new AMap.Marker({
-          position: positions[i],
-          icon: icon[i],
-          anchor: anchor[i], //设置锚点
-          offset: new AMap.Pixel(0, 0) //设置偏移量
-          //   label: {
-          //     content: labelContent,
-          //     offset: labelOffset
-          //   }
-        });
-        this.map.add(marker[i]);
       }
     }
   },
@@ -141,7 +114,8 @@ export default {
         zoom: this.zoom,
         zooms: this.zooms,
         viewMode: "3D", //开启3D视图,默认为关闭
-        features: ["bg", "road", "building", "point"]
+        features: ["bg", "road", "building", "point"],
+        mapStyle: "amap://styles/whitesmoke"
       });
       //   插件相关配置
       var toolBar = new AMap.ToolBar({
@@ -166,5 +140,12 @@ export default {
 .container {
   width: 100%;
   height: 100%;
+}
+.amap-marker-label {
+  border: none;
+  width: 70px;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 11px;
 }
 </style>
