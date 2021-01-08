@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-01-08 08:30:57
+ * @LastEditTime: 2021-01-08 09:59:14
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -22,7 +22,7 @@ export default {
     return {
       map: null,
       zoom: 16,
-      zooms: [3, 18],
+      zooms: [10, 18],
       center: [121.59996, 31.197646],
       events: {
         init: o => {},
@@ -121,9 +121,20 @@ export default {
       var toolBar = new AMap.ToolBar({
         locate: true,
         autoPosition: true,
-        liteStyle: true
+        liteStyle: true,
+        position: "LB"
       });
+      //   鹰眼插件配置
       this.map.addControl(toolBar);
+      var overView = new AMap.OverView({
+        isOpen: false,
+        visible: true
+      });
+      this.map.addControl(overView);
+
+      var scale = new AMap.Scale();
+      this.map.addControl(scale);
+
       // 地图绑定点击事件
       this.map.on("click", e => {
         let loc = getLocation(e);
