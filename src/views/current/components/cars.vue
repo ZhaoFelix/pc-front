@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:43:20
- * @LastEditTime: 2021-01-08 10:31:34
+ * @LastEditTime: 2021-01-08 13:24:38
  * @FilePath: /pc-front/src/views/current/components/cars.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -72,6 +72,7 @@ export default {
 }
 .cell-location {
   padding-left: 45px;
+  cursor: pointer;
 }
 .divider {
   height: 1px;

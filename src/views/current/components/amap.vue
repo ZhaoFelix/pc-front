@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-01-08 11:02:53
+ * @LastEditTime: 2021-01-08 15:05:44
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -16,65 +16,31 @@
 import { lazyAMapApiLoaderInstance } from "vue-amap";
 import { getLocation } from "./common";
 import carImage from "@/assets/car.png";
+
 export default {
-  name: "Amap",
+  props: ["center", "mapData"],
   data() {
     return {
       map: null,
       zoom: 16,
       zooms: [10, 18],
-      center: [121.59996, 31.197646],
       events: {
         init: o => {},
         moveend: () => {},
         zoomchange: () => {},
         click: e => {}
-      }
+      },
+      positions: this.mapData.positions,
+      carNumbers: this.mapData.carNumbers,
+      childCenter: this.center
     };
   },
+  watch: {},
   methods: {
     //添加点标记
     loadMarkers() {
-      var positions = [
-        [
-          this.center[0] + (Math.random() - 0.5) * 0.2,
-          this.center[1] + (Math.random() - 0.5) * 0.2
-        ],
-        [
-          this.center[0] + (Math.random() - 0.5) * 0.2,
-          this.center[1] + (Math.random() - 0.5) * 0.2
-        ],
-
-        [
-          this.center[0] + (Math.random() - 0.5) * 0.2,
-          this.center[1] + (Math.random() - 0.5) * 0.2
-        ],
-        [
-          this.center[0] + (Math.random() - 0.5) * 0.2,
-          this.center[1] + (Math.random() - 0.5) * 0.2
-        ],
-        [
-          this.center[0] + (Math.random() - 0.5) * 0.2,
-          this.center[1] + (Math.random() - 0.5) * 0.2
-        ],
-        [
-          this.center[0] + (Math.random() - 0.5) * 0.2,
-          this.center[1] + (Math.random() - 0.5) * 0.2
-        ],
-        [
-          this.center[0] + (Math.random() - 0.5) * 0.2,
-          this.center[1] + (Math.random() - 0.5) * 0.2
-        ]
-      ];
-      var anchor = [
-        "沪A63BED",
-        "沪A63BED",
-        "沪A63BED",
-        "沪A63BED",
-        "沪A63BED",
-        "沪A63BED",
-        "沪A63BED"
-      ];
+      var positions = this.positions;
+      var anchor = this.carNumbers;
       var pos_icon = [];
       var pos_marker = [];
       var icon = [];
@@ -138,7 +104,7 @@ export default {
       // 地图绑定点击事件
       this.map.on("click", e => {
         let loc = getLocation(e);
-        this.center = [loc.lng, loc.lat];
+        this.childCenter = [loc.lng, loc.lat];
         this.$emit("loc", loc);
       });
       //   地图加载完成
@@ -148,7 +114,8 @@ export default {
         this.loadMarkers();
       });
     });
-  }
+  },
+  created() {}
 };
 </script>
 
