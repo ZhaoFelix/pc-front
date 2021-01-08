@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:43:20
- * @LastEditTime: 2021-01-08 10:08:35
+ * @LastEditTime: 2021-01-08 10:26:43
  * @FilePath: /pc-front/src/views/current/components/cars.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -19,6 +19,10 @@
           <span style="padding-right:4px">状态</span>
           <img src="../../../assets/status.png" class="icon-size" />
         </span>
+        <span class="location">
+          <span style="padding-right:4px">位置</span>
+          <img src="../../../assets/location.png" class="icon-size" />
+        </span>
       </div>
     </div>
     <div class="cell" v-for="i in 20" :key="i">
@@ -29,6 +33,9 @@
             >运输</el-tag
           >
           <el-tag size="mini" effect="dark" v-else>空闲</el-tag>
+        </span>
+        <span class="cell-location">
+          <img src="../../../assets/location.png" class="icon-size" />
         </span>
       </div>
       <div class="divider"></div>
@@ -55,8 +62,11 @@ export default {
 .cell {
   padding: 4px 8px;
 }
-.cell-content span:first-child {
+.cell-content {
   text-align: left;
+}
+.cell-location {
+  padding-left: 45px;
 }
 .divider {
   height: 1px;
@@ -72,12 +82,22 @@ export default {
 .header-icon {
   font-weight: bold;
   line-height: 20px;
+  padding-bottom: 4px;
+  font-size: 13px;
 }
 .car {
+  width: 60px;
+  padding-left: 8px;
   padding-right: 20px;
+  text-align: center;
 }
 .status {
   padding-left: 10px;
+  padding-right: 20px;
+}
+.location {
+  padding-left: 10px;
+  padding-right: 8px;
 }
 .icon-size {
   width: 15px;
