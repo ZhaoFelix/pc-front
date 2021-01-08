@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-01-08 15:25:37
+ * @LastEditTime: 2021-01-08 15:34:38
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -38,6 +38,7 @@ export default {
   watch: {
     center: function(newVal, oldVal) {
       this.childCenter = newVal;
+      this.map.setCenter(this.childCenter);
     }
   },
   methods: {
@@ -74,50 +75,53 @@ export default {
         });
         this.map.add(pos_marker[i]);
       }
+    },
+    loadMap() {
+      lazyAMapApiLoaderInstance.load().then(() => {
+        // your code ...
+        this.map = new AMap.Map("amap-vue", {
+          center: this.childCenter,
+          zoom: this.zoom,
+          zooms: this.zooms,
+          viewMode: "3D", //开启3D视图,默认为关闭
+          features: ["bg", "road", "building", "point"],
+          mapStyle: "amap://styles/whitesmoke"
+        });
+        //   插件相关配置
+        var toolBar = new AMap.ToolBar({
+          locate: true,
+          autoPosition: true,
+          liteStyle: true,
+          position: "LB"
+        });
+        //   鹰眼插件配置
+        this.map.addControl(toolBar);
+        var overView = new AMap.OverView({
+          isOpen: false,
+          visible: true
+        });
+        this.map.addControl(overView);
+
+        var scale = new AMap.Scale();
+        this.map.addControl(scale);
+
+        // 地图绑定点击事件
+        this.map.on("click", e => {
+          let loc = getLocation(e);
+          this.childCenter = [loc.lng, loc.lat];
+          this.$emit("loc", loc);
+        });
+        //   地图加载完成
+        this.map.on("complete", () => {
+          console.log("地图加载完成");
+          this.$parent.loading = false;
+          this.loadMarkers();
+        });
+      });
     }
   },
   mounted() {
-    lazyAMapApiLoaderInstance.load().then(() => {
-      // your code ...
-      this.map = new AMap.Map("amap-vue", {
-        center: this.childCenter,
-        zoom: this.zoom,
-        zooms: this.zooms,
-        viewMode: "3D", //开启3D视图,默认为关闭
-        features: ["bg", "road", "building", "point"],
-        mapStyle: "amap://styles/whitesmoke"
-      });
-      //   插件相关配置
-      var toolBar = new AMap.ToolBar({
-        locate: true,
-        autoPosition: true,
-        liteStyle: true,
-        position: "LB"
-      });
-      //   鹰眼插件配置
-      this.map.addControl(toolBar);
-      var overView = new AMap.OverView({
-        isOpen: false,
-        visible: true
-      });
-      this.map.addControl(overView);
-
-      var scale = new AMap.Scale();
-      this.map.addControl(scale);
-
-      // 地图绑定点击事件
-      this.map.on("click", e => {
-        let loc = getLocation(e);
-        this.childCenter = [loc.lng, loc.lat];
-        this.$emit("loc", loc);
-      });
-      //   地图加载完成
-      this.map.on("complete", () => {
-        console.log("地图加载完成");
-        this.$parent.loading = false;
-        this.loadMarkers();
-      });
-    });
+    this.loadMap();
   },
   created() {}
 };
