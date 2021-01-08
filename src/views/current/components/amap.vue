@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-01-08 15:05:44
+ * @LastEditTime: 2021-01-08 15:25:37
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -35,7 +35,11 @@ export default {
       childCenter: this.center
     };
   },
-  watch: {},
+  watch: {
+    center: function(newVal, oldVal) {
+      this.childCenter = newVal;
+    }
+  },
   methods: {
     //添加点标记
     loadMarkers() {
@@ -76,7 +80,7 @@ export default {
     lazyAMapApiLoaderInstance.load().then(() => {
       // your code ...
       this.map = new AMap.Map("amap-vue", {
-        center: this.center,
+        center: this.childCenter,
         zoom: this.zoom,
         zooms: this.zooms,
         viewMode: "3D", //开启3D视图,默认为关闭

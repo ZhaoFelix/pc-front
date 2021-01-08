@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:43:20
- * @LastEditTime: 2021-01-08 13:24:38
+ * @LastEditTime: 2021-01-08 15:21:02
  * @FilePath: /pc-front/src/views/current/components/cars.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -25,16 +25,19 @@
         </span>
       </div>
     </div>
-    <div class="cell" v-for="i in 20" :key="i">
+    <div class="cell" v-for="(item, index) in mapData.carNumbers" :key="index">
       <div class="cell-content">
         <span class="car-number">沪A677B3</span>
         <span class="car-status">
-          <el-tag size="mini" effect="dark" type="danger" v-if="i % 2 == 0"
+          <el-tag size="mini" effect="dark" type="danger" v-if="index % 2 == 0"
             >运输</el-tag
           >
           <el-tag size="mini" effect="dark" v-else>空闲</el-tag>
         </span>
-        <span class="cell-location" @click="carLocation">
+        <span
+          class="cell-location"
+          @click="carLocation(mapData.positions[index])"
+        >
           <img src="../../../assets/location.png" class="icon-size" />
         </span>
       </div>
@@ -46,9 +49,16 @@
 <script>
 export default {
   name: "Car",
+  props: ["mapData", "center"],
+  data() {
+    return {
+      childCenter: this.center
+    };
+  },
   methods: {
-    carLocation() {
+    carLocation(pos) {
       console.log("车辆位置信息");
+      this.$emit("changeLoc", pos);
     }
   }
 };
