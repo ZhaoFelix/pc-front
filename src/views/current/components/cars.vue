@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:43:20
- * @LastEditTime: 2021-01-08 10:26:43
+ * @LastEditTime: 2021-01-08 10:31:34
  * @FilePath: /pc-front/src/views/current/components/cars.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -34,7 +34,7 @@
           >
           <el-tag size="mini" effect="dark" v-else>空闲</el-tag>
         </span>
-        <span class="cell-location">
+        <span class="cell-location" @click="carLocation">
           <img src="../../../assets/location.png" class="icon-size" />
         </span>
       </div>
@@ -45,7 +45,12 @@
 
 <script>
 export default {
-  name: "Car"
+  name: "Car",
+  methods: {
+    carLocation() {
+      console.log("车辆位置信息");
+    }
+  }
 };
 </script>
 
@@ -78,6 +83,7 @@ export default {
 }
 .car-status {
   padding-left: 10px;
+  font-size: 11px;
 }
 .header-icon {
   font-weight: bold;

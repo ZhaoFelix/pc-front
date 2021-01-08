@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-01-08 09:59:14
+ * @LastEditTime: 2021-01-08 11:02:53
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -141,7 +141,12 @@ export default {
         this.center = [loc.lng, loc.lat];
         this.$emit("loc", loc);
       });
-      this.loadMarkers();
+      //   地图加载完成
+      this.map.on("complete", () => {
+        console.log("地图加载完成");
+        this.$parent.loading = false;
+        this.loadMarkers();
+      });
     });
   }
 };
