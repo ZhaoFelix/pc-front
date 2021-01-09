@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 08:31:35
- * @LastEditTime: 2021-01-07 15:08:11
+ * @LastEditTime: 2021-01-08 16:15:00
  * @FilePath: /pc-front/src/plugin/aMap.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -21,7 +21,8 @@ VueAMap.initAMapApiLoader({
     "AMap.MapType",
     "AMap.PolyEditor",
     "AMap.Circ",
-    "AMap.Map3D"
+    "AMap.Map3D",
+    "AMap.Polyline"
   ],
   v: "1.4.15",
   uiVersion: "1.0.11"
