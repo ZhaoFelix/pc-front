@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-30 10:26:26
- * @LastEditTime: 2021-01-05 10:40:53
+ * @LastEditTime: 2021-01-10 01:29:29
  * @FilePath: /pc-front/src/views/current/js/order.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -188,7 +188,7 @@ export default {
       assignPrice(this.assignInfo).then(response => {
         this.priceVisible = false;
         this.$message({
-          message: response.data.message,
+          message: response.message,
           type: "success"
         });
         // 重新获取数据
