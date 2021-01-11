@@ -35,7 +35,9 @@ export const constantRoutes = [
     path: "/login",
     component: () => import("@/views/login/index"),
     hidden: true
-  },
+  }
+];
+export const asyncRoutes = [
   {
     path: "/",
     component: Layout,
@@ -52,7 +54,7 @@ export const constantRoutes = [
   {
     path: "/current",
     component: Layout,
-    meta: { title: "实时管理", icon: "guide" },
+    meta: { title: "实时管理", icon: "guide", roles: ["1", "2", "3"] },
     children: [
       // {
       //   path: "map",
@@ -64,19 +66,19 @@ export const constantRoutes = [
         path: "map",
         name: "Map",
         component: () => import("@/views/current/map2"),
-        meta: { title: "实时地图", icon: "international" }
+        meta: { title: "实时地图(beta)", icon: "international", roles: ["1"] }
       },
       {
         path: "driver",
         name: "Cdriver",
         component: () => import("@/views/current/driver"),
-        meta: { title: "实时司机", icon: "lock" }
+        meta: { title: "实时司机", icon: "lock", roles: ["1", "2", "3"] }
       },
       {
         path: "order",
         name: "Corder",
         component: () => import("@/views/current/order"),
-        meta: { title: "实时订单", icon: "list" }
+        meta: { title: "实时订单", icon: "list", roles: ["1", "2", "3"] }
       }
     ]
   },
@@ -115,6 +117,20 @@ export const constantRoutes = [
     ]
   },
   {
+    path: "/estate",
+    component: Layout,
+    alwaysShow: true,
+    meta: { title: "物业管理", icon: "peoples", roles: ["1", "2"] },
+    children: [
+      {
+        path: "info",
+        name: "info",
+        component: () => import("@/views/estate/index"),
+        meta: { title: "物业经理人", icon: "user" }
+      }
+    ]
+  },
+  {
     path: "/order",
     component: Layout,
     meta: { title: "订单管理", icon: "shopping" },
@@ -132,22 +148,6 @@ export const constantRoutes = [
       //         import ('@/views/order/error'),
       //     meta: { title: '异常订单', icon: 'bug' }
       // }
-    ]
-  }
-];
-export const asyncRoutes = [
-  {
-    path: "/estate",
-    component: Layout,
-    alwaysShow: true,
-    meta: { title: "物业管理", icon: "peoples" },
-    children: [
-      {
-        path: "info",
-        name: "info",
-        component: () => import("@/views/estate/index"),
-        meta: { title: "物业经理人", icon: "user" }
-      }
     ]
   },
   // 仅管理员可见
