@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2021-01-06 09:16:33
+ * @LastEditTime: 2021-01-11 15:30:58
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -169,6 +169,15 @@ import { import } from '@babel/types';
       </div>
       <br />
     </el-card>
+    <!-- 使用注意 -->
+    <div class="tip">
+      <h3 style="color:red">注意：</h3>
+      <ul>
+        <li>
+          该页面仅显示当天的订单。
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -257,6 +266,13 @@ export default {
 .title {
   font-weight: bold;
 }
+.tip {
+  margin-left: 0.5%;
+}
+.tip li {
+  line-height: 18px;
+}
+
 >>> .el-card__body {
   padding: 10px;
 }
