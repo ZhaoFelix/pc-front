@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2021-01-11 15:30:58
+ * @LastEditTime: 2021-01-11 15:41:46
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -28,9 +28,9 @@ import { import } from '@babel/types';
               已完成
             </span>
           </div>
-          <div v-for="o in 1" :key="o" class="text item">
+          <div class="text item">
             <el-collapse v-model="activeNames" @change="handleChange">
-              <el-collapse-item title="用户信息" name="1">
+              <el-collapse-item title="用户信息" :name="1 + item.order_number">
                 <div>
                   <span class="title-style">
                     用户名：
@@ -72,7 +72,7 @@ import { import } from '@babel/types';
                   </center>
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="司机信息" name="2">
+              <el-collapse-item title="司机信息" :name="2 + item.order_number">
                 <div>
                   <span class="title-style">
                     司机姓名：
@@ -98,7 +98,7 @@ import { import } from '@babel/types';
                   </span>
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="实时行程" name="3">
+              <el-collapse-item title="实时行程" :name="3 + item.order_number">
                 <div v-if="item.driver_go_des != null">
                   <span class="title-style">
                     司机接单时间：
@@ -186,7 +186,6 @@ export default {
   data() {
     return {
       list: [],
-
       activeNames: []
     };
   },
