@@ -100,19 +100,19 @@ export const asyncRoutes = [
     path: "/driver",
     component: Layout,
     name: "DriverManage",
-    meta: { title: "司机管理", icon: "people" },
+    meta: { title: "司机管理", icon: "people", roles: ["1", "2", "3"] },
     children: [
       {
         path: "driver",
         name: "Driver",
         component: () => import("@/views/driver/index"),
-        meta: { title: "司机信息", icon: "peoples" }
+        meta: { title: "司机信息", icon: "peoples", roles: ["1", "2", "3"] }
       },
       {
         path: "car",
         name: "Car",
         component: () => import("@/views/driver/car"),
-        meta: { title: "车辆信息", icon: "peoples" }
+        meta: { title: "车辆信息", icon: "peoples", roles: ["1", "2", "3"] }
       }
     ]
   },
@@ -133,7 +133,7 @@ export const asyncRoutes = [
   {
     path: "/order",
     component: Layout,
-    meta: { title: "订单管理", icon: "shopping" },
+    meta: { title: "订单管理", icon: "shopping", roles: ["1", "2", "3"] },
     children: [
       {
         path: "list",
