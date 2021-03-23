@@ -339,7 +339,7 @@ export default {
     },
     addAdmin() {
       console.log(this.roles);
-      if (this.list.length >= 5) {
+      if (this.list.length >= 25) {
         this.$message.error("管理员用户最多不能超过5个");
       } else {
         // 获取角色类型列表
