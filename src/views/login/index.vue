@@ -123,7 +123,8 @@ export default {
           this.$store
             .dispatch("user/login", this.loginForm)
             .then(() => {
-              this.$router.push({ path: this.redirect || "/" });
+              // 忽略重定向问题，直接跳转到首页
+              this.$router.push({ path: "/" });
               this.loading = false;
             })
             .catch(() => {

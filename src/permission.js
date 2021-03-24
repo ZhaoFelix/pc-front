@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-10-26 13:36:47
- * @LastEditTime: 2020-12-28 10:23:07
+ * @LastEditTime: 2021-03-24 09:58:26
  * @FilePath: /pc-front/src/permission.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */

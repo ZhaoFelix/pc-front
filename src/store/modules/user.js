@@ -19,6 +19,7 @@ const mutations = {
     Object.assign(state, getDefaultState());
   },
   SET_TOKEN: (state, token) => {
+    console.log("token");
     state.token = token;
   },
   SET_NAME: (state, name) => {
@@ -28,7 +29,6 @@ const mutations = {
     state.avatar = avatar;
   },
   SET_ROLES: (state, type) => {
-    console.log("角色类型为：", type);
     if (type == 1) {
       // 管理员
       state.roles = ["1"];

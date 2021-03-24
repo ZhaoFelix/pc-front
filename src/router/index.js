@@ -59,15 +59,9 @@ export const asyncRoutes = [
       // {
       //   path: "map",
       //   name: "Map",
-      //   component: () => import("@/views/current/map"),
-      //   meta: { title: "实时地图", icon: "international" }
+      //   component: () => import("@/views/current/map2"),
+      //   meta: { title: "实时地图(beta)", icon: "international", roles: ["1"] }
       // },
-      {
-        path: "map",
-        name: "Map",
-        component: () => import("@/views/current/map2"),
-        meta: { title: "实时地图(beta)", icon: "international", roles: ["1"] }
-      },
       {
         path: "driver",
         name: "Cdriver",
