@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-10-26 13:36:47
- * @LastEditTime: 2021-03-18 13:16:36
+ * @LastEditTime: 2021-03-24 18:25:45
  * @FilePath: /pc-front/src/utils/request.js
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -42,8 +42,8 @@ service.interceptors.response.use(
         type: "error",
         duration: 5 * 1000
       });
-
-      if (res.code === -2) {
+      // console.log(res);
+      if (res.code === 43200) {
         // to re-login
         MessageBox.confirm("Token 失效，请重新登录", "确认退出登录", {
           confirmButtonText: "重新登录",
@@ -61,9 +61,14 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log("err" + error); // for debug
+    console.log("err" + error + response); // for debug
+    let message = error.message || "请求失败";
+    if (error.response && error.response.data) {
+      const { data } = error.response;
+      message = data.msg;
+    }
     Message({
-      message: error.message,
+      message: message,
       type: "error",
       duration: 5 * 1000
     });
