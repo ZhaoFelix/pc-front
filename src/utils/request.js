@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-10-26 13:36:47
- * @LastEditTime: 2021-03-25 09:14:26
+ * @LastEditTime: 2021-03-25 09:20:26
  * @FilePath: /pc-front/src/utils/request.js
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -73,7 +73,7 @@ service.interceptors.response.use(
           location.reload();
         });
       } else {
-        message = message + "，请联系管理修改。";
+        message = message + "。出错，请联系开发人员检查。";
       }
     }
     Message({

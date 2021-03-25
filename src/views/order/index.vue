@@ -10,7 +10,7 @@
       highlight-current-row
       style="margin-top:10px"
     >
-      <el-table-column align="center" label="订单号" min-width="130" fixed="">
+      <el-table-column align="center" label="订单号" min-width="200" fixed>
         <template slot-scope="scope"
           ><span>
             {{ scope.row.order_number }}
@@ -31,7 +31,7 @@
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="用户手机号">
+      <el-table-column align="center" label="用户手机号" min-width="110">
         <template slot-scope="scope"
           ><span>
             {{ scope.row.user_phone }}
@@ -52,14 +52,14 @@
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="司机手机号">
+      <el-table-column align="center" label="司机手机号" min-width="110">
         <template slot-scope="scope"
           ><span>
             {{ scope.row.driver_phone }}
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="下单形式">
+      <!-- <el-table-column align="center" label="下单形式">
         <template slot-scope="scope"
           ><el-tag
             :type="scope.row.order_user_type == 1 ? 'success' : 'danger'"
@@ -67,7 +67,7 @@
             {{ scope.row.order_user_type == 1 ? "物业下单" : "普通下单" }}
           </el-tag></template
         >
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column align="center" label="订单类型">
         <template slot-scope="scope"
           ><el-tag :type="scope.row.order_type == 1 ? 'success' : 'danger'">
@@ -75,14 +75,14 @@
           </el-tag></template
         >
       </el-table-column>
-      <el-table-column align="center" label="用户预约时间" min-width="100">
+      <el-table-column align="center" label="用户预约时间" min-width="120">
         <template slot-scope="scope"
           ><span>
             {{ scope.row.user_reserve_time | parseTime("{y}-{m}-{d} {h}:{i}") }}
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="订单完成时间" min-width="100">
+      <el-table-column align="center" label="订单完成时间" min-width="120">
         <template slot-scope="scope"
           ><span v-if="scope.row.driver_complete_time != null">
             {{
