@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2020-12-18 15:30:23
+ * @LastEditTime: 2021-03-30 10:59:45
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -10,7 +10,17 @@
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
-      <center><p>最近一周订单量</p></center>
+      <center>
+        <p>
+          {{
+            type == "wechat"
+              ? "最近一周用户增长"
+              : type == "order"
+              ? "最近一周订单量"
+              : "其他"
+          }}
+        </p>
+      </center>
       <div class="chart-wrapper">
         <line-chart :chart-data="lineChartData" :x-data="XData" />
       </div>
@@ -35,15 +45,18 @@ export default {
   data() {
     return {
       lineChartData: lineChartData,
-      XData
+      XData,
+      type: "order"
     };
   },
   methods: {
     handleSetLineChartData(type) {
-      this.lineChartData = lineChartData[type];
+      console.log(type);
+      this.type = type;
+      this.fetchData();
     },
     fetchData() {
-      queryWeek().then(response => {
+      queryWeek({ type: this.type }).then(response => {
         let result = response.data;
         let days = [];
         let count = [];

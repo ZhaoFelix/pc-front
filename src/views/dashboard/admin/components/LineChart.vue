@@ -97,7 +97,7 @@ export default {
         },
         series: [
           {
-            name: "订单数",
+            name: "增长数",
             itemStyle: {
               normal: {
                 color: "#FF005A",
