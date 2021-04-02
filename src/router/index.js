@@ -56,12 +56,12 @@ export const asyncRoutes = [
     component: Layout,
     meta: { title: "实时管理", icon: "guide", roles: ["1", "2", "3"] },
     children: [
-      // {
-      //   path: "map",
-      //   name: "Map",
-      //   component: () => import("@/views/current/map2"),
-      //   meta: { title: "实时地图(beta)", icon: "international", roles: ["1"] }
-      // },
+      {
+        path: "map",
+        name: "Map",
+        component: () => import("@/views/current/map2"),
+        meta: { title: "实时地图(beta)", icon: "international", roles: ["1"] }
+      },
       {
         path: "driver",
         name: "Cdriver",

@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-01-09 23:46:36
+ * @LastEditTime: 2021-04-02 15:36:46
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -44,6 +44,7 @@ export default {
   methods: {
     //添加点标记
     loadMarkers() {
+      console.log(this.positions);
       var positions = this.positions;
       var anchor = this.carNumbers;
       var pos_icon = [];
