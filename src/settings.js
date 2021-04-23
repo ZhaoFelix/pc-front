@@ -1,6 +1,5 @@
 module.exports = {
-
-  title: '渣土回收',
+  title: "装修垃圾清运",
 
   /**
    * @type {boolean} true | false
@@ -14,4 +13,4 @@ module.exports = {
    */
   // 是否显示左上角的logo
   sidebarLogo: false
-}
+};

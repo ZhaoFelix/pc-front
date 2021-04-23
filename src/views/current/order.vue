@@ -36,13 +36,20 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="渣土面积" align="center" min-width="100">
+      <el-table-column label="渣土面积/箱数" align="center" min-width="120">
         <template slot-scope="scope">
-          <span>
+          <span v-if="scope.row.order_type == 1">
             {{ scope.row.order_size + " m²" }}
+          </span>
+          <span v-if="scope.row.order_type == 2">
+            无
+          </span>
+          <span v-if="scope.row.order_type == 3">
+            {{ scope.row.box_number + " 箱" }}
           </span>
         </template>
       </el-table-column>
+
       <el-table-column label="渣土图片" align="center" min-width="200">
         <template slot-scope="scope">
           <viewer :images="[scope.row.wechat_avatar]">
@@ -75,11 +82,17 @@
           >
         </template>
       </el-table-column> -->
-      <el-table-column label="装修类型" align="center" min-width="100">
+      <el-table-column label="装修类型" align="center" min-width="120">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.order_type == 0 ? 'success' : 'danger'">{{
-            scope.row.order_type == 0 ? "普通装修" : "商业装修"
-          }}</el-tag>
+          <el-tag type="danger" v-if="scope.row.order_type == 1">
+            居民装修清运
+          </el-tag>
+          <el-tag type="warning" v-if="scope.row.order_type == 2">
+            商业装修清运
+          </el-tag>
+          <el-tag type="success" v-if="scope.row.order_type == 3">
+            垃圾箱清运
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="指定清运点" align="center" min-width="100">
@@ -216,12 +229,12 @@
     <div class="tip">
       <h3 style="color:red">注意：</h3>
       <ul>
-        <li>
+        <!-- <li>
           调整差价：该操纵仅能操作普通装修的订单，且只有当司机到达现场确定后才能进行价格调整，每个订单只能调整一次差价；
         </li>
         <li>
           确定价格：该操作仅对商业装修的订单有效，且每个订单只能进行一次价格确定；
-        </li>
+        </li> -->
         <li>
           取消订单：取消订单对所有类型的未支付订单有效，订单取消后将无法进行恢复和支付。
         </li>
