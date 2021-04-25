@@ -149,7 +149,7 @@ export const asyncRoutes = [
     path: "/admin",
     component: Layout,
     alwaysShow: true,
-    meta: { title: "管理员", icon: "lock", roles: ["1"] },
+    meta: { title: "管理员", icon: "lock", roles: ["1", "2"] },
     children: [
       {
         path: "admin",
@@ -161,7 +161,7 @@ export const asyncRoutes = [
         path: "cashier",
         name: "cashier",
         component: () => import("@/views/admin/cashier"),
-        meta: { title: "收费员验证码", icon: "user", roles: ["1"] }
+        meta: { title: "收费员验证码", icon: "user", roles: ["1", "2"] }
       },
       {
         path: "category",
