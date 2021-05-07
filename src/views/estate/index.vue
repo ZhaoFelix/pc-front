@@ -173,7 +173,8 @@
 import {
   getEstateList,
   getEstateListByKeyword,
-  getDeleteEstate
+  getDeleteEstate,
+  getEditEstate
 } from "@/api/estate";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
@@ -297,7 +298,18 @@ export default {
       }
     },
 
-    updateInfo() {}
+    updateInfo() {
+      getEditEstate(this.edit_info).then(response => {
+        if (response.code == 20000) {
+          this.$message({
+            type: "success",
+            message: "更新成功!"
+          });
+          this.dialogVisible = false;
+          this.fetchData();
+        }
+      });
+    }
   }
 };
 </script>
