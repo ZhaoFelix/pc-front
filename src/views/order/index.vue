@@ -69,11 +69,17 @@
         >
       </el-table-column> -->
       <el-table-column align="center" label="订单类型">
-        <template slot-scope="scope"
-          ><el-tag :type="scope.row.order_type == 1 ? 'success' : 'danger'">
-            {{ scope.row.order_type == 1 ? "商业装修" : "普通装修" }}
-          </el-tag></template
-        >
+        <template slot-scope="scope">
+          <el-tag type="danger" v-if="scope.row.order_type == 1">
+            居民装修清运
+          </el-tag>
+          <el-tag type="warning" v-if="scope.row.order_type == 2">
+            商业装修清运
+          </el-tag>
+          <el-tag type="success" v-if="scope.row.order_type == 3">
+            垃圾箱清运
+          </el-tag>
+        </template>
       </el-table-column>
       <el-table-column align="center" label="用户预约时间" min-width="120">
         <template slot-scope="scope"

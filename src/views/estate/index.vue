@@ -49,12 +49,12 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="所属公司" align="center" width="200">
+      <el-table-column label="所属物业公司" align="center" width="200">
         <template slot-scope="scope">
           <span>{{ scope.row.estate_company }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="所属物业" align="center">
+      <el-table-column label="所属小区" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.estate_plot }}</span>
         </template>
@@ -99,30 +99,24 @@
       <el-table-column
         label="操作"
         align="center"
-        v-if="roles == 2"
-        width="290"
+        v-if="roles.includes('1')"
+        width="190"
         class-name="small-padding fixed-width"
       >
         <template slot-scope="{ row }">
-          <el-tooltip
-            class="item"
-            effect="dark"
-            v-if="author == row.admin_id"
-            content="密码修改"
-            placement="top"
-          >
+          <el-tooltip class="item" effect="dark" content="修改" placement="top">
             <el-button
               type="primary"
               icon="el-icon-edit"
               circle
               plain
-              @click="handleDelete(row)"
+              @click="handleEdit(row)"
             ></el-button>
           </el-tooltip>
           <el-tooltip
+            v-if="row.estate_is_auth == 0"
             class="item"
             effect="dark"
-            v-if="author == row.admin_id"
             content="删除"
             placement="top"
           >
@@ -148,7 +142,11 @@
 </template>
 
 <script>
-import { getEstateList, getEstateListByKeyword } from "@/api/estate";
+import {
+  getEstateList,
+  getEstateListByKeyword,
+  getDeleteEstate
+} from "@/api/estate";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
@@ -162,7 +160,6 @@ let MD5 = function(pwd) {
 
 export default {
   components: { Pagination },
-
   data() {
     return {
       list: [],
@@ -200,6 +197,7 @@ export default {
   },
   methods: {
     fetchData() {
+      console.log(this.roles.includes("1"));
       this.list = [];
       this.listQuery.limit = this.limit;
       this.listQuery.offset = (this.page - 1) * this.limit;
@@ -225,7 +223,15 @@ export default {
         this.fetchData();
         this.keyword = "";
       }
-    }
+    },
+    handleDelete(row) {
+      getDeleteEstate({ estate_id: row.estate_id }).then(response => {
+        if (response.code == 20000) {
+          this.fetchData();
+        }
+      });
+    },
+    handleEdit(row) {}
   }
 };
 </script>
