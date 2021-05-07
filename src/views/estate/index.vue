@@ -138,6 +138,34 @@
       :limit.sync="limit"
       @pagination="fetchData"
     />
+    <el-dialog
+      title="修改信息"
+      :visible.sync="dialogVisible"
+      width="20%"
+      :before-close="handleClose"
+    >
+      <el-form ref="edit_info" :model="edit_info" label-width="80px">
+        <el-form-item label="姓名">
+          <el-input v-model="edit_info.estate_name" width="100px"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号">
+          <el-input v-model="edit_info.estate_phone" width="100px"></el-input>
+        </el-form-item>
+        <el-form-item label="物业公司">
+          <el-input v-model="edit_info.estate_company" width="100px"></el-input>
+        </el-form-item>
+        <el-form-item label="所属小区">
+          <el-input v-model="edit_info.estate_plot" width="100px"></el-input>
+        </el-form-item>
+        <el-form-item label="所属居委">
+          <el-input v-model="edit_info.estate_region" width="100px"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="updateInfo">立即更新</el-button>
+          <el-button @click="dialogVisible = false">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -170,6 +198,15 @@ export default {
       keyword: "",
       isSearch: false,
       dialogFormVisible: false,
+      dialogVisible: false,
+      edit_info: {
+        estate_name: "",
+        estate_phone: "",
+        estate_compnay: "",
+        estate_plot: "",
+        estate_region: "",
+        esatet_gender: ""
+      },
       temp: {
         admin_name: "",
         admin_login_name: "",
@@ -225,13 +262,42 @@ export default {
       }
     },
     handleDelete(row) {
-      getDeleteEstate({ estate_id: row.estate_id }).then(response => {
-        if (response.code == 20000) {
-          this.fetchData();
-        }
-      });
+      this.$confirm("删除后将无法进行恢复，是否继续？", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          getDeleteEstate({ estate_id: row.estate_id }).then(response => {
+            if (response.code == 20000) {
+              this.$message({
+                type: "success",
+                message: "删除成功!"
+              });
+              this.fetchData();
+            } else {
+              this.$message({
+                type: "error",
+                message: "删除失败！"
+              });
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消删除!"
+          });
+        });
     },
-    handleEdit(row) {}
+    handleEdit(row) {
+      if (row != null) {
+        this.edit_info = row;
+        this.dialogVisible = true;
+      }
+    },
+
+    updateInfo() {}
   }
 };
 </script>
