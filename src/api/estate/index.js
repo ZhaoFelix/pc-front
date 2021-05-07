@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-12 10:14:40
- * @LastEditTime: 2021-05-07 11:20:01
+ * @LastEditTime: 2021-05-07 15:26:33
  * @FilePath: /pc-front/src/api/estate/index.js
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -35,6 +35,14 @@ export function getDeleteEstate(params) {
 export function getEditEstate(params) {
   return request({
     url: `${base_path}estate/update/edit`,
+    method: "get",
+    params
+  });
+}
+
+export function getAddEstate(params) {
+  return request({
+    url: `${base_path}estate/insert/add`,
     method: "get",
     params
   });
