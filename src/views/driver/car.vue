@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row :gutter="10">
-      <el-col :span="2" v-if="roles.includes('1')"
+      <el-col :span="2" v-if="roles.includes('1') || roles.includes('2')"
         ><el-button type="success" @click="dialogFormVisible = true"
           >添加</el-button
         ></el-col
@@ -80,7 +80,7 @@
       <el-table-column
         label="操作"
         align="center"
-        v-if="roles.includes('1')"
+        v-if="roles.includes('1') || roles.includes('2')"
         width="190"
         class-name="small-padding fixed-width"
       >
