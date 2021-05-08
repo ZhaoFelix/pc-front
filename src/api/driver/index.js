@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2021-01-05 10:38:06
+ * @LastEditTime: 2021-05-08 09:18:15
  * @FilePath: /pc-front/src/api/driver/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -62,5 +62,28 @@ export function getonGoingDriver() {
   return request({
     url: `${base_path}ongoing/driver`,
     method: "get"
+  });
+}
+
+export function getDeleteDriver(params) {
+  return request({
+    url: `${base_path}driver/update/delete`,
+    method: "get",
+    params
+  });
+}
+export function getEditDriver(params) {
+  return request({
+    url: `${base_path}driver/update/edit`,
+    method: "get",
+    params
+  });
+}
+
+export function getAddDriver(params) {
+  return request({
+    url: `${base_path}driver/insert/add`,
+    method: "get",
+    params
   });
 }
