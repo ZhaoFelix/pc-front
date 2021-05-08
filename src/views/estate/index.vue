@@ -381,17 +381,25 @@ export default {
       });
     },
     addEstate() {
-      getAddEstate(this.add_info).then(response => {
-        if (response.code == 20000) {
-          this.$message({
-            type: "success",
-            message: "添加成功!"
+      this.$refs["add_info"].validate(valid => {
+        if (valid) {
+          getAddEstate(this.add_info).then(response => {
+            if (response.code == 20000) {
+              this.$message({
+                type: "success",
+                message: "添加成功!"
+              });
+              this.dialogFormVisible = false;
+              this.fetchData();
+            }
           });
-          this.dialogFormVisible = false;
-          this.fetchData();
+        } else {
+          this.$message({
+            type: "info",
+            message: "信息填写不完整!"
+          });
         }
       });
-      console.log(this.add_info);
     }
   }
 };
