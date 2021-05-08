@@ -146,7 +146,7 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <!-- 添加物业 -->
+    <!-- 添加司机 -->
     <el-dialog title="添加" :visible.sync="dialogFormVisible" width="25%">
       <el-form
         ref="add_info"
@@ -163,6 +163,17 @@
         <el-form-item label="身份证号" prop="driver_card_id">
           <el-input v-model="add_info.driver_card_id" width="100px"></el-input>
         </el-form-item>
+        <el-form-item label="所属车队" prop="third_id">
+          <el-select v-model="add_info.third_id" placeholder="请选择所属车队">
+            <el-option
+              v-for="item in thirdTable"
+              :key="item.third_id"
+              :label="item.third_name"
+              :value="item.third_id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addDriver">立即添加</el-button>
           <el-button @click="dialogFormVisible = false">取消</el-button>
@@ -178,7 +189,8 @@ import {
   getDriverListByKeyword,
   getDeleteDriver,
   getEditDriver,
-  getAddDriver
+  getAddDriver,
+  getDriverLeader
 } from "@/api/driver";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
@@ -206,6 +218,12 @@ export default {
       isSearch: false,
       dialogFormVisible: false,
       dialogVisible: false,
+      thirdTable: [
+        {
+          third_name: "群欣车队",
+          third_id: "0"
+        }
+      ],
       temp: {
         admin_name: "",
         admin_login_name: "",
@@ -220,7 +238,8 @@ export default {
       add_info: {
         driver_name: "",
         driver_phone: "",
-        driver_card_id: ""
+        driver_card_id: "",
+        third_id: ""
       },
       rules: {
         driver_name: [
@@ -235,10 +254,11 @@ export default {
           {
             min: 18,
             max: 18,
-            message: "请输入长度为18位的身份正好",
+            message: "请输入长度为18位的身份证号",
             trigger: "blur"
           }
-        ]
+        ],
+        third_id: [{ required: true, message: "请选择车队", trigger: "blur" }]
       },
       imageUrl: "",
       typeList: null,
@@ -256,6 +276,15 @@ export default {
   created() {
     // console.log(this.roles, this.author);
     this.fetchData();
+  },
+  watch: {
+    dialogFormVisible: {
+      handler(newVal, oldVal) {
+        if (newVal) {
+          this.fetchDriverLeaderList();
+        }
+      }
+    }
   },
   methods: {
     fetchData() {
@@ -342,6 +371,13 @@ export default {
                 message: "添加成功!"
               });
               this.dialogFormVisible = false;
+              this.add_info = {
+                driver_name: "",
+                driver_phone: "",
+                driver_card_id: "",
+                third_id: ""
+              };
+
               this.fetchData();
             }
           });
@@ -351,6 +387,17 @@ export default {
             message: "信息填写不完整!"
           });
         }
+      });
+    },
+    fetchDriverLeaderList() {
+      this.thirdTable = [
+        {
+          third_name: "群欣车队",
+          third_id: "0"
+        }
+      ];
+      getDriverLeader().then(response => {
+        this.thirdTable = this.thirdTable.concat(response.data);
       });
     }
   }

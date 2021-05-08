@@ -1,6 +1,11 @@
 <template>
   <div class="app-container">
     <el-row :gutter="10">
+      <el-col :span="2" v-if="roles.includes('1')"
+        ><el-button type="success" @click="dialogFormVisible = true"
+          >添加</el-button
+        ></el-col
+      >
       <el-col :span="6">
         <el-input v-model="keyword" placeholder="请输入车牌号"></el-input
       ></el-col>
@@ -63,21 +68,21 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="是否是备车" align="center">
+      <!-- <el-table-column label="是否是备车" align="center">
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.car_is_substitues == 1 ? 'success' : 'danger'"
             >{{ scope.row.car_is_substitues == 1 ? "是" : "否" }}</el-tag
           >
         </template>
-      </el-table-column>
-      <el-table-column label="车辆运输路线" align="center">
+      </el-table-column> -->
+      <!-- <el-table-column label="车辆运输路线" align="center">
         <template slot-scope="scope">
           <span>
             {{ scope.row.car_router_note }}
           </span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="添加时间" align="center">
         <template slot-scope="scope">
           <span>{{

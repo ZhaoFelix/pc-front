@@ -269,7 +269,7 @@ export default {
           {
             min: 18,
             max: 18,
-            message: "请输入长度为18位的身份正好",
+            message: "请输入长度为18位的证号",
             trigger: "blur"
           }
         ],
