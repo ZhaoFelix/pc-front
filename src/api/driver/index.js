@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2021-05-08 09:18:15
+ * @LastEditTime: 2021-05-08 10:49:37
  * @FilePath: /pc-front/src/api/driver/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -83,6 +83,29 @@ export function getEditDriver(params) {
 export function getAddDriver(params) {
   return request({
     url: `${base_path}driver/insert/add`,
+    method: "get",
+    params
+  });
+}
+
+export function getDeleteCar(params) {
+  return request({
+    url: `${base_path}car/update/delete`,
+    method: "get",
+    params
+  });
+}
+export function getEditCar(params) {
+  return request({
+    url: `${base_path}car/update/edit`,
+    method: "get",
+    params
+  });
+}
+
+export function getAddCar(params) {
+  return request({
+    url: `${base_path}car/insert/add`,
     method: "get",
     params
   });
