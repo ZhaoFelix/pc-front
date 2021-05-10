@@ -15,11 +15,6 @@
           <span>{{ scope.row.order_number }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="二次支付订单号" align="center" min-width="190">
-        <template slot-scope="scope">
-          <span>{{ scope.row.new_order_number }}</span>
-        </template>
-      </el-table-column>
       <el-table-column label="微信昵称" align="center">
         <template slot-scope="scope">
           <span>
@@ -177,6 +172,11 @@
           <span>{{
             scope.row.order_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
           }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="二次支付订单号" align="center" min-width="190">
+        <template slot-scope="scope">
+          <span>{{ scope.row.new_order_number }}</span>
         </template>
       </el-table-column>
       <!-- 操作 -->
