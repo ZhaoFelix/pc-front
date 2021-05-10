@@ -15,6 +15,11 @@
           <span>{{ scope.row.order_number }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="二次支付订单号" align="center" min-width="190">
+        <template slot-scope="scope">
+          <span>{{ scope.row.new_order_number }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="微信昵称" align="center">
         <template slot-scope="scope">
           <span>
@@ -22,17 +27,31 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="用户手机号" align="center" min-width="110">
+      <el-table-column label="物业姓名" align="center">
+        <template slot-scope="scope">
+          <span>
+            {{ scope.row.estate_name }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column label="物业手机号" align="center" min-width="110">
+        <template slot-scope="scope">
+          <span>
+            {{ scope.row.estate_phone }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column label="下单手机号" align="center" min-width="110">
         <template slot-scope="scope">
           <span>
             {{ scope.row.user_phone }}
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="用户地址" align="center" width="200">
+      <el-table-column label="用户地址" align="center" width="240">
         <template slot-scope="scope">
           <span>
-            {{ scope.row.user_address }}
+            {{ scope.row.user_address + "（" + scope.row.estate_plot + "）" }}
           </span>
         </template>
       </el-table-column>
