@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2021-01-11 15:41:46
+ * @LastEditTime: 2021-05-11 15:20:35
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -209,8 +209,8 @@ export default {
 
 <style scoped>
 .cardTable {
-  width: 25%;
-  margin: 1%;
+  width: 29%;
+  margin: 2%;
   float: left;
 }
 .text {
@@ -227,8 +227,8 @@ export default {
 }
 
 .bgCard {
-  margin: 0.5%;
-  width: 99%;
+  margin: 2%;
+  width: 96%;
 }
 
 .image-thumb {
