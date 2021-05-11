@@ -120,7 +120,7 @@
             ></el-button>
           </el-tooltip>
           <el-tooltip
-            v-if="row.estate_is_auth == 0"
+            v-if="row.is_exist_order == 0"
             class="item"
             effect="dark"
             content="删除"

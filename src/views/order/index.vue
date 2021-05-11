@@ -71,10 +71,10 @@
       <el-table-column align="center" label="订单类型">
         <template slot-scope="scope">
           <el-tag type="danger" v-if="scope.row.order_type == 1">
-            居民装修清运
+            居民装修
           </el-tag>
           <el-tag type="warning" v-if="scope.row.order_type == 2">
-            商业装修清运
+            商业装修
           </el-tag>
           <el-tag type="success" v-if="scope.row.order_type == 3">
             垃圾箱清运
