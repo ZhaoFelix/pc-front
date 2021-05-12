@@ -10,7 +10,7 @@
       highlight-current-row
       style="margin-top:10px;width:100%;"
     >
-      <el-table-column label="订单号" align="center" min-width="190" fixed>
+      <el-table-column label="订单号" align="center" min-width="185" fixed>
         <template slot-scope="scope">
           <span>{{ scope.row.order_number }}</span>
         </template>
@@ -185,7 +185,7 @@
         label="操作"
         align="center"
         class-name="small-padding fixed-width"
-        width="300"
+        min-width="120"
         fixed="right"
       >
         <template slot-scope="{ row }">
@@ -209,7 +209,7 @@
             >指派司机</el-button
           >
 
-          <el-button
+          <!-- <el-button
             plain
             size="mini"
             type="info"
@@ -217,7 +217,7 @@
             v-if="row.order_status == 1 && row.order_third_id == 0"
             @click="showDriverLeaderDialog(row)"
             >指派车队长</el-button
-          >
+          > -->
           <!-- 支付后与实际不符的可以调整价格 -->
           <el-button
             plain

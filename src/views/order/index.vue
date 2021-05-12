@@ -10,7 +10,7 @@
       highlight-current-row
       style="margin-top:10px"
     >
-      <el-table-column align="center" label="订单号" min-width="200" fixed>
+      <el-table-column align="center" label="订单号" min-width="180" fixed>
         <template slot-scope="scope"
           ><span>
             {{ scope.row.order_number }}
@@ -38,7 +38,7 @@
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="订单地址" min-width="150">
+      <el-table-column align="center" label="订单地址" min-width="250">
         <template slot-scope="scope"
           ><span>
             {{ scope.row.user_address }}
@@ -68,7 +68,7 @@
           </el-tag></template
         >
       </el-table-column> -->
-      <el-table-column align="center" label="订单类型">
+      <el-table-column align="center" label="订单类型" min-width="110">
         <template slot-scope="scope">
           <el-tag type="danger" v-if="scope.row.order_type == 1">
             居民装修
@@ -81,14 +81,14 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="用户预约时间" min-width="120">
+      <el-table-column align="center" label="用户预约时间" min-width="130">
         <template slot-scope="scope"
           ><span>
             {{ scope.row.user_reserve_time | parseTime("{y}-{m}-{d} {h}:{i}") }}
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="订单完成时间" min-width="120">
+      <el-table-column align="center" label="订单完成时间" min-width="130">
         <template slot-scope="scope"
           ><span v-if="scope.row.driver_complete_time != null">
             {{
@@ -379,6 +379,7 @@ export default {
       this.listLoading = true;
       getOrderAll(this.listQuery).then(response => {
         this.list = response.data;
+        this.total = response.total;
         this.listLoading = false;
       });
     },
