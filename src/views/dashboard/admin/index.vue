@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-03-30 10:59:45
+ * @LastEditTime: 2021-05-12 20:37:11
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -25,13 +25,38 @@
         <line-chart :chart-data="lineChartData" :x-data="XData" />
       </div>
     </el-row>
+    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
+      <el-col :span="7">
+        <pie-chart
+          :tipData="tipData"
+          :dataArr="dataArr"
+          :title="订单类型占比"
+        ></pie-chart>
+      </el-col>
+      <el-col :offset="1" :span="7">
+        <pie-chart
+          :tipData="estateData"
+          :dataArr="estateDataArr"
+          :title="物业认证比例"
+        ></pie-chart>
+      </el-col>
+      <el-col :offset="1" :span="7">
+        <pie-chart
+          :tipData="driverData"
+          :dataArr="driverDataArr"
+          :title="司机认证比例"
+        ></pie-chart>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import PanelGroup from "./components/PanelGroup";
 import LineChart from "./components/LineChart";
-import { queryWeek } from "@/api/dashboard";
+import PieChart from "./components/PieChart";
+import { queryWeek, queryOrderRatio, queryEstateRatio } from "@/api/dashboard";
+import { request } from "http";
 const lineChartData = {
   expectedData: []
 };
@@ -40,13 +65,20 @@ export default {
   name: "DashboardAdmin",
   components: {
     PanelGroup,
-    LineChart
+    LineChart,
+    PieChart
   },
   data() {
     return {
       lineChartData: lineChartData,
       XData,
-      type: "order"
+      type: "order",
+      tipData: ["商业装修", "居民装修", "垃圾箱清运"],
+      dataArr: [],
+      estateData: ["已认证", "未认证"],
+      driverData: ["已认证", "未认证"],
+      estateDataArr: [],
+      driverDataArr: []
     };
   },
   methods: {
@@ -68,6 +100,44 @@ export default {
         this.XData = days;
         this.lineChartData.expectedData = count;
       });
+      var _this = this;
+      queryOrderRatio().then(response => {
+        let result = response.data[0];
+        Object.keys(result).forEach(function(key) {
+          let temp = {
+            value: result[key],
+            name: key
+          };
+          _this.dataArr.push(temp);
+          console.log(_this.dataArr);
+        });
+      });
+      queryEstateRatio().then(response => {
+        let result = response.data[0];
+        _this.estateDataArr = [
+          {
+            value: result["total"] - result["auth_count"],
+            name: "未认证"
+          },
+          {
+            value: result["auth_count"],
+            name: "已认证"
+          }
+        ];
+      });
+      queryEstateRatio({ type: "driver" }).then(response => {
+        let result = response.data[0];
+        _this.driverDataArr = [
+          {
+            value: result["total"] - result["auth_count"],
+            name: "未认证"
+          },
+          {
+            value: result["auth_count"],
+            name: "已认证"
+          }
+        ];
+      });
     }
   },
   mounted() {
@@ -81,7 +151,6 @@ export default {
   padding: 32px;
   background-color: rgb(240, 242, 245);
   position: relative;
-
   .github-corner {
     position: absolute;
     top: 0px;
