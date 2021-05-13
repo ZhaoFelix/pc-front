@@ -2,14 +2,14 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-13 11:00:15
+ * @LastEditTime: 2021-05-13 18:01:30
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
 <template>
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
-    <el-row gutter="32">
+    <el-row gutter="16">
       <el-col :span="12">
         <div class="chart-wrapper">
           <!-- <center>
@@ -52,7 +52,7 @@
       </el-col>
     </el-row>
 
-    <el-row :gutter="32">
+    <el-row :gutter="16">
       <el-col :span="8">
         <div class="chart-wrapper">
           <pie-chart
@@ -217,7 +217,7 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-editor-container {
-  padding: 32px;
+  padding: 16px;
   background-color: rgb(240, 242, 245);
   position: relative;
   .github-corner {
@@ -230,7 +230,7 @@ export default {
   .chart-wrapper {
     background: #fff;
     padding: 16px 16px 0;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
 
   .title-style {

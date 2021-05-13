@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="40" class="panel-group">
+  <el-row :gutter="16" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleSetLineChartData('driver')">
         <div class="card-panel-icon-wrapper icon-people">
@@ -105,10 +105,10 @@ export default {
 
 <style lang="scss" scoped>
 .panel-group {
-  margin-top: 18px;
+  margin-top: 4px;
 
   .card-panel-col {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
 
   .card-panel {
