@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-12 19:02:04
- * @LastEditTime: 2021-05-12 20:38:28
+ * @LastEditTime: 2021-05-13 09:38:41
  * @FilePath: /pc-front/src/views/dashboard/admin/components/PieChart.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -14,7 +14,7 @@
 <script>
 import echarts from "echarts";
 
-// require('echarts/theme/macarons') // echarts theme
+require("echarts/theme/macarons"); // echarts theme
 
 export default {
   name: "PieChart",
@@ -72,7 +72,10 @@ export default {
   },
   methods: {
     initChart() {
-      this.chart = echarts.init(this.$el, "light");
+      this.chart = echarts.init(this.$el, "macarons");
+      this.setOptions(this.dataArr, this.tipData);
+    },
+    setOptions(dataArr, tipData) {
       this.chart.setOption({
         title: {
           text: this.title,
@@ -85,7 +88,7 @@ export default {
         legend: {
           orient: "vertical",
           left: "left",
-          data: this.tipData
+          data: tipData
         },
         series: [
           {
@@ -93,7 +96,7 @@ export default {
             type: "pie",
             radius: "55%",
             // center: ["50%", "60%"],
-            data: this.dataArr,
+            data: dataArr,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,

@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-12 20:37:11
+ * @LastEditTime: 2021-05-13 09:52:54
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -25,27 +25,33 @@
         <line-chart :chart-data="lineChartData" :x-data="XData" />
       </div>
     </el-row>
-    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
-      <el-col :span="7">
-        <pie-chart
-          :tipData="tipData"
-          :dataArr="dataArr"
-          :title="订单类型占比"
-        ></pie-chart>
+    <el-row :gutter="32">
+      <el-col :span="8">
+        <div class="chart-wrapper">
+          <pie-chart
+            :tipData="tipData"
+            :dataArr="dataArr"
+            title="订单类型占比"
+          ></pie-chart>
+        </div>
       </el-col>
-      <el-col :offset="1" :span="7">
-        <pie-chart
-          :tipData="estateData"
-          :dataArr="estateDataArr"
-          :title="物业认证比例"
-        ></pie-chart>
+      <el-col :span="8">
+        <div class="chart-wrapper">
+          <pie-chart
+            :tipData="estateData"
+            :dataArr="estateDataArr"
+            title="物业认证比例"
+          ></pie-chart>
+        </div>
       </el-col>
-      <el-col :offset="1" :span="7">
-        <pie-chart
-          :tipData="driverData"
-          :dataArr="driverDataArr"
-          :title="司机认证比例"
-        ></pie-chart>
+      <el-col :span="8">
+        <div class="chart-wrapper">
+          <pie-chart
+            :tipData="driverData"
+            :dataArr="driverDataArr"
+            title="司机认证比例"
+          ></pie-chart>
+        </div>
       </el-col>
     </el-row>
   </div>
