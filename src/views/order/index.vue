@@ -181,7 +181,7 @@
           </span>
         </div>
         <div v-for="o in 1" :key="o" class="text item">
-          <el-collapse v-model="activeNames">
+          <el-collapse v-model="activeNames" :accordion="true">
             <el-collapse-item title="用户信息" name="1">
               <div>
                 <span class="title-style">
@@ -210,7 +210,7 @@
               <div>
                 <span class="title-style">渣土图片:</span>
                 <center>
-                  <viewer :images="[]">
+                  <viewer :images="[JSON.parse(item.user_place_order_img)]">
                     <el-image
                       v-for="(item, index) in JSON.parse(
                         item.user_place_order_img
@@ -271,7 +271,7 @@
               <div v-if="item.driver_reach_img != null">
                 <span class="title-style">渣土现场:</span>
                 <center>
-                  <viewer :images="[]">
+                  <viewer :images="[item.driver_reach_img]">
                     <el-image
                       v-for="(item, index) in JSON.parse(item.driver_reach_img)"
                       :key="index"
@@ -288,7 +288,7 @@
               <div v-if="item.driver_get_img != null">
                 <span class="title-style">渣土装车:</span>
                 <center>
-                  <viewer :images="[]">
+                  <viewer :images="[item.driver_get_img]">
                     <el-image
                       v-for="(item, index) in JSON.parse(item.driver_get_img)"
                       :key="index"

@@ -9,20 +9,9 @@
       fit
       highlight-current-row
       style="margin-top:10px;width:100%;"
+      height="800"
     >
-      <el-table-column label="订单号" align="center" min-width="185" fixed>
-        <template slot-scope="scope">
-          <span>{{ scope.row.order_number }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="微信昵称" align="center">
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.wechat_nickname }}
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="物业姓名" align="center">
+      <el-table-column label="物业姓名" align="center" fixed>
         <template slot-scope="scope">
           <span>
             {{ scope.row.estate_name }}
@@ -50,7 +39,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="渣土面积/箱数" align="center" min-width="120">
+      <el-table-column label="渣土面积/箱数" align="center" width="80">
         <template slot-scope="scope">
           <span v-if="scope.row.order_type == 1">
             {{ scope.row.order_size + " m²" }}
@@ -64,7 +53,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="渣土图片" align="center" min-width="200">
+      <el-table-column label="渣土图片" align="center" width="120">
         <template slot-scope="scope">
           <viewer :images="[scope.row.wechat_avatar]">
             <el-image
@@ -96,27 +85,27 @@
           >
         </template>
       </el-table-column> -->
-      <el-table-column label="装修类型" align="center" min-width="120">
+      <el-table-column label="装修类型" align="center" min-width="100">
         <template slot-scope="scope">
           <el-tag type="danger" v-if="scope.row.order_type == 1">
-            居民装修清运
+            居民装修
           </el-tag>
           <el-tag type="warning" v-if="scope.row.order_type == 2">
-            商业装修清运
+            商业装修
           </el-tag>
           <el-tag type="success" v-if="scope.row.order_type == 3">
             垃圾箱清运
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="指定清运点" align="center" min-width="100">
+      <!-- <el-table-column label="指定清运点" align="center" min-width="100">
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.order_is_assign == 1 ? 'success' : 'danger'"
             >{{ scope.row.order_is_assign == 1 ? "是" : "否" }}</el-tag
           >
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="订单价格" align="center" min-width="100">
         <template slot-scope="scope">
           <span style="color:red">{{
@@ -126,7 +115,6 @@
           }}</span>
         </template>
       </el-table-column>
-
       <el-table-column label="支付价格" align="center" min-width="100">
         <template slot-scope="scope">
           <span style="color:red">{{
@@ -162,16 +150,28 @@
           >
         </template>
       </el-table-column>
-      <el-table-column label="二级指派" align="center" min-width="180">
+      <!-- <el-table-column label="二级指派" align="center" min-width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.third_name }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="下单时间" align="center" min-width="180">
         <template slot-scope="scope">
           <span>{{
             scope.row.order_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
           }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="微信昵称" align="center">
+        <template slot-scope="scope">
+          <span>
+            {{ scope.row.wechat_nickname }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column label="订单号" align="center" min-width="185">
+        <template slot-scope="scope">
+          <span>{{ scope.row.order_number }}</span>
         </template>
       </el-table-column>
       <el-table-column label="二次支付订单号" align="center" min-width="190">
