@@ -18,20 +18,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="物业手机号" align="center" min-width="110">
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.estate_phone }}
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="下单手机号" align="center" min-width="110">
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.user_phone }}
-          </span>
-        </template>
-      </el-table-column>
+
       <el-table-column label="用户地址" align="center" width="240">
         <template slot-scope="scope">
           <span>
@@ -117,6 +104,11 @@
           }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="指派司机" align="center" min-width="80">
+        <template slot-scope="scope">
+          <span>{{ scope.row.driver_name }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="订单状态" align="center" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.order_status == 0" type="danger">
@@ -141,11 +133,7 @@
           >
         </template>
       </el-table-column>
-      <el-table-column label="指派司机" align="center" min-width="80">
-        <template slot-scope="scope">
-          <span>{{ scope.row.driver_name }}</span>
-        </template>
-      </el-table-column>
+
       <!-- <el-table-column label="二级指派" align="center" min-width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.third_name }}</span>
@@ -156,6 +144,20 @@
           <span>{{
             scope.row.order_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
           }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="物业手机号" align="center" min-width="110">
+        <template slot-scope="scope">
+          <span>
+            {{ scope.row.estate_phone }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column label="下单手机号" align="center" min-width="110">
+        <template slot-scope="scope">
+          <span>
+            {{ scope.row.user_phone }}
+          </span>
         </template>
       </el-table-column>
       <el-table-column label="装修类型" align="center" min-width="80">
