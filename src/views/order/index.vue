@@ -1,6 +1,21 @@
 <template>
   <div class="app-container">
     <!-- TODO：待添加搜索部分的内容 -->
+    <el-row :gutter="10">
+      <el-col :span="6">
+        <el-input
+          v-model="keyword"
+          placeholder="请输入手机号进行查询"
+        ></el-input
+      ></el-col>
+      <el-col :span="4"
+        ><el-button
+          :type="isSearch ? 'danger' : 'success'"
+          @click="searchByKeyword"
+          >{{ isSearch ? "取消" : "搜索" }}</el-button
+        ></el-col
+      >
+    </el-row>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -9,6 +24,7 @@
       fit
       highlight-current-row
       style="margin-top:10px"
+      height="760"
     >
       <el-table-column align="center" label="订单号" min-width="180" fixed>
         <template slot-scope="scope"
@@ -141,6 +157,8 @@
       v-show="total > 0"
       :total="total"
       :page.sync="page"
+      :page-size="15"
+      :page-sizes="[15, 30, 45, 60]"
       :limit.sync="limit"
       @pagination="fetchData"
     />
@@ -343,7 +361,7 @@ export default {
       orderDetail: [],
       listLoading: false,
       total: 9,
-      limit: 10,
+      limit: 15,
       page: 1,
       keyword: "",
       existID: 0,

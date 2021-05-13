@@ -39,7 +39,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="渣土面积/箱数" align="center" width="80">
+      <el-table-column label="面积/箱数" align="center" width="80">
         <template slot-scope="scope">
           <span v-if="scope.row.order_type == 1">
             {{ scope.row.order_size + " m²" }}
@@ -85,16 +85,16 @@
           >
         </template>
       </el-table-column> -->
-      <el-table-column label="装修类型" align="center" min-width="100">
+      <el-table-column label="装修类型" align="center" min-width="80">
         <template slot-scope="scope">
           <el-tag type="danger" v-if="scope.row.order_type == 1">
-            居民装修
+            居民
           </el-tag>
           <el-tag type="warning" v-if="scope.row.order_type == 2">
-            商业装修
+            商业
           </el-tag>
           <el-tag type="success" v-if="scope.row.order_type == 3">
-            垃圾箱清运
+            垃圾箱
           </el-tag>
         </template>
       </el-table-column>

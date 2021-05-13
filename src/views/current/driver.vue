@@ -3,7 +3,7 @@ import { import } from '@babel/types';
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2021-05-11 15:20:35
+ * @LastEditTime: 2021-05-13 17:25:25
  * @FilePath: /pc-front/src/views/current/driver.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -14,7 +14,11 @@ import { import } from '@babel/types';
       <div>
         <el-card class="cardTable" v-for="(item, index) in list" :key="index">
           <div slot="header" class="clearfix">
-            <span>{{ "订单号：" + item.order_number }}</span>
+            <span>
+              {{
+                "地址：" + item.user_address + "（" + item.estate_plot + ")"
+              }}</span
+            >
             <span class="order-status" v-if="item.order_status == 3">
               已指派司机
             </span>
@@ -33,18 +37,27 @@ import { import } from '@babel/types';
               <el-collapse-item title="用户信息" :name="1 + item.order_number">
                 <div>
                   <span class="title-style">
+                    订单号：
+                  </span>
+                  <span>
+                    {{ item.order_number }}
+                  </span>
+                </div>
+                <div>
+                  <span class="title-style">
                     用户名：
                   </span>
                   <span>
                     {{ item.order_user_name }}
                   </span>
                 </div>
+
                 <div>
                   <span class="title-style">
                     订单地址：
                   </span>
                   <span>
-                    {{ item.user_address }}
+                    {{ item.user_address + "（" + item.estate_plot + ")" }}
                   </span>
                 </div>
                 <div>
@@ -209,8 +222,9 @@ export default {
 
 <style scoped>
 .cardTable {
-  width: 29%;
-  margin: 2%;
+  width: 32%;
+  margin-left: 1%;
+  margin-top: 20px;
   float: left;
 }
 .text {
@@ -227,8 +241,8 @@ export default {
 }
 
 .bgCard {
-  margin: 2%;
-  width: 96%;
+  margin: 0.5%;
+  width: 99%;
 }
 
 .image-thumb {

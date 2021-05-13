@@ -10,7 +10,7 @@
       <el-col :span="6">
         <el-input
           v-model="keyword"
-          placeholder="请输入手机号进行查询"
+          placeholder="请输入手机号、姓名、小区进行查询"
         ></el-input
       ></el-col>
       <el-col :span="4"
@@ -30,6 +30,7 @@
       fit
       highlight-current-row
       style="margin-top:10px"
+      height="700"
     >
       <el-table-column align="center" label="ID" width="60">
         <template slot-scope="scope">{{ scope.$index + 1 }}</template>
