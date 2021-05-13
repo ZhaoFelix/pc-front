@@ -2,29 +2,42 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-13 09:52:54
+ * @LastEditTime: 2021-05-13 10:40:28
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
 <template>
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
-    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
-      <center>
-        <p>
-          {{
-            type == "wechat"
-              ? "最近一周用户增长"
-              : type == "order"
-              ? "最近一周订单量"
-              : "其他"
-          }}
-        </p>
-      </center>
-      <div class="chart-wrapper">
-        <line-chart :chart-data="lineChartData" :x-data="XData" />
-      </div>
+    <el-row gutter="32" style="padding:16px 16px 0;margin-bottom:32px;">
+      <el-col :span="12">
+        <center>
+          <p>
+            {{
+              type == "wechat"
+                ? "最近一周用户增长"
+                : type == "order"
+                ? "最近一周订单量"
+                : "其他"
+            }}
+          </p>
+        </center>
+        <div class="chart-wrapper">
+          <line-chart :chart-data="lineChartData" :x-data="XData" />
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <center>
+          <p>
+            销售额
+          </p>
+        </center>
+        <div class="chart-wrapper">
+          <bar-chart :chart-data="saleLineChartData" :x-data="saleXData" />
+        </div>
+      </el-col>
     </el-row>
+
     <el-row :gutter="32">
       <el-col :span="8">
         <div class="chart-wrapper">
@@ -61,23 +74,36 @@
 import PanelGroup from "./components/PanelGroup";
 import LineChart from "./components/LineChart";
 import PieChart from "./components/PieChart";
-import { queryWeek, queryOrderRatio, queryEstateRatio } from "@/api/dashboard";
+import BarChart from "./components/BarChart";
+import {
+  queryWeek,
+  queryOrderRatio,
+  queryEstateRatio,
+  querySale
+} from "@/api/dashboard";
 import { request } from "http";
 const lineChartData = {
   expectedData: []
 };
+const saleLineChartData = {
+  expectedData: []
+};
 const XData = [];
+const saleXData = [];
 export default {
   name: "DashboardAdmin",
   components: {
     PanelGroup,
     LineChart,
-    PieChart
+    PieChart,
+    BarChart
   },
   data() {
     return {
       lineChartData: lineChartData,
       XData,
+      saleLineChartData: saleLineChartData,
+      saleXData: saleXData,
       type: "order",
       tipData: ["商业装修", "居民装修", "垃圾箱清运"],
       dataArr: [],
@@ -91,7 +117,19 @@ export default {
     handleSetLineChartData(type) {
       console.log(type);
       this.type = type;
-      this.fetchData();
+      // this.fetchData();
+      queryWeek({ type: this.type }).then(response => {
+        let result = response.data;
+        let days = [];
+        let count = [];
+        for (var i = 0; i < result.length; i++) {
+          let item = result[i];
+          days.push(item.days);
+          count.push(item.count);
+        }
+        this.XData = days;
+        this.lineChartData.expectedData = count;
+      });
     },
     fetchData() {
       queryWeek({ type: this.type }).then(response => {
@@ -115,7 +153,6 @@ export default {
             name: key
           };
           _this.dataArr.push(temp);
-          console.log(_this.dataArr);
         });
       });
       queryEstateRatio().then(response => {
@@ -143,6 +180,18 @@ export default {
             name: "已认证"
           }
         ];
+      });
+      querySale().then(response => {
+        let result = response.data;
+        let days = [];
+        let count = [];
+        for (var i = 0; i < result.length; i++) {
+          let item = result[i];
+          days.push(item.days);
+          count.push(item.count);
+        }
+        this.saleXData = days;
+        this.saleLineChartData.expectedData = count;
       });
     }
   },

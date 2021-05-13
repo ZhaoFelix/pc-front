@@ -97,7 +97,7 @@ export default {
         },
         series: [
           {
-            name: "增长数",
+            name: "销售额",
             itemStyle: {
               normal: {
                 color: "#FF005A",
@@ -108,7 +108,7 @@ export default {
               }
             },
             smooth: true,
-            type: "line",
+            type: "bar",
             data: expectedData,
             animationDuration: 2800,
             animationEasing: "cubicInOut"
