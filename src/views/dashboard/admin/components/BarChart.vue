@@ -21,6 +21,10 @@ export default {
       type: String,
       default: "350px"
     },
+    title: {
+      type: String,
+      required: true
+    },
     autoResize: {
       type: Boolean,
       default: true
@@ -66,6 +70,11 @@ export default {
     },
     setOptions({ expectedData } = {}) {
       this.chart.setOption({
+        title: {
+          text: this.title,
+          left: "center",
+          top: "top"
+        },
         xAxis: {
           data: this.XData,
           boundaryGap: false,
@@ -77,7 +86,7 @@ export default {
           left: 10,
           right: 10,
           bottom: 20,
-          top: 30,
+          top: 40,
           containLabel: true
         },
         tooltip: {

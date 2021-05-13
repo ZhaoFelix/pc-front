@@ -2,38 +2,52 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-13 10:40:28
+ * @LastEditTime: 2021-05-13 11:00:15
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
 <template>
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
-    <el-row gutter="32" style="padding:16px 16px 0;margin-bottom:32px;">
+    <el-row gutter="32">
       <el-col :span="12">
-        <center>
-          <p>
-            {{
-              type == "wechat"
-                ? "最近一周用户增长"
-                : type == "order"
-                ? "最近一周订单量"
-                : "其他"
-            }}
-          </p>
-        </center>
         <div class="chart-wrapper">
-          <line-chart :chart-data="lineChartData" :x-data="XData" />
+          <!-- <center>
+            <p class="title-style">
+              {{
+                type == "wechat"
+                  ? "最近一周用户增长"
+                  : type == "order"
+                  ? "最近一周订单量"
+                  : "其他"
+              }}
+            </p>
+          </center> -->
+          <line-chart
+            :title="
+              type == 'wechat'
+                ? '最近一周用户增长'
+                : type == 'order'
+                ? '最近一周订单量'
+                : '其他'
+            "
+            :chart-data="lineChartData"
+            :x-data="XData"
+          />
         </div>
       </el-col>
       <el-col :span="12">
-        <center>
-          <p>
-            销售额
-          </p>
-        </center>
         <div class="chart-wrapper">
-          <bar-chart :chart-data="saleLineChartData" :x-data="saleXData" />
+          <!-- <center>
+            <p class="title-style">
+              销售额
+            </p>
+          </center> -->
+          <bar-chart
+            title="销售额"
+            :chart-data="saleLineChartData"
+            :x-data="saleXData"
+          />
         </div>
       </el-col>
     </el-row>
@@ -217,6 +231,10 @@ export default {
     background: #fff;
     padding: 16px 16px 0;
     margin-bottom: 32px;
+  }
+
+  .title-style {
+    font-weight: bold;
   }
 }
 

@@ -21,6 +21,10 @@ export default {
       type: String,
       default: "350px"
     },
+    title: {
+      type: String,
+      required: true
+    },
     autoResize: {
       type: Boolean,
       default: true
@@ -66,6 +70,10 @@ export default {
     },
     setOptions({ expectedData } = {}) {
       this.chart.setOption({
+        title: {
+          text: this.title,
+          left: "center"
+        },
         xAxis: {
           data: this.XData,
           boundaryGap: false,
@@ -76,8 +84,8 @@ export default {
         grid: {
           left: 10,
           right: 10,
-          bottom: 20,
-          top: 30,
+          bottom: 10,
+          top: 40,
           containLabel: true
         },
         tooltip: {
@@ -97,7 +105,7 @@ export default {
         },
         series: [
           {
-            name: "增长数",
+            name: "增长量",
             itemStyle: {
               normal: {
                 color: "#FF005A",
