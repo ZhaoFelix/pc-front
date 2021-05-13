@@ -100,7 +100,11 @@
       <el-table-column align="center" label="用户预约时间" min-width="130">
         <template slot-scope="scope"
           ><span>
-            {{ scope.row.user_reserve_time | parseTime("{y}-{m}-{d} {h}:{i}") }}
+            {{
+              scope.row.user_reserve_time
+                | parseTime("{y}-{m}-{d} {h}:{i}")
+                | timeToAM
+            }}
           </span></template
         >
       </el-table-column>
@@ -132,8 +136,11 @@
       </el-table-column>
       <el-table-column label="价格" align="center">
         <template slot-scope="scope">
-          <span style="color:red">{{
-            "￥ " + (scope.row.order_final_price + scope.row.second_pay_price)
+          <span style="color:red;font-weight:bold">{{
+            "¥&nbsp;" +
+              (
+                scope.row.order_final_price + scope.row.second_pay_price
+              ).toFixed(2)
           }}</span>
         </template>
       </el-table-column>

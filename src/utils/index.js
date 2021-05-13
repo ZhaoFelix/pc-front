@@ -350,3 +350,12 @@ export function removeClass(ele, cls) {
     ele.className = ele.className.replace(reg, " ");
   }
 }
+
+export function timeToAM(time) {
+  let timeArr = time.split(" ");
+  if (timeArr[1] == "08:00") {
+    return timeArr[0] + " " + "上午";
+  } else {
+    return timeArr[0] + " " + "下午";
+  }
+}

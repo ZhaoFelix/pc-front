@@ -70,8 +70,12 @@
       </el-table-column>
       <el-table-column label="用户预约时间" align="center" min-width="150">
         <template slot-scope="scope">
-          <span style="color:red">
-            {{ scope.row.user_reserve_time | parseTime("{y}-{m}-{d} {h}:{i}") }}
+          <span style="font-weight:bold">
+            {{
+              scope.row.user_reserve_time
+                | parseTime("{y}-{m}-{d} {h}:{i}")
+                | timeToAM
+            }}
           </span>
         </template>
       </el-table-column>
@@ -85,19 +89,7 @@
           >
         </template>
       </el-table-column> -->
-      <el-table-column label="装修类型" align="center" min-width="80">
-        <template slot-scope="scope">
-          <el-tag type="danger" v-if="scope.row.order_type == 1">
-            居民
-          </el-tag>
-          <el-tag type="warning" v-if="scope.row.order_type == 2">
-            商业
-          </el-tag>
-          <el-tag type="success" v-if="scope.row.order_type == 3">
-            垃圾箱
-          </el-tag>
-        </template>
-      </el-table-column>
+
       <!-- <el-table-column label="指定清运点" align="center" min-width="100">
         <template slot-scope="scope">
           <el-tag
@@ -108,21 +100,24 @@
       </el-table-column> -->
       <el-table-column label="订单价格" align="center" min-width="100">
         <template slot-scope="scope">
-          <span style="color:red">{{
+          <span style="color:red;font-weight:bold">{{
             scope.row.order_price == null
               ? "待确定"
-              : "￥ " + scope.row.order_price.toFixed(2)
+              : "¥&nbsp;" + scope.row.order_price.toFixed(2)
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="支付价格" align="center" min-width="100">
+      <el-table-column label="支付价格" align="center" min-width="90">
         <template slot-scope="scope">
-          <span style="color:red">{{
-            "￥" + (scope.row.order_final_price + scope.row.second_pay_price)
+          <span style="color:red;font-weight:bold">{{
+            "¥&nbsp;" +
+              (
+                scope.row.order_final_price + scope.row.second_pay_price
+              ).toFixed(2)
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="订单状态" align="center" width="120">
+      <el-table-column label="订单状态" align="center" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.order_status == 0" type="danger">
             {{ scope.row.order_price == null ? "待定价" : "待支付" }}
@@ -131,23 +126,24 @@
             待补差价
           </el-tag>
           <el-tag v-if="scope.row.order_status == 1" type="success"
-            >已支付待派单</el-tag
+            >待派单</el-tag
           >
           <el-tag v-if="scope.row.order_status == 2" type="warning"
             >已取消</el-tag
           >
           <el-tag v-if="scope.row.order_status == 4" type="info"
-            >司机到达现场</el-tag
+            >到达现场</el-tag
           >
-          <el-tag v-if="scope.row.order_status == 3" type="info"
-            >待司机出发</el-tag
-          >
-          <el-tag v-if="scope.row.order_status == 5" type="info"
-            >司机运输中</el-tag
-          >
+          <el-tag v-if="scope.row.order_status == 3" type="info">待出发</el-tag>
+          <el-tag v-if="scope.row.order_status == 5" type="info">运输中</el-tag>
           <el-tag v-if="scope.row.order_status == 6" type="sucess"
             >已完成</el-tag
           >
+        </template>
+      </el-table-column>
+      <el-table-column label="指派司机" align="center" min-width="80">
+        <template slot-scope="scope">
+          <span>{{ scope.row.driver_name }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column label="二级指派" align="center" min-width="180">
@@ -160,6 +156,19 @@
           <span>{{
             scope.row.order_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
           }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="装修类型" align="center" min-width="80">
+        <template slot-scope="scope">
+          <el-tag type="danger" v-if="scope.row.order_type == 1">
+            居民
+          </el-tag>
+          <el-tag type="warning" v-if="scope.row.order_type == 2">
+            商业
+          </el-tag>
+          <el-tag type="success" v-if="scope.row.order_type == 3">
+            垃圾箱
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="微信昵称" align="center">
