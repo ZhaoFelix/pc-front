@@ -116,6 +116,10 @@ export default {
                 }
               }
             },
+            label: {
+              show: true,
+              position: "top"
+            },
             smooth: true,
             type: "bar",
             data: expectedData,

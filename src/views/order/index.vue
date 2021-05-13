@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- TODO：待添加搜索部分的内容 -->
-    <el-row :gutter="10">
+    <!-- <el-row :gutter="10">
       <el-col :span="6">
         <el-input
           v-model="keyword"
@@ -15,7 +15,7 @@
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >
-    </el-row>
+    </el-row> -->
     <el-table
       v-loading="listLoading"
       :data="list"

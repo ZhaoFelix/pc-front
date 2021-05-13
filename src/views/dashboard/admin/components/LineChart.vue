@@ -110,16 +110,42 @@ export default {
               normal: {
                 color: "#FF005A",
                 lineStyle: {
-                  color: "#FF005A",
-                  width: 2
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    {
+                      offset: 0,
+                      color: "#e6e9f0"
+                    },
+                    {
+                      offset: 1,
+                      color: "#eef1f5"
+                    }
+                  ]),
+                  width: 1
                 }
               }
             },
-            smooth: true,
+            label: {
+              show: true
+            },
+            smooth: true, //是否是平滑曲线
+            symbol: "emptyCircle",
+            symbolSize: "4",
             type: "line",
             data: expectedData,
             animationDuration: 2800,
-            animationEasing: "cubicInOut"
+            animationEasing: "cubicInOut",
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "#e6e9f0"
+                },
+                {
+                  offset: 1,
+                  color: "#eef1f5"
+                }
+              ])
+            }
           }
         ]
       });

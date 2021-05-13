@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-12 19:02:04
- * @LastEditTime: 2021-05-13 09:38:41
+ * @LastEditTime: 2021-05-13 21:57:08
  * @FilePath: /pc-front/src/views/dashboard/admin/components/PieChart.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -15,9 +15,10 @@
 import echarts from "echarts";
 
 require("echarts/theme/macarons"); // echarts theme
-
+import resize from "./mixins/resize";
 export default {
   name: "PieChart",
+  mixins: [resize],
   props: {
     className: {
       type: String,
