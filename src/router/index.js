@@ -134,14 +134,13 @@ export const asyncRoutes = [
         name: "list",
         component: () => import("@/views/order/index"),
         meta: { title: "订单列表", icon: "money" }
+      },
+      {
+        path: "export",
+        name: "export",
+        component: () => import("@/views/order/toExcel"),
+        meta: { title: "订单导出", icon: "excel", roles: ["1"] }
       }
-      // {
-      //     path: 'current',
-      //     name: 'current',
-      //     component: () =>
-      //         import ('@/views/order/error'),
-      //     meta: { title: '异常订单', icon: 'bug' }
-      // }
     ]
   },
   // 仅管理员可见

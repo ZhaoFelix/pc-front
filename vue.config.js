@@ -60,7 +60,8 @@ module.exports = {
     name: name,
     resolve: {
       alias: {
-        "@": resolve("src")
+        "@": resolve("src"),
+        vendor: resolve("src/vendor")
       }
     },
     // 添加大打包element-ui和vue
