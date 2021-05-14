@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-05-14 15:31:14
+ * @LastEditTime: 2021-05-14 15:40:52
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -492,22 +492,28 @@ export default {
       this.downloadLoading = true;
       import("@/vendor/Export2Excel").then(excel => {
         const tHeader = [
+          "订单号",
           "用户名",
           "订单地址",
           "物业小区",
           "接单司机",
           "订单价格",
           "支付价格",
-          "订单类型"
+          "订单类型",
+          "用户预约时间",
+          "订单生成时间"
         ];
         const filterVal = [
+          "order_number",
           "order_user_name",
           "user_address",
           "estate_plot",
           "driver_name",
           "order_price",
           "order_final_price",
-          "order_type"
+          "order_type",
+          "user_reserve_time",
+          "order_created_time"
         ];
         const list =
           this.multipleSelection.length == 0
@@ -518,7 +524,7 @@ export default {
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: this.filename,
+          filename: parseTime(Date()),
           autoWidth: this.autoWidth,
           bookType: this.bookType
         });
@@ -528,8 +534,14 @@ export default {
     formatJson(filterVal, jsonData) {
       return jsonData.map(v =>
         filterVal.map(j => {
-          if (j === "timestamp") {
+          if (j === "order_created_time" || j === "user_reserve_time") {
             return parseTime(v[j]);
+          } else if (j === "order_type") {
+            return v[j] == 1
+              ? "居民装修"
+              : v[j] == 2
+              ? "垃圾箱清运"
+              : "商业装修";
           } else {
             return v[j];
           }
