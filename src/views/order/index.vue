@@ -202,12 +202,7 @@
       </ul>
     </div>
     <!-- 订单详情 -->
-    <el-dialog
-      title="订单详情"
-      :visible.sync="detailVisible"
-      width="20%"
-      center
-    >
+    <el-dialog title="订单详情" :visible.sync="detailVisible" width="25%">
       <el-card
         class="cardTable"
         v-for="(item, index) in orderDetail"
