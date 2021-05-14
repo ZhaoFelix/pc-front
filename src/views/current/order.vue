@@ -18,7 +18,11 @@
           </span>
         </template>
       </el-table-column>
-
+      <el-table-column label="指派司机" align="center" min-width="80" fixed>
+        <template slot-scope="scope">
+          <span>{{ scope.row.driver_name }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="用户地址" align="center" width="240">
         <template slot-scope="scope">
           <span>
@@ -104,11 +108,7 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="指派司机" align="center" min-width="80">
-        <template slot-scope="scope">
-          <span>{{ scope.row.driver_name }}</span>
-        </template>
-      </el-table-column>
+
       <el-table-column label="订单状态" align="center" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.order_status == 0" type="danger">
