@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
     <!-- TODO：待添加搜索部分的内容 -->
-    <!-- <el-row :gutter="10">
+    <el-row :gutter="10">
       <el-col :span="6">
         <el-input
           v-model="keyword"
-          placeholder="请输入手机号进行查询"
+          placeholder="请输入姓名、小区、手机号进行查询"
         ></el-input
       ></el-col>
       <el-col :span="4"
@@ -15,7 +15,7 @@
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >
-    </el-row> -->
+    </el-row>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -26,38 +26,32 @@
       style="margin-top:10px"
       height="760"
     >
-      <el-table-column align="center" label="订单号" min-width="180" fixed>
+      <el-table-column align="center" label="物业姓名" fixed>
         <template slot-scope="scope"
           ><span>
-            {{ scope.row.order_number }}
+            {{ scope.row.estate_name }}
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="用户微信">
-        <template slot-scope="scope"
-          ><span>
-            {{ scope.row.wechat_nickname }}
-          </span></template
-        >
-      </el-table-column>
-      <el-table-column align="center" label="用户名">
+      <!-- <el-table-column align="center" label="用户名">
         <template slot-scope="scope"
           ><span>
             {{ scope.row.order_user_name }}
           </span></template
         >
-      </el-table-column>
-      <el-table-column align="center" label="用户手机号" min-width="110">
-        <template slot-scope="scope"
-          ><span>
-            {{ scope.row.user_phone }}
-          </span></template
-        >
-      </el-table-column>
+      </el-table-column> -->
+
       <el-table-column align="center" label="订单地址" min-width="250">
         <template slot-scope="scope"
           ><span>
-            {{ scope.row.user_address }}
+            {{ scope.row.user_address + "（" + scope.row.estate_plot + "）" }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="物业小区" min-width="100">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.estate_plot }}
           </span></template
         >
       </el-table-column>
@@ -68,12 +62,22 @@
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="司机手机号" min-width="110">
-        <template slot-scope="scope"
-          ><span>
-            {{ scope.row.driver_phone }}
-          </span></template
-        >
+      <el-table-column label="订单价格" align="center">
+        <template slot-scope="scope">
+          <span style="color:red;font-weight:bold">{{
+            "¥&nbsp;" + scope.row.order_price.toFixed(2)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="支付价格" align="center">
+        <template slot-scope="scope">
+          <span style="color:red;font-weight:bold">{{
+            "¥&nbsp;" +
+              (
+                scope.row.order_final_price + scope.row.second_pay_price
+              ).toFixed(2)
+          }}</span>
+        </template>
       </el-table-column>
       <!-- <el-table-column align="center" label="下单形式">
         <template slot-scope="scope"
@@ -84,6 +88,17 @@
           </el-tag></template
         >
       </el-table-column> -->
+      <el-table-column align="center" label="用户预约时间" min-width="130">
+        <template slot-scope="scope"
+          ><span>
+            {{
+              scope.row.user_reserve_time
+                | parseTime("{y}-{m}-{d} {h}:{i}")
+                | timeToAM
+            }}
+          </span></template
+        >
+      </el-table-column>
       <el-table-column align="center" label="订单类型" min-width="110">
         <template slot-scope="scope">
           <el-tag type="danger" v-if="scope.row.order_type == 1">
@@ -96,17 +111,6 @@
             垃圾箱清运
           </el-tag>
         </template>
-      </el-table-column>
-      <el-table-column align="center" label="用户预约时间" min-width="130">
-        <template slot-scope="scope"
-          ><span>
-            {{
-              scope.row.user_reserve_time
-                | parseTime("{y}-{m}-{d} {h}:{i}")
-                | timeToAM
-            }}
-          </span></template
-        >
       </el-table-column>
       <el-table-column align="center" label="订单完成时间" min-width="130">
         <template slot-scope="scope"
@@ -134,15 +138,34 @@
           <el-tag v-else type="warning">进行中 </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="价格" align="center">
-        <template slot-scope="scope">
-          <span style="color:red;font-weight:bold">{{
-            "¥&nbsp;" +
-              (
-                scope.row.order_final_price + scope.row.second_pay_price
-              ).toFixed(2)
-          }}</span>
-        </template>
+
+      <el-table-column align="center" label="订单号" min-width="180">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.order_number }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="下单手机号" min-width="110">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.user_phone }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="司机手机号" min-width="110">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.driver_phone }}
+          </span></template
+        >
+      </el-table-column>
+      <el-table-column align="center" label="用户微信">
+        <template slot-scope="scope"
+          ><span>
+            {{ scope.row.wechat_nickname }}
+          </span></template
+        >
       </el-table-column>
       <!-- 操作 -->
       <!-- TODO:待添加用户角色权限 -->
@@ -347,7 +370,11 @@
 </template>
 
 <script>
-import { getOrderAll, getOrderDetail } from "@/api/order";
+import {
+  getOrderAll,
+  getOrderDetail,
+  getOrderListByKeyword
+} from "@/api/order";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
@@ -371,6 +398,7 @@ export default {
       limit: 15,
       page: 1,
       keyword: "",
+      isSearch: false,
       existID: 0,
       activeNames: ["1", "2", "3"],
       isOperateable: true,
@@ -407,6 +435,21 @@ export default {
         this.total = response.total;
         this.listLoading = false;
       });
+    },
+    searchByKeyword() {
+      if (this.keyword == "" && !this.isSearch) {
+        this.$message("请先输入搜索关键字");
+      } else if (this.keyword != "" && !this.isSearch) {
+        this.isSearch = !this.isSearch;
+        getOrderListByKeyword({ keyword: this.keyword }).then(response => {
+          this.list = response.data;
+          this.total = this.list.length;
+        });
+      } else if (this.isSearch) {
+        this.isSearch = !this.isSearch;
+        this.fetchData();
+        this.keyword = "";
+      }
     },
     //  编辑
     handleEdit(row) {

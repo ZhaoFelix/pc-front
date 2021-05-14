@@ -117,6 +117,7 @@ export default {
                 }
               }
             },
+
             label: {
               show: true,
               position: "top"

@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-18 13:29:45
- * @LastEditTime: 2020-12-30 10:00:25
+ * @LastEditTime: 2021-05-14 13:47:54
  * @FilePath: /pc-front/src/api/order/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -74,6 +74,16 @@ export function getOrderAll(params) {
 export function getOrderDetail(params) {
   return request({
     url: `${base_path}order/query/detail`,
+    method: "get",
+    params
+  });
+}
+
+//根据关键字查询订单信息
+
+export function getOrderListByKeyword(params) {
+  return request({
+    url: `${base_path}order/query/queryByKeyword`,
     method: "get",
     params
   });

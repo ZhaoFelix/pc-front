@@ -321,7 +321,7 @@ export default {
     },
     searchByKeyword() {
       if (this.keyword == "" && !this.isSearch) {
-        this.$message("请先输入手机号");
+        this.$message("请先输入查询关键字");
       } else if (this.keyword != "" && !this.isSearch) {
         this.isSearch = !this.isSearch;
         getEstateListByKeyword({ keyword: this.keyword }).then(response => {
