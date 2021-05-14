@@ -75,7 +75,7 @@ export default {
           left: "center"
         },
         xAxis: {
-          data: this.XData,
+          data: this.XData.map(item => item.substring(5)),
           boundaryGap: false,
           axisTick: {
             show: false

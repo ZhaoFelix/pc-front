@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-12 19:02:04
- * @LastEditTime: 2021-05-13 21:57:08
+ * @LastEditTime: 2021-05-14 08:35:00
  * @FilePath: /pc-front/src/views/dashboard/admin/components/PieChart.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -34,7 +34,7 @@ export default {
     },
     height: {
       type: String,
-      default: "300px"
+      default: "360px"
     },
     tipData: {
       type: Array,
@@ -80,7 +80,8 @@ export default {
       this.chart.setOption({
         title: {
           text: this.title,
-          left: "center"
+          left: "center",
+          top: "top"
         },
         tooltip: {
           trigger: "item",
@@ -95,15 +96,14 @@ export default {
           {
             name: this.title,
             type: "pie",
-            radius: "55%",
-            // center: ["50%", "60%"],
+            radius: ["40%", "80%"],
+            center: ["50%", "55%"],
             data: dataArr,
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)"
-              }
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: "#fff",
+              borderWidth: 2
             }
           }
         ]

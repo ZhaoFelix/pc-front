@@ -76,16 +76,17 @@ export default {
           top: "top"
         },
         xAxis: {
-          data: this.XData,
-          boundaryGap: false,
+          data: this.XData.map(item => item.substring(5)),
+          boundaryGap: true,
           axisTick: {
-            show: false
+            show: false,
+            alignWithLabel: true
           }
         },
         grid: {
-          left: 10,
-          right: 10,
-          bottom: 20,
+          left: "1%",
+          right: "1%",
+          bottom: "1%",
           top: 40,
           containLabel: true
         },
