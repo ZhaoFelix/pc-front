@@ -36,12 +36,12 @@ module.exports = {
       errors: true
     },
     proxy: {
-      "/api": {
-        target: process.env.VUE_APP_BASE_API,
+      [process.env.VUE_APP_BASE_API]: {
+        target: process.env.VUE_APP_BASE_TARGET,
         // 配置跨域
         changeOrigin: true,
         pathRewrite: {
-          "^/api": ""
+          ["^" + process.env.VUE_APP_BASE_API]: ""
         }
       },
       "/loc": {

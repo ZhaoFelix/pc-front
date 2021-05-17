@@ -35,7 +35,7 @@
           <span v-if="scope.row.order_type == 1">
             {{ scope.row.order_size + " m²" }}
           </span>
-          <span v-if="scope.row.order_type == 2">
+          <span v-if="scope.row.order_type == 2 || scope.row.order_type == 11">
             无
           </span>
           <span v-if="scope.row.order_type == 3">
@@ -170,6 +170,9 @@
           </el-tag>
           <el-tag type="success" v-if="scope.row.order_type == 3">
             垃圾箱
+          </el-tag>
+          <el-tag type="success" v-if="scope.row.order_type == 11">
+            二次清运
           </el-tag>
         </template>
       </el-table-column>

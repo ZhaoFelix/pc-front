@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-10-26 13:36:47
- * @LastEditTime: 2021-05-14 14:50:30
+ * @LastEditTime: 2021-05-14 19:05:27
  * @FilePath: /pc-front/src/utils/request.js
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -13,7 +13,7 @@ import { getToken } from "@/utils/auth";
 
 // create an axios instance
 const service = axios.create({
-  baseURL: "/api", //process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   timeout: 5000 // request timeout
 });
 
@@ -35,6 +35,8 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data;
+    console.log("111");
+    console.log(process.env);
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
       Message({
@@ -61,7 +63,6 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log("111");
     console.log(JSON.stringify(error)); // for debug
     let message = error.message || "请求失败";
     if (error.response && error.response.data) {
