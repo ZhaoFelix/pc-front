@@ -160,7 +160,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="装修类型" align="center" min-width="80">
+      <el-table-column label="装修类型" align="center" min-width="95">
         <template slot-scope="scope">
           <el-tag type="danger" v-if="scope.row.order_type == 1">
             居民
@@ -171,7 +171,7 @@
           <el-tag type="success" v-if="scope.row.order_type == 3">
             垃圾箱
           </el-tag>
-          <el-tag type="success" v-if="scope.row.order_type == 11">
+          <el-tag v-if="scope.row.order_type == 11">
             二次清运
           </el-tag>
         </template>
