@@ -108,7 +108,22 @@
           }}</span>
         </template>
       </el-table-column>
-
+      <el-table-column label="装修类型" align="center" min-width="95">
+        <template slot-scope="scope">
+          <el-tag type="danger" v-if="scope.row.order_type == 1">
+            居民
+          </el-tag>
+          <el-tag type="warning" v-if="scope.row.order_type == 2">
+            商业
+          </el-tag>
+          <el-tag type="success" v-if="scope.row.order_type == 3">
+            垃圾箱
+          </el-tag>
+          <el-tag v-if="scope.row.order_type == 11">
+            二次清运
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="订单状态" align="center" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.order_status == 0" type="danger">
@@ -160,22 +175,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="装修类型" align="center" min-width="95">
-        <template slot-scope="scope">
-          <el-tag type="danger" v-if="scope.row.order_type == 1">
-            居民
-          </el-tag>
-          <el-tag type="warning" v-if="scope.row.order_type == 2">
-            商业
-          </el-tag>
-          <el-tag type="success" v-if="scope.row.order_type == 3">
-            垃圾箱
-          </el-tag>
-          <el-tag v-if="scope.row.order_type == 11">
-            二次清运
-          </el-tag>
-        </template>
-      </el-table-column>
+
       <el-table-column label="微信昵称" align="center">
         <template slot-scope="scope">
           <span>
