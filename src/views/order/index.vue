@@ -110,6 +110,9 @@
           <el-tag type="success" v-if="scope.row.order_type == 3">
             垃圾箱清运
           </el-tag>
+          <el-tag v-if="scope.row.order_type == 11">
+            二次清运
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column align="center" label="订单完成时间" min-width="130">
