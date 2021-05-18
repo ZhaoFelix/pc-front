@@ -50,7 +50,7 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否是替班司机" align="center">
+      <!-- <el-table-column label="是否是替班司机" align="center">
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.driver_is_substitutes == 1 ? 'success' : 'danger'"
@@ -59,7 +59,7 @@
             }}</el-tag
           >
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="是否已完成认证" align="center">
         <template slot-scope="scope">
           <el-tag
