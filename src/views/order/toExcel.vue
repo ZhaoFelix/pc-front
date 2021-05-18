@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-05-14 15:40:52
+ * @LastEditTime: 2021-05-18 09:08:01
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -24,11 +24,7 @@
         ></el-col
       >
       <el-col :span="4">
-        <el-button
-          :type="isSearch ? 'danger' : 'success'"
-          @click="handleDownloadData"
-          >导出</el-button
-        >
+        <el-button @click="handleDownloadData">导出</el-button>
       </el-col>
     </el-row>
     <el-table

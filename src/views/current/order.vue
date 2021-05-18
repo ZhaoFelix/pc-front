@@ -1,5 +1,22 @@
 <template>
   <div class="app-container">
+    <div class="shaixuan">
+      <el-row>
+        <el-col :span="2">
+          <span style="font-weight:bold;font-size:14px;">按条件进行筛选：</span>
+        </el-col>
+        <el-col :span="14">
+          <el-radio-group v-model="selectRadio" @change="selectRadioEvent()">
+            <el-radio
+              v-for="(item, index) in radioOptions"
+              :key="index"
+              :label="index"
+              >{{ item }}</el-radio
+            >
+          </el-radio-group>
+        </el-col>
+      </el-row>
+    </div>
     <!-- TODO：待添加搜索部分的内容 -->
     <el-table
       v-loading="listLoading"
@@ -362,5 +379,8 @@ export default index;
 }
 .tip li {
   line-height: 18px;
+}
+.shaixuan {
+  padding: 4px 0;
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-30 10:26:26
- * @LastEditTime: 2021-01-11 08:33:00
+ * @LastEditTime: 2021-05-18 10:24:24
  * @FilePath: /pc-front/src/views/current/js/order.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -22,10 +22,13 @@ let form = {
   driverId: null,
   orderNumber: null
 };
+let radioOptions = ["全部", "今日订单", "待指派", "进行中", "未支付"];
 export default {
   data() {
     return {
       list: [],
+      radioOptions,
+      selectRadio: 0,
       listLoading: false,
       total: 103,
       limit: 10,
@@ -88,12 +91,13 @@ export default {
     }
   },
   methods: {
-    fetchData() {
+    fetchData(selectRadio) {
       this.list = [];
       this.listQuery.limit = this.limit;
       this.listQuery.offset = (this.page - 1) * this.limit;
       this.listLoading = true;
       this.listQuery.third_id = this.third;
+      this.listQuery.selectRadio = this.selectRadio;
       getCurrentOrderList(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
@@ -157,7 +161,7 @@ export default {
           type: "success"
         });
         // 重新获取数据
-        this.fetchData();
+        this.fetchData(this.selectRadio);
       });
     },
     assignDriverLeader() {
@@ -192,8 +196,11 @@ export default {
           type: "success"
         });
         // 重新获取数据
-        this.fetchData();
+        this.fetchData(this.selectRadio);
       });
+    },
+    selectRadioEvent(value) {
+      this.fetchData(this.selectRadio);
     }
   }
 };
