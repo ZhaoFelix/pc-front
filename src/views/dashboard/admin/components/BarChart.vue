@@ -125,8 +125,7 @@ export default {
             smooth: true,
             type: "bar",
             data: expectedData,
-            animationDuration: 2800,
-            animationEasing: "cubicInOut"
+            animationDuration: 2800
           }
         ]
       });
