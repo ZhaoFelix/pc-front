@@ -132,13 +132,17 @@
           <el-tag v-if="scope.row.order_status == 2" type="info">
             已取消
           </el-tag>
-          <el-tag v-else-if="scope.row.order_status == 6" type="sucess">
+          <el-tag
+            v-else-if="scope.row.order_status == 6"
+            type="sucess"
+            effect="dark"
+          >
             已完成
           </el-tag>
           <el-tag v-else-if="scope.row.order_status == 7" type="sucess">
             补差价
           </el-tag>
-          <el-tag v-else type="warning">进行中 </el-tag>
+          <el-tag v-else type="warning" effect="dark">进行中 </el-tag>
         </template>
       </el-table-column>
 

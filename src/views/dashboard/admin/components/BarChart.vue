@@ -68,12 +68,16 @@ export default {
       this.chart = echarts.init(this.$el, "macarons");
       this.setOptions(this.chartData);
     },
-    setOptions({ expectedData } = {}) {
+    setOptions({ countData, totalData } = {}) {
       this.chart.setOption({
         title: {
           text: this.title,
           left: "center",
           top: "top"
+        },
+        legend: {
+          data: ["实际收入", "总收入"],
+          left: "10%"
         },
         xAxis: {
           data: this.XData.map(item => item.substring(5)),
@@ -102,12 +106,9 @@ export default {
             show: false
           }
         },
-        legend: {
-          data: []
-        },
         series: [
           {
-            name: "销售额",
+            name: "实际收入",
             itemStyle: {
               normal: {
                 color: "#FF005A",
@@ -117,14 +118,35 @@ export default {
                 }
               }
             },
-
             label: {
               show: true,
-              position: "top"
+              position: "top",
+              color: "black"
             },
             smooth: true,
             type: "bar",
-            data: expectedData,
+            data: countData,
+            animationDuration: 2800
+          },
+          {
+            name: "总收入",
+            itemStyle: {
+              normal: {
+                color: "#91cc75",
+                lineStyle: {
+                  color: "#FF005A",
+                  width: 2
+                }
+              }
+            },
+            label: {
+              show: true,
+              position: "top",
+              color: "black"
+            },
+            smooth: true,
+            type: "bar",
+            data: totalData,
             animationDuration: 2800
           }
         ]

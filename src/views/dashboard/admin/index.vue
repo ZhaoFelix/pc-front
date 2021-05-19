@@ -2,27 +2,16 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-14 08:01:29
+ * @LastEditTime: 2021-05-19 15:24:30
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
 <template>
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
-    <el-row gutter="16">
+    <el-row :gutter="16">
       <el-col :span="12">
         <div class="chart-wrapper">
-          <!-- <center>
-            <p class="title-style">
-              {{
-                type == "wechat"
-                  ? "最近一周用户增长"
-                  : type == "order"
-                  ? "最近一周订单量"
-                  : "其他"
-              }}
-            </p>
-          </center> -->
           <line-chart
             :title="
               type == 'wechat'
@@ -38,13 +27,8 @@
       </el-col>
       <el-col :span="12">
         <div class="chart-wrapper">
-          <!-- <center>
-            <p class="title-style">
-              销售额
-            </p>
-          </center> -->
           <bar-chart
-            title="销售额"
+            title="销售"
             :chart-data="saleLineChartData"
             :x-data="saleXData"
           />
@@ -100,7 +84,8 @@ const lineChartData = {
   expectedData: []
 };
 const saleLineChartData = {
-  expectedData: []
+  countData: [],
+  totalData: []
 };
 const XData = [];
 const saleXData = [];
@@ -131,11 +116,11 @@ export default {
     handleSetLineChartData(type) {
       console.log(type);
       this.type = type;
-      // this.fetchData();
       queryWeek({ type: this.type }).then(response => {
         let result = response.data;
         let days = [];
         let count = [];
+        let total = [];
         for (var i = 0; i < result.length; i++) {
           let item = result[i];
           days.push(item.days);
@@ -199,13 +184,16 @@ export default {
         let result = response.data;
         let days = [];
         let count = [];
+        let total = [];
         for (var i = 0; i < result.length; i++) {
           let item = result[i];
           days.push(item.days);
           count.push(item.count);
+          total.push(item.total);
         }
         this.saleXData = days;
-        this.saleLineChartData.expectedData = count;
+        this.saleLineChartData.countData = count;
+        this.saleLineChartData.totalData = total;
       });
     }
   },

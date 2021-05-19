@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-10-26 13:36:47
- * @LastEditTime: 2021-05-14 19:05:27
+ * @LastEditTime: 2021-05-19 14:59:24
  * @FilePath: /pc-front/src/utils/request.js
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -35,8 +35,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    console.log("111");
-    console.log(process.env);
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
       Message({
