@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-05-18 09:08:01
+ * @LastEditTime: 2021-05-19 18:23:59
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -16,15 +16,57 @@
           placeholder="请输入姓名、小区、手机号进行查询"
         ></el-input
       ></el-col>
-      <el-col :span="4"
+      <el-col :span="1"
         ><el-button
           :type="isSearch ? 'danger' : 'success'"
           @click="searchByKeyword"
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >
-      <el-col :span="4">
-        <el-button @click="handleDownloadData">导出</el-button>
+      <el-col :offset="1" :span="1" v-if="multipleSelection.length != 0">
+        <el-button type="primary" @click="handleDownloadData"
+          >导出选中的数据</el-button
+        >
+      </el-col>
+      <el-col :offset="1" :span="1">
+        <el-button
+          @click="moreExport = !moreExport"
+          icon="el-icon-more"
+        ></el-button>
+      </el-col>
+    </el-row>
+    <el-row v-if="moreExport" style="line-height:32px;margin-top:4px;">
+      <el-col :span="1">
+        <span>按时间段导出:</span>
+      </el-col>
+      <el-col :span="3"
+        ><div class="block">
+          <el-date-picker
+            size="small"
+            v-model="exportQuery.startDate"
+            type="date"
+            placeholder="开始日期"
+            value-format="yyyy-MM-dd"
+          >
+          </el-date-picker>
+        </div>
+      </el-col>
+      <el-col :span="3"
+        ><div class="block">
+          <el-date-picker
+            size="small"
+            v-model="exportQuery.endDate"
+            type="date"
+            placeholder="结束日期"
+            value-format="yyyy-MM-dd"
+          >
+          </el-date-picker>
+        </div>
+      </el-col>
+      <el-col :span="1">
+        <el-button type="primary" size="small" @click="exportGapData"
+          >导出该时间段内的数据</el-button
+        >
       </el-col>
     </el-row>
     <el-table
@@ -122,6 +164,9 @@
           </el-tag>
           <el-tag type="success" v-if="scope.row.order_type == 3">
             垃圾箱清运
+          </el-tag>
+          <el-tag v-if="scope.row.order_type == 11">
+            二次清运
           </el-tag>
         </template>
       </el-table-column>
@@ -381,7 +426,8 @@
 import {
   getOrderAll,
   getOrderDetail,
-  getOrderListByKeyword
+  getOrderListByKeyword,
+  getOrderListByTime
 } from "@/api/order";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
@@ -393,7 +439,32 @@ let MD5 = function(pwd) {
   pwd = md5(pwd);
   return pwd;
 };
-
+const tHeader = [
+  "订单号",
+  "用户名",
+  "订单地址",
+  "下单手机号",
+  "物业小区",
+  "接单司机",
+  "订单价格",
+  "支付价格",
+  "订单类型",
+  "用户预约时间",
+  "订单生成时间"
+];
+const filterVal = [
+  "order_number",
+  "order_user_name",
+  "user_address",
+  "user_phone",
+  "estate_plot",
+  "driver_name",
+  "order_price",
+  "order_final_price",
+  "order_type",
+  "user_reserve_time",
+  "order_created_time"
+];
 export default {
   components: { Pagination },
 
@@ -412,6 +483,7 @@ export default {
       activeNames: ["1", "2", "3"],
       isOperateable: true,
       detailVisible: false,
+      moreExport: false,
       temp: {
         admin_name: "",
         admin_login_name: "",
@@ -427,6 +499,10 @@ export default {
         offset: 0,
         status: undefined,
         keyword: ""
+      },
+      exportQuery: {
+        startDate: "",
+        endDate: ""
       },
       filename: "",
       autoWidth: true,
@@ -483,38 +559,31 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
+    exportGapData() {
+      if (this.exportQuery.startDate == "" || this.exportQuery.endDate == "") {
+        this.$message("请先选择时间段");
+      } else {
+        getOrderListByTime(this.exportQuery).then(response => {
+          let list = response.data;
+          import("@/vendor/Export2Excel").then(excel => {
+            const data = this.formatJson(filterVal, list);
+            excel.export_json_to_excel({
+              header: tHeader,
+              data,
+              filename: parseTime(Date()),
+              autoWidth: this.autoWidth,
+              bookType: this.bookType
+            });
+          });
+        });
+      }
+    },
+
     // 导出的方法
     handleDownloadData() {
       this.downloadLoading = true;
       import("@/vendor/Export2Excel").then(excel => {
-        const tHeader = [
-          "订单号",
-          "用户名",
-          "订单地址",
-          "物业小区",
-          "接单司机",
-          "订单价格",
-          "支付价格",
-          "订单类型",
-          "用户预约时间",
-          "订单生成时间"
-        ];
-        const filterVal = [
-          "order_number",
-          "order_user_name",
-          "user_address",
-          "estate_plot",
-          "driver_name",
-          "order_price",
-          "order_final_price",
-          "order_type",
-          "user_reserve_time",
-          "order_created_time"
-        ];
-        const list =
-          this.multipleSelection.length == 0
-            ? this.list
-            : this.multipleSelection;
+        const list = this.multipleSelection;
         const data = this.formatJson(filterVal, list);
         console.log(list);
         excel.export_json_to_excel({
@@ -535,8 +604,10 @@ export default {
           } else if (j === "order_type") {
             return v[j] == 1
               ? "居民装修"
-              : v[j] == 2
+              : v[j] == 3
               ? "垃圾箱清运"
+              : v[j] == 11
+              ? "二次清运"
               : "商业装修";
           } else {
             return v[j];

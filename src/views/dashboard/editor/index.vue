@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2020-12-28 09:27:44
+ * @LastEditTime: 2021-05-19 16:09:59
  * @FilePath: /pc-front/src/views/dashboard/editor/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -31,7 +31,6 @@
 <script>
 import { mapGetters } from "vuex";
 import PanThumb from "@/components/PanThumb";
-
 export default {
   name: "DashboardEditor",
   components: { PanThumb },
