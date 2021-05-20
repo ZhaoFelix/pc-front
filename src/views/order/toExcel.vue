@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-05-19 18:23:59
+ * @LastEditTime: 2021-05-19 19:01:39
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -28,11 +28,10 @@
           >导出选中的数据</el-button
         >
       </el-col>
-      <el-col :offset="1" :span="1">
-        <el-button
-          @click="moreExport = !moreExport"
-          icon="el-icon-more"
-        ></el-button>
+      <el-col :span="1">
+        <el-button @click="moreExport = !moreExport" type="info"
+          >数据导出</el-button
+        >
       </el-col>
     </el-row>
     <el-row v-if="moreExport" style="line-height:32px;margin-top:4px;">
