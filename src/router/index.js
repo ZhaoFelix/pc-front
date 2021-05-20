@@ -140,6 +140,12 @@ export const asyncRoutes = [
         name: "export",
         component: () => import("@/views/order/toExcel"),
         meta: { title: "订单导出", icon: "excel", roles: ["1"] }
+      },
+      {
+        path: "error",
+        name: "error",
+        component: () => import("@/views/order/error"),
+        meta: { title: "异常订单", icon: "bug", roles: ["1"] }
       }
     ]
   },
