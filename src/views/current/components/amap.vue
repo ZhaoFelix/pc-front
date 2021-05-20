@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-01-07 09:31:55
- * @LastEditTime: 2021-04-02 15:36:46
+ * @LastEditTime: 2021-05-20 17:44:07
  * @FilePath: /pc-front/src/views/current/components/amap.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -44,7 +44,7 @@ export default {
   methods: {
     //添加点标记
     loadMarkers() {
-      console.log(this.positions);
+      // console.log(this.positions);
       var positions = this.positions;
       var anchor = this.carNumbers;
       var pos_icon = [];
@@ -64,8 +64,10 @@ export default {
         var labelContent = "<div class='labelContent'>" + anchor[i] + "</div>";
         var labelOffset = new AMap.Pixel(-20, -20); // top left
         // 将 Icon 传入 marker
+        let pos = positions[i];
+        console.log(pos);
         pos_marker[i] = new AMap.Marker({
-          position: positions[i],
+          position: [pos[0], pos[1]],
           icon: pos_icon[i],
           anchor: "center", //设置锚点
           offset: new AMap.Pixel(0, 0), //设置偏移量
