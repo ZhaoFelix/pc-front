@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-05-19 19:01:39
+ * @LastEditTime: 2021-05-21 14:14:45
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -23,7 +23,7 @@
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >
-      <el-col :offset="1" :span="1" v-if="multipleSelection.length != 0">
+      <el-col :span="2" v-if="multipleSelection.length != 0">
         <el-button type="primary" @click="handleDownloadData"
           >导出选中的数据</el-button
         >
@@ -36,7 +36,7 @@
     </el-row>
     <el-row v-if="moreExport" style="line-height:32px;margin-top:4px;">
       <el-col :span="1">
-        <span>按时间段导出:</span>
+        <span style="font-weight:bold">按时间段导出:</span>
       </el-col>
       <el-col :span="3"
         ><div class="block">
@@ -50,6 +50,7 @@
           </el-date-picker>
         </div>
       </el-col>
+
       <el-col :span="3"
         ><div class="block">
           <el-date-picker

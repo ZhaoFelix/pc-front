@@ -56,12 +56,12 @@ export const asyncRoutes = [
     component: Layout,
     meta: { title: "实时管理", icon: "guide", roles: ["1", "2", "3"] },
     children: [
-      {
-        path: "map",
-        name: "Map",
-        component: () => import("@/views/current/map2"),
-        meta: { title: "实时地图(beta)", icon: "international", roles: ["1"] }
-      },
+      // {
+      //   path: "map",
+      //   name: "Map",
+      //   component: () => import("@/views/current/map2"),
+      //   meta: { title: "实时地图(beta)", icon: "international", roles: ["1"] }
+      // },
       {
         path: "driver",
         name: "Cdriver",
@@ -162,12 +162,12 @@ export const asyncRoutes = [
         component: () => import("@/views/admin/index"),
         meta: { title: "管理员", icon: "user", roles: ["1"] }
       },
-      {
-        path: "cashier",
-        name: "cashier",
-        component: () => import("@/views/admin/cashier"),
-        meta: { title: "收费员验证码", icon: "user", roles: ["1", "2"] }
-      },
+      // {
+      //   path: "cashier",
+      //   name: "cashier",
+      //   component: () => import("@/views/admin/cashier"),
+      //   meta: { title: "收费员验证码", icon: "user", roles: ["1", "2"] }
+      // },
       {
         path: "category",
         name: "category",
