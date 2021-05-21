@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-18 13:29:45
- * @LastEditTime: 2021-05-20 10:38:06
+ * @LastEditTime: 2021-05-21 09:13:09
  * @FilePath: /pc-front/src/api/order/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -52,6 +52,14 @@ export function assignDriver(params) {
   });
 }
 
+// 关键字查询实时订单
+export function queryCurrentByKeyword(params) {
+  return request({
+    url: `${base_path}operatedOrder/order/queryByKeyword`,
+    method: "get",
+    params
+  });
+}
 // 价格调整
 export function assignPrice(data) {
   return request({

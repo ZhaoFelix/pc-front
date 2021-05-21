@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-30 10:26:26
- * @LastEditTime: 2021-05-18 10:24:24
+ * @LastEditTime: 2021-05-21 09:29:22
  * @FilePath: /pc-front/src/views/current/js/order.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -11,7 +11,8 @@ import {
   cancelOrderByAdmin,
   assignDriver,
   assignPrice,
-  getDriverList
+  getDriverList,
+  queryCurrentByKeyword
 } from "@/api/order";
 
 import { getDriverLeader, setDriverLeader } from "@/api/driver";
@@ -35,6 +36,7 @@ export default {
       page: 1,
       keyword: "",
       form,
+      isSearch: false,
       carRadio: "",
       driverRadio: "",
       driverTable: [],
@@ -201,6 +203,21 @@ export default {
     },
     selectRadioEvent(value) {
       this.fetchData(this.selectRadio);
+    },
+    searchByKeyword() {
+      if (this.keyword == "" && !this.isSearch) {
+        this.$message("请先输入搜索关键字");
+      } else if (this.keyword != "" && !this.isSearch) {
+        this.isSearch = !this.isSearch;
+        queryCurrentByKeyword({ keyword: this.keyword }).then(response => {
+          this.list = response.data;
+          this.total = this.list.length;
+        });
+      } else if (this.isSearch) {
+        this.isSearch = !this.isSearch;
+        this.fetchData();
+        this.keyword = "";
+      }
     }
   }
 };

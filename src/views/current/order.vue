@@ -2,8 +2,22 @@
   <div class="app-container">
     <div class="shaixuan">
       <el-row>
-        <el-col :span="2">
-          <span style="font-weight:bold;font-size:14px;">按条件进行筛选：</span>
+        <el-col :span="4">
+          <el-input
+            v-model="keyword"
+            placeholder="请输入姓名、小区、手机号、地址进行查询"
+          ></el-input
+        ></el-col>
+
+        <el-col :span="1">
+          <el-button
+            :type="isSearch ? 'danger' : 'success'"
+            @click="searchByKeyword"
+            >{{ isSearch ? "取消" : "搜索" }}</el-button
+          ></el-col
+        >
+        <el-col :span="1" :offset="1">
+          <span style="font-weight:bold;font-size:14px;">条件筛选：</span>
         </el-col>
         <el-col :span="14">
           <el-radio-group v-model="selectRadio" @change="selectRadioEvent()">
@@ -24,16 +38,20 @@
       element-loading-text="Loading"
       border
       fit
+      stripe
       highlight-current-row
       style="margin-top:10px;width:100%;"
       height="800"
+      :default-sort="{ prop: 'order_created_time', order: 'descending' }"
     >
-      <el-table-column label="物业姓名" align="center" fixed>
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.estate_name }}
-          </span>
-        </template>
+      <el-table-column
+        label="序号"
+        align="center"
+        type="index"
+        width="50"
+        fixed
+        sortable
+      >
       </el-table-column>
       <el-table-column label="指派司机" align="center" min-width="80" fixed>
         <template slot-scope="scope">
@@ -125,6 +143,13 @@
           }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="物业姓名" align="center">
+        <template slot-scope="scope">
+          <span>
+            {{ scope.row.estate_name }}
+          </span>
+        </template>
+      </el-table-column>
       <el-table-column label="装修类型" align="center" min-width="95">
         <template slot-scope="scope">
           <el-tag type="danger" v-if="scope.row.order_type == 1">
@@ -171,7 +196,13 @@
           <span>{{ scope.row.third_name }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column label="下单时间" align="center" min-width="180">
+      <el-table-column
+        label="下单时间"
+        prop="order_created_time"
+        align="center"
+        min-width="180"
+        sortable
+      >
         <template slot-scope="scope">
           <span>{{
             scope.row.order_created_time | parseTime("{y}-{m}-{d} {h}:{i}")
@@ -381,6 +412,6 @@ export default index;
   line-height: 18px;
 }
 .shaixuan {
-  padding: 4px 0;
+  line-height: 48px;
 }
 </style>
