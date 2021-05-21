@@ -2,12 +2,12 @@
   <div class="app-container">
     <el-row :gutter="10">
       <!-- 管理员和调度元拥有添加的权限 -->
-      <el-col :span="2" v-if="roles.includes('1') || roles.includes('2')"
+      <el-col :span="1" v-if="roles.includes('1') || roles.includes('2')"
         ><el-button type="success" @click="dialogFormVisible = true"
           >添加</el-button
         ></el-col
       >
-      <el-col :span="6">
+      <el-col :span="4">
         <el-input
           v-model="keyword"
           placeholder="请输入手机号、姓名、小区进行查询"
