@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- TODO：待添加搜索部分的内容 -->
     <el-row :gutter="10">
-      <el-col :span="4">
+      <el-col :xl="{ span: 4 }" :lg="{ span: 5 }" :md="{ span: 6 }">
         <el-input
           v-model="keyword"
           placeholder="请输入姓名、小区、地址、手机号进行查询"

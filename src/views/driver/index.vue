@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
     <el-row :gutter="10">
-      <el-col :span="1" v-if="roles.includes('1') || roles.includes('2')"
+      <el-col
+        :xl="{ span: 1 }"
+        :lg="{ span: 2 }"
+        :md="{ span: 2 }"
+        v-if="roles.includes('1') || roles.includes('2')"
         ><el-button type="success" @click="dialogFormVisible = true"
           >添加</el-button
         ></el-col

@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-05-21 14:14:45
+ * @LastEditTime: 2021-05-21 14:38:06
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -16,7 +16,10 @@
           placeholder="请输入姓名、小区、手机号进行查询"
         ></el-input
       ></el-col>
-      <el-col :span="1"
+      <el-col
+        :xl="{ offset: 0, span: 1 }"
+        :lg="{ offset: 1, span: 2 }"
+        :md="{ offset: 1, span: 3 }"
         ><el-button
           :type="isSearch ? 'danger' : 'success'"
           @click="searchByKeyword"
@@ -35,10 +38,10 @@
       </el-col>
     </el-row>
     <el-row v-if="moreExport" style="line-height:32px;margin-top:4px;">
-      <el-col :span="1">
+      <el-col :xl="{ span: 1 }" :lg="{ span: 2 }" :md="{ span: 3 }">
         <span style="font-weight:bold">按时间段导出:</span>
       </el-col>
-      <el-col :span="3"
+      <el-col :xl="{ span: 3 }" :lg="{ span: 4 }" :md="{ span: 3 }"
         ><div class="block">
           <el-date-picker
             size="small"
@@ -51,7 +54,7 @@
         </div>
       </el-col>
 
-      <el-col :span="3"
+      <el-col :xl="{ span: 3 }" :lg="{ span: 4 }" :md="{ span: 4 }"
         ><div class="block">
           <el-date-picker
             size="small"
@@ -63,7 +66,11 @@
           </el-date-picker>
         </div>
       </el-col>
-      <el-col :span="1">
+      <el-col
+        :xl="{ offset: 0, span: 1 }"
+        :lg="{ offset: 0, span: 2 }"
+        :md="{ offset: 0, span: 3 }"
+      >
         <el-button type="primary" size="small" @click="exportGapData"
           >导出该时间段内的数据</el-button
         >

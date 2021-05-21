@@ -2,21 +2,25 @@
   <div class="app-container">
     <div class="shaixuan">
       <el-row>
-        <el-col :span="4">
+        <el-col :xl="{ span: 4 }" :lg="{ span: 5 }" :md="{ span: 6 }">
           <el-input
             v-model="keyword"
             placeholder="请输入姓名、小区、手机号、地址进行查询"
           ></el-input
         ></el-col>
 
-        <el-col :span="1">
+        <el-col :xl="{ span: 2 }" :lg="{ span: 2 }" :md="{ span: 2 }">
           <el-button
             :type="isSearch ? 'danger' : 'success'"
             @click="searchByKeyword"
             >{{ isSearch ? "取消" : "搜索" }}</el-button
           ></el-col
         >
-        <el-col :span="1" :offset="1">
+        <el-col
+          :xl="{ offset: 0, span: 1 }"
+          :lg="{ offset: 1, span: 2 }"
+          :md="{ offset: 1, span: 3 }"
+        >
           <span style="font-weight:bold;font-size:14px;">条件筛选：</span>
         </el-col>
         <el-col :span="14">
