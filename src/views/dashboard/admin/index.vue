@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-19 15:24:30
+ * @LastEditTime: 2021-05-21 10:17:29
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -49,18 +49,29 @@
       <el-col :span="8">
         <div class="chart-wrapper">
           <pie-chart
-            :tipData="estateData"
-            :dataArr="estateDataArr"
-            title="物业认证比例"
+            :tipData="driverData"
+            :dataArr="orderStatusArr"
+            title="订单状态占比"
           ></pie-chart>
         </div>
       </el-col>
       <el-col :span="8">
         <div class="chart-wrapper">
           <pie-chart
+            :tipData="estateData"
+            :dataArr="estateDataArr"
+            title="物业认证占比"
+          ></pie-chart>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="16">
+      <el-col :span="8">
+        <div class="chart-wrapper">
+          <pie-chart
             :tipData="driverData"
             :dataArr="driverDataArr"
-            title="司机认证比例"
+            title="司机认证占比"
           ></pie-chart>
         </div>
       </el-col>
@@ -77,7 +88,8 @@ import {
   queryWeek,
   queryOrderRatio,
   queryEstateRatio,
-  querySale
+  querySale,
+  queryOrderStatusRatio
 } from "@/api/dashboard";
 import { request } from "http";
 const lineChartData = {
@@ -106,6 +118,8 @@ export default {
       type: "order",
       tipData: ["商业装修", "居民装修", "垃圾箱清运"],
       dataArr: [],
+      orderStatusTipData: [],
+      orderStatusArr: [],
       estateData: ["已认证", "未认证"],
       driverData: ["已认证", "未认证"],
       estateDataArr: [],
@@ -152,6 +166,19 @@ export default {
             name: key
           };
           _this.dataArr.push(temp);
+        });
+      });
+      //queryOrderStatusRatio
+      queryOrderStatusRatio().then(response => {
+        let result = response.data[0];
+        Object.keys(result).forEach(function(key) {
+          if (result[key] != 0) {
+            let temp = {
+              value: result[key],
+              name: key
+            };
+            _this.orderStatusArr.push(temp);
+          }
         });
       });
       queryEstateRatio().then(response => {
