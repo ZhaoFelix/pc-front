@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-21 10:17:29
+ * @LastEditTime: 2021-05-24 13:07:48
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -10,7 +10,7 @@
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
     <el-row :gutter="16">
-      <el-col :span="12">
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <line-chart
             :title="
@@ -25,7 +25,7 @@
           />
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <bar-chart
             title="销售"
@@ -37,7 +37,7 @@
     </el-row>
 
     <el-row :gutter="16">
-      <el-col :span="8">
+      <el-col :xs="12" :sm="12" :xl="8">
         <div class="chart-wrapper">
           <pie-chart
             :tipData="tipData"
@@ -46,7 +46,7 @@
           ></pie-chart>
         </div>
       </el-col>
-      <el-col :span="8">
+      <el-col :xs="12" :sm="12" :xl="8">
         <div class="chart-wrapper">
           <pie-chart
             :tipData="driverData"
@@ -55,7 +55,7 @@
           ></pie-chart>
         </div>
       </el-col>
-      <el-col :span="8">
+      <el-col :xs="12" :sm="12" :xl="8">
         <div class="chart-wrapper">
           <pie-chart
             :tipData="estateData"
@@ -64,9 +64,7 @@
           ></pie-chart>
         </div>
       </el-col>
-    </el-row>
-    <el-row :gutter="16">
-      <el-col :span="8">
+      <el-col :xs="12" :sm="12" :xl="8">
         <div class="chart-wrapper">
           <pie-chart
             :tipData="driverData"
