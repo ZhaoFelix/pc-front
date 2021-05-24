@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-30 10:26:26
- * @LastEditTime: 2021-05-21 09:29:22
+ * @LastEditTime: 2021-05-24 13:15:21
  * @FilePath: /pc-front/src/views/current/js/order.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -23,7 +23,7 @@ let form = {
   driverId: null,
   orderNumber: null
 };
-let radioOptions = ["全部", "今日订单", "待指派", "进行中", "未支付"];
+let radioOptions = ["全部", "今日订单", "待指派", "进行中", "未支付", "超时"];
 export default {
   data() {
     return {
