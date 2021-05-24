@@ -149,6 +149,21 @@ export const asyncRoutes = [
       }
     ]
   },
+  // 统计分析
+  {
+    path: "/analysis",
+    component: Layout,
+    alwaysShow: false, // 总是显示根目录
+    meta: { title: "系统管理", icon: "example", roles: ["1"] },
+    children: [
+      {
+        path: "order",
+        name: "order",
+        component: () => import("@/views/analysis/index"),
+        meta: { title: "订单分析", icon: "component", roles: ["1"] }
+      }
+    ]
+  },
   // 仅管理员可见
   {
     path: "/admin",
