@@ -2,12 +2,13 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-24 13:35:16
- * @LastEditTime: 2021-05-24 14:10:22
+ * @LastEditTime: 2021-05-24 15:01:55
  * @FilePath: /pc-front/src/views/analysis/index.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
 <template>
   <div class="container">
+    <panel-group @handleSetLineChartData="handleSetLineChartData" />
     <el-row :gutter="16">
       <el-col :span="24">
         <div class="chart-wrapper">
@@ -22,19 +23,23 @@
   </div>
 </template>
 <script>
-import LineChart from "../dashboard/admin/components/LineChart";
-import BarChart from "../dashboard/admin/components/BarChart";
+import PanelGroup from "./components/PanelGroup";
+import BarChart from "./components/BarChart";
 import { querySale } from "@/api/dashboard";
 
 const saleLineChartData = {
   countData: [],
   totalData: []
 };
+const lineChartData = {
+  expectedData: []
+};
 const saleXData = [];
+const XData = [];
 export default {
   components: {
-    LineChart,
-    BarChart
+    BarChart,
+    PanelGroup
   },
   data() {
     return {
@@ -59,6 +64,22 @@ export default {
         this.saleLineChartData.countData = count;
         this.saleLineChartData.totalData = total;
       });
+    },
+    handleSetLineChartData() {
+      this.type = type;
+      queryWeek({ type: this.type }).then(response => {
+        let result = response.data;
+        let days = [];
+        let count = [];
+        let total = [];
+        for (var i = 0; i < result.length; i++) {
+          let item = result[i];
+          days.push(item.days);
+          count.push(item.count);
+        }
+        this.XData = days;
+        this.lineChartData.expectedData = count;
+      });
     }
   },
   mounted() {
@@ -75,8 +96,11 @@ export default {
   margin: 8px;
 }
 .chart-wrapper {
-  margin: 8px;
+  background: #fff;
+  padding: 16px 16px 0;
+  margin-bottom: 20px;
 }
+
 @media (max-width: 1024px) {
   .chart-wrapper {
     padding: 8px;

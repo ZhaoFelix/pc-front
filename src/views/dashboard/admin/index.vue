@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-24 13:07:48
+ * @LastEditTime: 2021-05-24 14:34:20
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -126,7 +126,6 @@ export default {
   },
   methods: {
     handleSetLineChartData(type) {
-      console.log(type);
       this.type = type;
       queryWeek({ type: this.type }).then(response => {
         let result = response.data;
