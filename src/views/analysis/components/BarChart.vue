@@ -88,8 +88,8 @@ export default {
           }
         },
         grid: {
-          left: "1%",
-          right: "1%",
+          left: "0%",
+          right: "5%",
           bottom: "1%",
           top: 40,
           containLabel: true
@@ -104,6 +104,9 @@ export default {
         yAxis: {
           axisTick: {
             show: false
+          },
+          splitLine: {
+            show: true
           }
         },
         series: [
@@ -135,14 +138,14 @@ export default {
                   name: "平均值",
                   label: {
                     normal: {
-                      position: "middle",
+                      position: "end",
                       formatter: "{b}:{c}",
                       color: "black",
                       fontWeight: "bold"
                     }
                   },
                   lineStyle: {
-                    width: 2,
+                    width: 1,
                     type: "dashed",
                     dashOffset: 5
                   }
@@ -177,14 +180,14 @@ export default {
                   name: "平均值",
                   label: {
                     normal: {
-                      position: "middle",
+                      position: "end",
                       formatter: "{b}:{c}",
                       color: "black",
                       fontWeight: "bold"
                     }
                   },
                   lineStyle: {
-                    width: 2,
+                    width: 1,
                     type: "dashed",
                     dashOffset: 5,
                     cap: "round"
