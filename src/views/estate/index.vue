@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-row :gutter="10">
+    <el-row :gutter="10" style="line-height:40px">
       <!-- 管理员和调度元拥有添加的权限 -->
       <el-col
         :xl="{ span: 1 }"
@@ -17,13 +17,30 @@
           placeholder="请输入手机号、姓名、小区进行查询"
         ></el-input
       ></el-col>
-      <el-col :span="4"
+      <el-col :span="2"
         ><el-button
           :type="isSearch ? 'danger' : 'success'"
           @click="searchByKeyword"
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >
+      <el-col
+        :xl="{ offset: 0, span: 2 }"
+        :lg="{ offset: 1, span: 2 }"
+        :md="{ offset: 1, span: 3 }"
+      >
+        <span style="font-weight:bold;font-size:14px;">条件筛选：</span>
+      </el-col>
+      <el-col :span="6">
+        <el-radio-group v-model="selectRadio" @change="selectRadioEvent()">
+          <el-radio
+            v-for="(item, index) in radioOptions"
+            :key="index"
+            :label="index"
+            >{{ item }}</el-radio
+          >
+        </el-radio-group>
+      </el-col>
     </el-row>
     <!-- TODO：待添加搜索部分的内容 -->
     <el-table
@@ -219,7 +236,8 @@ import {
   getEstateListByKeyword,
   getDeleteEstate,
   getEditEstate,
-  getAddEstate
+  getAddEstate,
+  getUnAuthEstate
 } from "@/api/estate";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
@@ -231,7 +249,7 @@ let MD5 = function(pwd) {
   pwd = md5(pwd);
   return pwd;
 };
-
+let radioOptions = ["全部", "未认证"];
 export default {
   components: { Pagination },
   data() {
@@ -245,6 +263,8 @@ export default {
       isSearch: false,
       dialogFormVisible: false,
       dialogVisible: false,
+      radioOptions,
+      selectRadio: 0,
       edit_info: {
         estate_name: "",
         estate_phone: "",
@@ -406,6 +426,17 @@ export default {
           });
         }
       });
+    },
+    selectRadioEvent(value) {
+      if (this.selectRadio == 0) {
+        this.fetchData();
+      } else {
+        getUnAuthEstate().then(response => {
+          this.list = [];
+          console.log(response);
+          this.list = response.data;
+        });
+      }
     }
   }
 };

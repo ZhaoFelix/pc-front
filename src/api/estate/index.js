@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-12 10:14:40
- * @LastEditTime: 2021-05-07 15:26:33
+ * @LastEditTime: 2021-05-25 16:36:22
  * @FilePath: /pc-front/src/api/estate/index.js
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -45,5 +45,12 @@ export function getAddEstate(params) {
     url: `${base_path}estate/insert/add`,
     method: "get",
     params
+  });
+}
+
+export function getUnAuthEstate() {
+  return request({
+    url: `${base_path}estate/query/unauth`,
+    method: "get"
   });
 }

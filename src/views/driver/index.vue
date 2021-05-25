@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-row :gutter="10">
+    <el-row :gutter="10" style="line-height:40px;">
       <el-col
         :xl="{ span: 1 }"
         :lg="{ span: 2 }"
@@ -13,13 +13,30 @@
       <el-col :span="4">
         <el-input v-model="keyword" placeholder="请输入司机手机号"></el-input
       ></el-col>
-      <el-col :span="4"
+      <el-col :span="2"
         ><el-button
           :type="isSearch ? 'danger' : 'success'"
           @click="searchByKeyword"
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >
+      <el-col
+        :xl="{ offset: 0, span: 2 }"
+        :lg="{ offset: 1, span: 2 }"
+        :md="{ offset: 1, span: 3 }"
+      >
+        <span style="font-weight:bold;font-size:14px;">条件筛选：</span>
+      </el-col>
+      <el-col :span="6">
+        <el-radio-group v-model="selectRadio" @change="selectRadioEvent()">
+          <el-radio
+            v-for="(item, index) in radioOptions"
+            :key="index"
+            :label="index"
+            >{{ item }}</el-radio
+          >
+        </el-radio-group>
+      </el-col>
     </el-row>
     <!-- TODO：待添加搜索部分的内容 -->
     <el-table
@@ -194,7 +211,8 @@ import {
   getDeleteDriver,
   getEditDriver,
   getAddDriver,
-  getDriverLeader
+  getDriverLeader,
+  getUnAuthDriver
 } from "@/api/driver";
 import { parseTime } from "@/utils";
 import { mapGetters } from "vuex";
@@ -206,7 +224,7 @@ let MD5 = function(pwd) {
   pwd = md5(pwd);
   return pwd;
 };
-
+let radioOptions = ["全部", "未认证"];
 export default {
   components: { Pagination },
 
@@ -219,6 +237,8 @@ export default {
       page: 1,
       keyword: "",
       existID: 0,
+      radioOptions,
+      selectRadio: 0,
       isSearch: false,
       dialogFormVisible: false,
       dialogVisible: false,
@@ -403,6 +423,17 @@ export default {
       getDriverLeader().then(response => {
         this.thirdTable = this.thirdTable.concat(response.data);
       });
+    },
+    selectRadioEvent(value) {
+      if (this.selectRadio == 0) {
+        this.fetchData();
+      } else {
+        getUnAuthDriver().then(response => {
+          this.list = [];
+          console.log(response);
+          this.list = response.data;
+        });
+      }
     }
   }
 };

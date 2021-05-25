@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-01 07:55:34
- * @LastEditTime: 2021-05-08 10:49:37
+ * @LastEditTime: 2021-05-25 16:46:30
  * @FilePath: /pc-front/src/api/driver/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -108,5 +108,13 @@ export function getAddCar(params) {
     url: `${base_path}car/insert/add`,
     method: "get",
     params
+  });
+}
+
+// getUnAuthDriver
+export function getUnAuthDriver() {
+  return request({
+    url: `${base_path}driver/query/unauth`,
+    method: "get"
   });
 }
