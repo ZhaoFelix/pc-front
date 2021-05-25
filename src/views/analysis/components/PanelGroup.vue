@@ -9,9 +9,18 @@
           <div class="card-panel-text">
             居民装修
           </div>
+
           <count-to
             :start-val="0"
             :end-val="basicData.usual"
+            :duration="2600"
+            :decimals="2"
+            class="card-panel-num"
+          />
+          <span class="card-panel-num">/</span>
+          <count-to
+            :start-val="0"
+            :end-val="basicData.usual_total"
             :duration="2600"
             :decimals="2"
             class="card-panel-num"
@@ -35,6 +44,14 @@
             :decimals="2"
             class="card-panel-num"
           />
+          <span class="card-panel-num">/</span>
+          <count-to
+            :start-val="0"
+            :end-val="basicData.business_total"
+            :duration="3200"
+            :decimals="2"
+            class="card-panel-num"
+          />
         </div>
       </div>
     </el-col>
@@ -54,6 +71,14 @@
             :decimals="2"
             class="card-panel-num"
           />
+          <span class="card-panel-num">/</span>
+          <count-to
+            :start-val="0"
+            :end-val="basicData.box_total"
+            :duration="3600"
+            :decimals="2"
+            class="card-panel-num"
+          />
         </div>
       </div>
     </el-col>
@@ -69,6 +94,14 @@
           <count-to
             :start-val="0"
             :end-val="basicData.total"
+            :duration="3000"
+            :decimals="2"
+            class="card-panel-num"
+          />
+          <span class="card-panel-num">/</span>
+          <count-to
+            :start-val="0"
+            :end-val="basicData.actual_total"
             :duration="3000"
             :decimals="2"
             class="card-panel-num"
