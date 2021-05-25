@@ -82,9 +82,9 @@ export default {
           }
         },
         grid: {
-          left: 10,
-          right: 10,
-          bottom: 10,
+          left: "0%",
+          right: "5%",
+          bottom: "1%",
           top: 40,
           containLabel: true
         },
@@ -145,6 +145,28 @@ export default {
                   color: "#eef1f5"
                 }
               ])
+            },
+            markLine: {
+              data: [
+                {
+                  type: "average",
+                  name: "平均值",
+                  label: {
+                    normal: {
+                      position: "end",
+                      formatter: "{b}:{c}",
+                      color: "black",
+                      fontWeight: "bold"
+                    }
+                  },
+                  lineStyle: {
+                    width: 1,
+                    type: "dashed",
+                    dashOffset: 5,
+                    cap: "round"
+                  }
+                }
+              ]
             }
           }
         ]
