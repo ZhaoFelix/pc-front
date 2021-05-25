@@ -13,6 +13,7 @@
             :start-val="0"
             :end-val="basicData.usual"
             :duration="2600"
+            :decimals="2"
             class="card-panel-num"
           />
         </div>
@@ -31,6 +32,7 @@
             :start-val="0"
             :end-val="basicData.business"
             :duration="3200"
+            :decimals="2"
             class="card-panel-num"
           />
         </div>
@@ -49,6 +51,7 @@
             :start-val="0"
             :end-val="basicData.box"
             :duration="3600"
+            :decimals="2"
             class="card-panel-num"
           />
         </div>
@@ -67,6 +70,7 @@
             :start-val="0"
             :end-val="basicData.total"
             :duration="3000"
+            :decimals="2"
             class="card-panel-num"
           />
         </div>

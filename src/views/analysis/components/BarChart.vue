@@ -118,6 +118,7 @@ export default {
                 }
               }
             },
+
             label: {
               show: true,
               position: "top",
@@ -126,7 +127,28 @@ export default {
             smooth: true,
             type: "bar",
             data: countData,
-            animationDuration: 2800
+            animationDuration: 2800,
+            markLine: {
+              data: [
+                {
+                  type: "average",
+                  name: "平均值",
+                  label: {
+                    normal: {
+                      position: "middle",
+                      formatter: "{b}:{c}",
+                      color: "black",
+                      fontWeight: "bold"
+                    }
+                  },
+                  lineStyle: {
+                    width: 2,
+                    type: "dashed",
+                    dashOffset: 5
+                  }
+                }
+              ]
+            }
           },
           {
             name: "总收入",
@@ -147,7 +169,29 @@ export default {
             smooth: true,
             type: "bar",
             data: totalData,
-            animationDuration: 2800
+            animationDuration: 2800,
+            markLine: {
+              data: [
+                {
+                  type: "average",
+                  name: "平均值",
+                  label: {
+                    normal: {
+                      position: "middle",
+                      formatter: "{b}:{c}",
+                      color: "black",
+                      fontWeight: "bold"
+                    }
+                  },
+                  lineStyle: {
+                    width: 2,
+                    type: "dashed",
+                    dashOffset: 5,
+                    cap: "round"
+                  }
+                }
+              ]
+            }
           }
         ]
       });
