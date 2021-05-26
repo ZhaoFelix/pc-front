@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-24 13:35:16
- * @LastEditTime: 2021-05-25 14:45:48
+ * @LastEditTime: 2021-05-26 21:12:51
  * @FilePath: /pc-front/src/views/analysis/index.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -13,7 +13,7 @@
       <el-col :span="24">
         <div class="chart-wrapper">
           <el-row>
-            <el-col :offset="9" :span="6">
+            <el-col :sm="{ offset: 8, span: 8 }" :xl="{ offset: 9, span: 6 }">
               <el-date-picker
                 v-model="timeGap"
                 type="daterange"
@@ -45,7 +45,7 @@
       <el-col :span="24">
         <div class="chart-wrapper">
           <el-row>
-            <el-col :offset="9" :span="6">
+            <el-col :sm="{ offset: 8, span: 8 }" :xl="{ offset: 9, span: 6 }">
               <el-date-picker
                 v-model="orderTimeGap"
                 type="daterange"
