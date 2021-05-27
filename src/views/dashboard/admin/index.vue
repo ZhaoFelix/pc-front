@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-24 14:34:20
+ * @LastEditTime: 2021-05-27 15:50:53
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -41,8 +41,26 @@
         <div class="chart-wrapper">
           <pie-chart
             :tipData="tipData"
+            :dataArr="todayDataArr"
+            title="今日订单类型占比"
+          ></pie-chart>
+        </div>
+      </el-col>
+      <el-col :xs="12" :sm="12" :xl="8">
+        <div class="chart-wrapper">
+          <pie-chart
+            :tipData="tipData"
             :dataArr="dataArr"
-            title="订单类型占比"
+            title="累计订单类型占比"
+          ></pie-chart>
+        </div>
+      </el-col>
+      <el-col :xs="12" :sm="12" :xl="8">
+        <div class="chart-wrapper">
+          <pie-chart
+            :tipData="driverData"
+            :dataArr="todayOrderStatusArr"
+            title="今日订单状态占比"
           ></pie-chart>
         </div>
       </el-col>
@@ -51,7 +69,7 @@
           <pie-chart
             :tipData="driverData"
             :dataArr="orderStatusArr"
-            title="订单状态占比"
+            title="累计订单状态占比"
           ></pie-chart>
         </div>
       </el-col>
@@ -116,8 +134,10 @@ export default {
       type: "order",
       tipData: ["商业装修", "居民装修", "垃圾箱清运"],
       dataArr: [],
+      todayDataArr: [],
       orderStatusTipData: [],
       orderStatusArr: [],
+      todayOrderStatusArr: [],
       estateData: ["已认证", "未认证"],
       driverData: ["已认证", "未认证"],
       estateDataArr: [],
@@ -165,6 +185,16 @@ export default {
           _this.dataArr.push(temp);
         });
       });
+      queryOrderRatio({ type: "today" }).then(response => {
+        let result = response.data[0];
+        Object.keys(result).forEach(function(key) {
+          let temp = {
+            value: result[key],
+            name: key
+          };
+          _this.todayDataArr.push(temp);
+        });
+      });
       //queryOrderStatusRatio
       queryOrderStatusRatio().then(response => {
         let result = response.data[0];
@@ -176,6 +206,18 @@ export default {
             };
             _this.orderStatusArr.push(temp);
           }
+        });
+      });
+      queryOrderStatusRatio({ type: "today" }).then(response => {
+        let result = response.data[0];
+        Object.keys(result).forEach(function(key) {
+          // if (result[key] != 0) {
+          let temp = {
+            value: result[key],
+            name: key
+          };
+          _this.todayOrderStatusArr.push(temp);
+          // }
         });
       });
       queryEstateRatio().then(response => {
