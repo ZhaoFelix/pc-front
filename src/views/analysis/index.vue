@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-24 13:35:16
- * @LastEditTime: 2021-05-26 21:12:51
+ * @LastEditTime: 2021-06-01 11:37:01
  * @FilePath: /pc-front/src/views/analysis/index.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -21,6 +21,7 @@
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
                 value-format="yyyy-MM-dd"
+                :picker-options="pickerOptions"
               >
               </el-date-picker>
               <span style="padding:8px"> </span>
@@ -53,6 +54,7 @@
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
                 value-format="yyyy-MM-dd"
+                :picker-options="pickerOptions"
               >
               </el-date-picker>
               <span style="padding:8px"> </span>
@@ -81,6 +83,7 @@ import BarChart from "./components/BarChart";
 import LineChart from "./components/LineChart";
 import { querySale, queryWeek } from "@/api/dashboard";
 import { queryAnalysisTimeSale, queryAnalysisOrder } from "@/api/analysis";
+
 const saleLineChartData = {
   countData: [],
   totalData: []
@@ -105,7 +108,54 @@ export default {
       timeGap: "",
       orderTimeGap: "",
       isSearch: false,
-      isOrderSearch: false
+      isOrderSearch: false,
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: "今天",
+            onClick(picker) {
+              const end = new Date();
+              picker.$emit("pick", [end, end]);
+            }
+          },
+          {
+            text: "昨天",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 1);
+              picker.$emit("pick", [start, start]);
+            }
+          },
+          {
+            text: "最近一周",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近三个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
+          }
+        ]
+      }
     };
   },
   methods: {
