@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-05-25 09:27:15
+ * @LastEditTime: 2021-06-01 13:45:46
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -41,30 +41,18 @@
       <el-col :xl="{ span: 1 }" :lg="{ span: 2 }" :md="{ span: 3 }">
         <span style="font-weight:bold">按时间段导出:</span>
       </el-col>
-      <el-col :xl="{ span: 3 }" :lg="{ span: 4 }" :md="{ span: 3 }"
-        ><div class="block">
-          <el-date-picker
-            size="small"
-            v-model="exportQuery.startDate"
-            type="date"
-            placeholder="开始日期"
-            value-format="yyyy-MM-dd"
-          >
-          </el-date-picker>
-        </div>
-      </el-col>
-
-      <el-col :xl="{ span: 3 }" :lg="{ span: 4 }" :md="{ span: 4 }"
-        ><div class="block">
-          <el-date-picker
-            size="small"
-            v-model="exportQuery.endDate"
-            type="date"
-            placeholder="结束日期"
-            value-format="yyyy-MM-dd"
-          >
-          </el-date-picker>
-        </div>
+      <el-col :xl="{ span: 6 }" :lg="{ span: 6 }" :md="{ span: 7 }">
+        <el-date-picker
+          v-model="orderTimeGap"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          value-format="yyyy-MM-dd"
+          :picker-options="pickerOptions"
+          size="small"
+        >
+        </el-date-picker>
       </el-col>
       <el-col
         :xl="{ offset: 0, span: 1 }"
@@ -496,7 +484,6 @@ export default {
         admin_repwd: "",
         admin_type: ""
       },
-
       imageUrl: "",
       typeList: null,
       listQuery: {
@@ -505,13 +492,61 @@ export default {
         status: undefined,
         keyword: ""
       },
-      exportQuery: {
-        startDate: "",
-        endDate: ""
-      },
+      // exportQuery: {
+      //   startDate: "",
+      //   endDate: ""
+      // },
+      orderTimeGap: [],
       filename: "",
       autoWidth: true,
-      bookType: "xlsx"
+      bookType: "xlsx",
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: "今天",
+            onClick(picker) {
+              const end = new Date();
+              picker.$emit("pick", [end, end]);
+            }
+          },
+          {
+            text: "昨天",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 1);
+              picker.$emit("pick", [start, start]);
+            }
+          },
+          {
+            text: "最近一周",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近三个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
+          }
+        ]
+      }
     };
   },
   created() {
@@ -565,10 +600,13 @@ export default {
       this.multipleSelection = val;
     },
     exportGapData() {
-      if (this.exportQuery.startDate == "" || this.exportQuery.endDate == "") {
+      if (this.orderTimeGap.length == 0) {
         this.$message("请先选择时间段");
       } else {
-        getOrderListByTime(this.exportQuery).then(response => {
+        getOrderListByTime({
+          startDate: this.orderTimeGap[0],
+          endDate: this.orderTimeGap[1]
+        }).then(response => {
           let list = response.data;
           import("@/vendor/Export2Excel").then(excel => {
             const data = this.formatJson(filterVal, list);
