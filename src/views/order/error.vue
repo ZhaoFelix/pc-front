@@ -115,7 +115,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="订单完成时间" min-width="130">
+      <el-table-column align="center" label="订单完成时间" min-width="140">
         <template slot-scope="scope"
           ><span v-if="scope.row.driver_complete_time != null">
             {{

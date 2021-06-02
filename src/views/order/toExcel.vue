@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-06-01 13:58:13
+ * @LastEditTime: 2021-06-02 08:44:34
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -152,6 +152,7 @@
       </el-table-column>
       <el-table-column align="center" label="订单类型" min-width="110">
         <template slot-scope="scope">
+          <span></span>
           <el-tag type="danger" v-if="scope.row.order_type == 1">
             居民装修
           </el-tag>
@@ -166,7 +167,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="订单完成时间" min-width="130">
+      <el-table-column align="center" label="订单完成时间" min-width="135">
         <template slot-scope="scope"
           ><span v-if="scope.row.driver_complete_time != null">
             {{

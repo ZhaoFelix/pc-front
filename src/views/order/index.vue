@@ -101,6 +101,7 @@
       </el-table-column>
       <el-table-column align="center" label="订单类型" min-width="110">
         <template slot-scope="scope">
+          <span></span>
           <el-tag type="danger" v-if="scope.row.order_type == 1">
             居民装修
           </el-tag>
@@ -115,7 +116,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="订单完成时间" min-width="130">
+      <el-table-column align="center" label="订单完成时间" min-width="140">
         <template slot-scope="scope"
           ><span v-if="scope.row.driver_complete_time != null">
             {{

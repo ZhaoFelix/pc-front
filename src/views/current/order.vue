@@ -71,6 +71,7 @@
       </el-table-column>
       <el-table-column label="面积/箱数" align="center" width="80">
         <template slot-scope="scope">
+          <span></span>
           <span v-if="scope.row.order_type == 1">
             {{ scope.row.order_size + " m²" }}
           </span>
@@ -156,6 +157,7 @@
       </el-table-column>
       <el-table-column label="装修类型" align="center" min-width="95">
         <template slot-scope="scope">
+          <span></span>
           <el-tag type="danger" v-if="scope.row.order_type == 1">
             居民
           </el-tag>
@@ -172,6 +174,7 @@
       </el-table-column>
       <el-table-column label="订单状态" align="center" width="100">
         <template slot-scope="scope">
+          <span></span>
           <el-tag v-if="scope.row.order_status == 0" type="danger">
             {{ scope.row.order_price == null ? "待定价" : "待支付" }}
           </el-tag>
@@ -255,6 +258,7 @@
         fixed="right"
       >
         <template slot-scope="{ row }">
+          <span></span>
           <!-- 仅未完成支付的订单可以被取消 -->
           <el-button
             plain
