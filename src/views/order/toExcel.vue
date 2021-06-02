@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-06-02 08:44:34
+ * @LastEditTime: 2021-06-02 14:54:05
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -14,6 +14,7 @@
         <el-input
           v-model="keyword"
           placeholder="请输入姓名、小区、手机号进行查询"
+          size="small"
         ></el-input
       ></el-col>
       <el-col
@@ -23,18 +24,22 @@
         ><el-button
           :type="isSearch ? 'danger' : 'success'"
           @click="searchByKeyword"
+          size="small"
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >
       <el-col :span="2" v-if="multipleSelection.length != 0">
-        <el-button type="primary" @click="handleDownloadData"
+        <el-button type="primary" @click="handleDownloadData" size="small"
           >导出选中的数据</el-button
         >
       </el-col>
       <el-col :span="1">
-        <el-button @click="moreExport = !moreExport" type="primary"
-          >导出</el-button
-        >
+        <el-button
+          @click="moreExport = !moreExport"
+          type="primary"
+          size="small"
+          icon="el-icon-download"
+        ></el-button>
         <!-- <i class="el-icon-download"></i> -->
       </el-col>
     </el-row>

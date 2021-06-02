@@ -7,20 +7,25 @@
         :lg="{ span: 2 }"
         :md="{ span: 2 }"
         v-if="roles.includes('1') || roles.includes('2')"
-        ><el-button type="success" @click="dialogFormVisible = true"
-          >添加</el-button
-        ></el-col
-      >
+        ><el-button
+          type="primary"
+          @click="dialogFormVisible = true"
+          icon="el-icon-plus"
+          size="small"
+        ></el-button
+      ></el-col>
       <el-col :xl="{ span: 4 }" :lg="{ span: 5 }" :md="{ span: 6 }">
         <el-input
           v-model="keyword"
           placeholder="请输入手机号、姓名、小区进行查询"
+          size="small"
         ></el-input
       ></el-col>
       <el-col :span="2"
         ><el-button
           :type="isSearch ? 'danger' : 'success'"
           @click="searchByKeyword"
+          size="small"
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >

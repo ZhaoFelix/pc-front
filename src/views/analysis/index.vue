@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-24 13:35:16
- * @LastEditTime: 2021-06-01 11:37:01
+ * @LastEditTime: 2021-06-02 14:39:29
  * @FilePath: /pc-front/src/views/analysis/index.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -22,11 +22,12 @@
                 end-placeholder="结束日期"
                 value-format="yyyy-MM-dd"
                 :picker-options="pickerOptions"
+                size="mini"
               >
               </el-date-picker>
               <span style="padding:8px"> </span>
               <el-button
-                size="medium"
+                size="mini"
                 @click="querySaleTimeGap"
                 :type="isSearch ? 'danger' : 'success'"
                 >{{ !isSearch ? "查询" : "取消" }}</el-button
@@ -55,11 +56,12 @@
                 end-placeholder="结束日期"
                 value-format="yyyy-MM-dd"
                 :picker-options="pickerOptions"
+                size="mini"
               >
               </el-date-picker>
               <span style="padding:8px"> </span>
               <el-button
-                size="medium"
+                size="mini"
                 @click="queryOrderTimeGap"
                 :type="isOrderSearch ? 'danger' : 'success'"
                 >{{ !isOrderSearch ? "查询" : "取消" }}</el-button

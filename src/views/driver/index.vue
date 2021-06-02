@@ -6,17 +6,25 @@
         :lg="{ span: 2 }"
         :md="{ span: 2 }"
         v-if="roles.includes('1') || roles.includes('2')"
-        ><el-button type="success" @click="dialogFormVisible = true"
-          >添加</el-button
-        ></el-col
-      >
+        ><el-button
+          type="primary"
+          @click="dialogFormVisible = true"
+          size="small"
+          icon="el-icon-plus"
+        ></el-button
+      ></el-col>
       <el-col :span="4">
-        <el-input v-model="keyword" placeholder="请输入司机手机号"></el-input
+        <el-input
+          v-model="keyword"
+          placeholder="请输入司机手机号"
+          size="small"
+        ></el-input
       ></el-col>
       <el-col :span="2"
         ><el-button
           :type="isSearch ? 'danger' : 'success'"
           @click="searchByKeyword"
+          size="small"
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >

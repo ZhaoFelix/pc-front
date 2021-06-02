@@ -6,12 +6,14 @@
         <el-input
           v-model="keyword"
           placeholder="请输入姓名、小区、地址、手机号进行查询"
+          size="small"
         ></el-input
       ></el-col>
       <el-col :span="4"
         ><el-button
           :type="isSearch ? 'danger' : 'success'"
           @click="searchByKeyword"
+          size="small"
           >{{ isSearch ? "取消" : "搜索" }}</el-button
         ></el-col
       >

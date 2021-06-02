@@ -5,9 +5,10 @@
       <el-button
         v-waves
         v-permission="['1']"
-        type="success"
+        type="primary"
         icon="el-icon-edit"
         @click="addAdmin()"
+        size="small"
         >添加</el-button
       >
     </div>
