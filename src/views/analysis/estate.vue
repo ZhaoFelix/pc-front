@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-06-02 16:24:00
- * @LastEditTime: 2021-06-03 11:39:31
+ * @LastEditTime: 2021-06-03 11:50:19
  * @FilePath: /pc-front/src/views/analysis/estate.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -179,9 +179,8 @@ export default {
         this.$message("请先输入搜索关键字");
       } else if (this.keyword != "" && !this.isSearch) {
         this.isSearch = !this.isSearch;
-        queryCurrentByKeyword({ keyword: this.keyword }).then(response => {
+        queryAnalysisEstate({ keyword: this.keyword }).then(response => {
           this.list = response.data;
-          this.total = this.list.length;
         });
       } else if (this.isSearch) {
         this.isSearch = !this.isSearch;
@@ -198,7 +197,6 @@ export default {
       import("@/vendor/Export2Excel").then(excel => {
         const list = this.multipleSelection;
         const data = this.formatJson(filterVal, list);
-
         excel.export_json_to_excel({
           header: tHeader,
           data,

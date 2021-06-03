@@ -40,7 +40,11 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      chartOptions: {
+        isShowLabel: false,
+        isSmooth: true
+      }
     };
   },
   watch: {
@@ -68,11 +72,21 @@ export default {
       this.chart = echarts.init(this.$el, "macarons");
       this.setOptions(this.chartData);
     },
-    setOptions({ expectedData } = {}) {
+    setOptions({
+      totalData,
+      usualData,
+      secondData,
+      businessData,
+      boxData
+    } = {}) {
       this.chart.setOption({
         title: {
           text: this.title,
           left: "center"
+        },
+        legend: {
+          data: ["总计", "居民", "商业", "二次", "垃圾箱"],
+          left: "10%"
         },
         xAxis: {
           data: this.XData.map(item => item.substring(5)),
@@ -100,51 +114,40 @@ export default {
             show: false
           }
         },
-        legend: {
-          data: []
-        },
+
         series: [
           {
-            name: "增长量",
-            itemStyle: {
-              normal: {
-                color: "#FF005A",
-                lineStyle: {
-                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    {
-                      offset: 0,
-                      color: "#e6e9f0"
-                    },
-                    {
-                      offset: 1,
-                      color: "#eef1f5"
-                    }
-                  ]),
-                  width: 1
-                }
-              }
-            },
+            name: "总计",
+            stack: "总计",
             label: {
-              show: true
+              show: !this.chartOptions.isShowLabel
             },
-            smooth: true, //是否是平滑曲线
+            smooth: this.chartOptions.isSmooth, //是否是平滑曲线
             symbol: "emptyCircle",
             symbolSize: "4",
             type: "line",
-            data: expectedData,
+            emphasis: {
+              focus: "series"
+            },
+            data: totalData,
             animationDuration: 2800,
             animationEasing: "cubicInOut",
             areaStyle: {
+              opacity: 0.8,
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                 {
                   offset: 0,
-                  color: "#e6e9f0"
+                  color: "rgba(128, 255, 165)"
                 },
                 {
                   offset: 1,
-                  color: "#eef1f5"
+                  color: "rgba(1, 191, 236)"
                 }
               ])
+            },
+
+            lineStyle: {
+              width: 0
             },
             markLine: {
               data: [
@@ -167,6 +170,134 @@ export default {
                   }
                 }
               ]
+            }
+          },
+          {
+            name: "居民",
+            label: {
+              show: this.chartOptions.isShowLabel
+            },
+            lineStyle: {
+              width: 0
+            },
+            smooth: this.chartOptions.isSmooth, //是否是平滑曲线
+            symbol: "emptyCircle",
+            symbolSize: "4",
+            type: "line",
+            data: usualData,
+            animationDuration: 2800,
+            animationEasing: "cubicInOut",
+            areaStyle: {
+              opacity: 0.8,
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(0, 221, 255)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(77, 119, 255)"
+                }
+              ])
+            },
+            emphasis: {
+              focus: "series"
+            }
+          },
+          {
+            name: "商业",
+            label: {
+              show: this.chartOptions.isShowLabel
+            },
+            lineStyle: {
+              width: 0
+            },
+            smooth: this.chartOptions.isSmooth, //是否是平滑曲线
+            symbol: "emptyCircle",
+            symbolSize: "4",
+            type: "line",
+            data: businessData,
+            animationDuration: 2800,
+            animationEasing: "cubicInOut",
+            areaStyle: {
+              opacity: 0.8,
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(55, 162, 255)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(116, 21, 219)"
+                }
+              ])
+            },
+            emphasis: {
+              focus: "series"
+            }
+          },
+          {
+            name: "二次",
+            label: {
+              show: this.chartOptions.isShowLabel
+            },
+            lineStyle: {
+              width: 0
+            },
+            smooth: this.chartOptions.isSmooth, //是否是平滑曲线
+            symbol: "emptyCircle",
+            symbolSize: "4",
+            type: "line",
+            data: secondData,
+            animationDuration: 2800,
+            animationEasing: "cubicInOut",
+            areaStyle: {
+              opacity: 0.8,
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(255, 0, 135)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(135, 0, 157)"
+                }
+              ])
+            },
+            emphasis: {
+              focus: "series"
+            }
+          },
+          {
+            name: "垃圾箱",
+            label: {
+              show: this.chartOptions.isShowLabel
+            },
+            lineStyle: {
+              width: 0
+            },
+            smooth: this.chartOptions.isSmooth, //是否是平滑曲线
+            symbol: "emptyCircle",
+            symbolSize: "4",
+            type: "line",
+            data: boxData,
+            animationDuration: 2800,
+            animationEasing: "cubicInOut",
+            areaStyle: {
+              opacity: 0.8,
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(255, 191, 0)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(224, 62, 76)"
+                }
+              ])
+            },
+            emphasis: {
+              focus: "series"
             }
           }
         ]

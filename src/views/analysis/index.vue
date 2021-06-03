@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-24 13:35:16
- * @LastEditTime: 2021-06-02 14:39:29
+ * @LastEditTime: 2021-06-03 14:29:10
  * @FilePath: /pc-front/src/views/analysis/index.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -91,7 +91,11 @@ const saleLineChartData = {
   totalData: []
 };
 const lineChartData = {
-  expectedData: []
+  totalData: [],
+  usualData: [],
+  secondData: [],
+  businessData: [],
+  boxData: []
 };
 const saleXData = [];
 const XData = [];
@@ -195,14 +199,26 @@ export default {
       this.lineChartData.expectedData = [];
       this.XData = [];
       let days = [];
-      let count = [];
+      let total = [];
+      let second = [];
+      let business = [];
+      let usual = [];
+      let box = [];
       for (var i = 0; i < result.length; i++) {
         let item = result[i];
         days.push(item.days);
-        count.push(item.count);
+        total.push(item.count);
+        second.push(item.second_count);
+        usual.push(item.usual_count);
+        business.push(item.business_count);
+        box.push(item.box_count);
       }
       this.XData = days;
-      this.lineChartData.expectedData = count;
+      this.lineChartData.totalData = total;
+      this.lineChartData.usualData = usual;
+      this.lineChartData.secondData = second;
+      this.lineChartData.businessData = business;
+      this.lineChartData.boxData = box;
     },
     querySaleTimeGap() {
       if (this.isSearch) {

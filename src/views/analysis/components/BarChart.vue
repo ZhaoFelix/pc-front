@@ -114,7 +114,7 @@ export default {
             name: "实际收入",
             itemStyle: {
               normal: {
-                color: "#FF005A",
+                // color: "#FF005A",
                 lineStyle: {
                   color: "#FF005A",
                   width: 2
