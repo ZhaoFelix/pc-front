@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-06-02 14:54:05
+ * @LastEditTime: 2021-06-03 11:37:10
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -436,6 +436,7 @@ import { mapGetters } from "vuex";
 import Pagination from "@/components/Pagination";
 import md5 from "js-md5";
 import { callbackify } from "util";
+
 let MD5 = function(pwd) {
   pwd = pwd.toUpperCase();
   pwd = md5(pwd);
@@ -604,6 +605,7 @@ export default {
       });
     },
     handleSelectionChange(val) {
+      console.log(val);
       this.multipleSelection = val;
     },
     exportGapData() {
@@ -635,7 +637,7 @@ export default {
       import("@/vendor/Export2Excel").then(excel => {
         const list = this.multipleSelection;
         const data = this.formatJson(filterVal, list);
-        console.log(list);
+
         excel.export_json_to_excel({
           header: tHeader,
           data,

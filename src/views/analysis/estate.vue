@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-06-02 16:24:00
- * @LastEditTime: 2021-06-03 09:03:13
+ * @LastEditTime: 2021-06-03 11:39:31
  * @FilePath: /pc-front/src/views/analysis/estate.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -26,10 +26,14 @@
             >{{ isSearch ? "取消" : "搜索" }}</el-button
           ></el-col
         >
+        <el-col :span="2" v-if="multipleSelection.length != 0">
+          <el-button type="primary" @click="handleDownloadData" size="small"
+            >导出选中的数据</el-button
+          >
+        </el-col>
       </el-row>
     </div>
     <el-table
-      v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
       border
@@ -39,22 +43,38 @@
       style="margin-top:10px"
       height="800"
       :default-sort="{ prop: 'total_count', order: 'descending' }"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column align="center" label="物业姓名" fixed>
+      <el-table-column type="selection" width="55"> </el-table-column>
+      <el-table-column
+        label="序号"
+        align="center"
+        type="index"
+        width="50"
+        fixed
+        sortable
+      >
+      </el-table-column>
+      <el-table-column align="center" label="物业姓名" prop="estate_name" fixed>
         <template slot-scope="scope"
           ><span>
             {{ scope.row.estate_name }}
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="物业小区" fixed>
+      <el-table-column align="center" label="物业小区" prop="estate_plot" fixed>
         <template slot-scope="scope"
           ><span>
             {{ scope.row.estate_plot }}
           </span></template
         >
       </el-table-column>
-      <el-table-column align="center" label="物业公司" fixed>
+      <el-table-column
+        align="center"
+        prop="estate_company"
+        label="物业公司"
+        fixed
+      >
         <template slot-scope="scope"
           ><span>
             {{ scope.row.estate_company }}
@@ -118,10 +138,34 @@
 </template>
 <script>
 import { queryAnalysisEstate } from "@/api/analysis";
+import { parseTime } from "@/utils";
+import { async } from "q";
+import { sync } from "glob";
+const tHeader = [
+  "物业姓名",
+  "物业小区",
+  "物业公司",
+  "居民装修",
+  "二次清运",
+  "垃圾箱清运",
+  "合计"
+];
+const filterVal = [
+  "estate_name",
+  "estate_plot",
+  "estate_company",
+  "usual_count",
+  "second_count",
+  "box_count",
+  "total_count"
+];
 export default {
   data() {
     return {
-      list: []
+      list: [],
+      isSearch: false,
+      keyword: "",
+      multipleSelection: []
     };
   },
   methods: {
@@ -129,6 +173,48 @@ export default {
       queryAnalysisEstate().then(response => {
         this.list = response.data;
       });
+    },
+    searchByKeyword() {
+      if (this.keyword == "" && !this.isSearch) {
+        this.$message("请先输入搜索关键字");
+      } else if (this.keyword != "" && !this.isSearch) {
+        this.isSearch = !this.isSearch;
+        queryCurrentByKeyword({ keyword: this.keyword }).then(response => {
+          this.list = response.data;
+          this.total = this.list.length;
+        });
+      } else if (this.isSearch) {
+        this.isSearch = !this.isSearch;
+        this.fetchData();
+        this.keyword = "";
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    // 导出选中的数据
+    handleDownloadData() {
+      this.downloadLoading = true;
+      import("@/vendor/Export2Excel").then(excel => {
+        const list = this.multipleSelection;
+        const data = this.formatJson(filterVal, list);
+
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: parseTime(Date()),
+          autoWidth: true,
+          bookType: "xlsx"
+        });
+        this.downloadLoading = false;
+      });
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v =>
+        filterVal.map(j => {
+          return v[j];
+        })
+      );
     }
   },
   mounted() {
