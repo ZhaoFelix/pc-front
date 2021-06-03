@@ -9,7 +9,6 @@
           <div class="card-panel-text">
             居民装修
           </div>
-
           <count-to
             :start-val="0"
             :end-val="basicData.usual"
