@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-06-04 15:19:21
+ * @LastEditTime: 2021-06-04 15:39:23
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -110,6 +110,7 @@
           ></pie-chart>
         </div>
       </el-col>
+      <!-- 
       <el-col :xs="12" :sm="12" :xl="8">
         <div class="chart-wrapper">
           <pie-chart
@@ -128,6 +129,7 @@
           ></pie-chart>
         </div>
       </el-col>
+       -->
     </el-row>
   </div>
 </template>
@@ -267,32 +269,32 @@ export default {
           // }
         });
       });
-      queryEstateRatio().then(response => {
-        let result = response.data[0];
-        _this.estateDataArr = [
-          {
-            value: result["total"] - result["auth_count"],
-            name: "未认证"
-          },
-          {
-            value: result["auth_count"],
-            name: "已认证"
-          }
-        ];
-      });
-      queryEstateRatio({ type: "driver" }).then(response => {
-        let result = response.data[0];
-        _this.driverDataArr = [
-          {
-            value: result["total"] - result["auth_count"],
-            name: "未认证"
-          },
-          {
-            value: result["auth_count"],
-            name: "已认证"
-          }
-        ];
-      });
+      // queryEstateRatio().then(response => {
+      //   let result = response.data[0];
+      //   _this.estateDataArr = [
+      //     {
+      //       value: result["total"] - result["auth_count"],
+      //       name: "未认证"
+      //     },
+      //     {
+      //       value: result["auth_count"],
+      //       name: "已认证"
+      //     }
+      //   ];
+      // });
+      // queryEstateRatio({ type: "driver" }).then(response => {
+      //   let result = response.data[0];
+      //   _this.driverDataArr = [
+      //     {
+      //       value: result["total"] - result["auth_count"],
+      //       name: "未认证"
+      //     },
+      //     {
+      //       value: result["auth_count"],
+      //       name: "已认证"
+      //     }
+      //   ];
+      // });
       querySale().then(response => {
         let result = response.data;
         let days = [];

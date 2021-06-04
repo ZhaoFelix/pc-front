@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-12 19:02:04
- * @LastEditTime: 2021-05-18 11:11:48
+ * @LastEditTime: 2021-06-04 15:35:03
  * @FilePath: /pc-front/src/views/dashboard/admin/components/PieChart.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -96,7 +96,7 @@ export default {
           {
             name: this.title,
             type: "pie",
-            radius: ["40%", "80%"],
+            radius: ["30%", "80%"],
             center: ["50%", "54%"],
             avoidLabelOverlap: false,
             itemStyle: {
@@ -104,7 +104,7 @@ export default {
               borderColor: "#fff",
               borderWidth: 2
             },
-            color: ["#5470c6", "#ee6666", "#91cc75", "#fac858"],
+            // color: ["#5470c6", "#ee6666", "#91cc75", "#fac858"],
             data: dataArr,
             animationDuration: 2800
           }
