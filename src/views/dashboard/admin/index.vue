@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-06-04 15:39:23
+ * @LastEditTime: 2021-06-04 16:24:38
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -56,19 +56,18 @@
             </el-col>
           </el-row>
           <bar-chart
-            v-if="saleRadio == 1"
             title="销售"
             :chart-data="saleLineChartData"
             :x-data="saleXData"
             :legendData="legendData"
           />
-          <today-bar-chart
+          <!-- <today-bar-chart
             v-if="saleRadio == 2"
             title="销售"
             :chart-data="saleLineChartData"
             :x-data="saleXData"
             :legendData="legendData"
-          />
+          /> -->
         </div>
       </el-col>
     </el-row>
@@ -349,7 +348,7 @@ export default {
           this.saleXData = days;
           this.saleLineChartData.actual = count;
           this.saleLineChartData.total = total;
-          // this.legendData = ["实际收入", "总收入"];
+          this.legendData = ["实际收入", "总收入"];
         });
       } else if (value == "2") {
         queryToday().then(response => {

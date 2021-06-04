@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-17 13:09:00
- * @LastEditTime: 2020-12-15 15:33:42
+ * @LastEditTime: 2021-06-04 15:43:56
  * @FilePath: /pc-front/src/views/wechat/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -31,7 +31,7 @@
           <span>{{ scope.row.wechat_nickname }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="微信头像" align="center" width="100">
+      <el-table-column label="微信头像" align="center" width="80">
         <template slot-scope="scope">
           <viewer :images="[scope.row.wechat_avatar]">
             <img :src="scope.row.wechat_avatar" alt="" class="wechat-avatar" />
@@ -159,9 +159,9 @@ export default {
 
 <style scoped>
 .wechat-avatar {
-  width: 78px;
-  height: 78px;
+  width: 58px;
+  height: 58px;
   display: block;
-  border-radius: 39px;
+  border-radius: 29px;
 }
 </style>

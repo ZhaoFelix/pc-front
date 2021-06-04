@@ -82,9 +82,9 @@ export default {
           }
         },
         grid: {
-          left: 10,
-          right: 10,
-          bottom: 10,
+          left: "1%",
+          right: "3%",
+          bottom: "1%",
           top: 40,
           containLabel: true
         },

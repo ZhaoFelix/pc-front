@@ -71,11 +71,10 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(this.$el, "macarons");
-
       this.setOptions(this.chartData);
     },
     setOptions(chartData) {
-      this.chart.setOption({
+      let todayOptions = {
         title: {
           text: this.title,
           left: "center",
@@ -83,11 +82,115 @@ export default {
         },
         legend: {
           data: this.legendData,
-          left: "10%"
+          left: "1%"
         },
         xAxis: {
           data: this.XData.map(item => item.substring(5)),
           boundaryGap: true,
+          axisTick: {
+            show: false,
+            alignWithLabel: true
+          }
+        },
+        grid: {
+          left: "1%",
+          right: "1%",
+          bottom: "1%",
+          top: 40,
+          containLabel: true
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross"
+          },
+          padding: [5, 10]
+        },
+        yAxis: {
+          axisTick: {
+            show: false
+          }
+        },
+        series: [
+          {
+            name: "居民",
+            itemStyle: {
+              normal: {
+                // color: "#FF005A",
+                lineStyle: {
+                  color: "#FF005A",
+                  width: 2
+                }
+              }
+            },
+            label: {
+              show: true,
+              position: "top",
+              color: "black"
+            },
+            smooth: true,
+            type: "bar",
+            data: chartData.usual,
+            animationDuration: 2800
+          },
+          {
+            name: "垃圾箱",
+            itemStyle: {
+              normal: {
+                // color: "#FF005A",
+                lineStyle: {
+                  color: "#FF005A",
+                  width: 2
+                }
+              }
+            },
+            label: {
+              show: true,
+              position: "top",
+              color: "black"
+            },
+            smooth: true,
+            type: "bar",
+            data: chartData.box,
+            animationDuration: 2800
+          },
+          {
+            name: "商业",
+            itemStyle: {
+              normal: {
+                // color: "#FF005A",
+                lineStyle: {
+                  color: "#FF005A",
+                  width: 2
+                }
+              }
+            },
+            label: {
+              show: true,
+              position: "top",
+              color: "black"
+            },
+            smooth: true,
+            type: "bar",
+            data: chartData.business,
+            animationDuration: 2800
+          }
+        ]
+      };
+      let weekOptions = {
+        title: {
+          text: this.title,
+          left: "center",
+          top: "top"
+        },
+        legend: {
+          data: this.legendData,
+          left: "1%"
+        },
+        xAxis: {
+          data: this.XData.map(item => item.substring(5)),
+          boundaryGap: true,
+          type: "category",
           axisTick: {
             show: false,
             alignWithLabel: true
@@ -156,7 +259,10 @@ export default {
             animationDuration: 2800
           }
         ]
-      });
+      };
+      this.chart.setOption(
+        this.legendData.length == 2 ? weekOptions : todayOptions
+      );
     }
   }
 };
