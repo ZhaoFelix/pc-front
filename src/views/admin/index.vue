@@ -38,8 +38,9 @@
         <template slot-scope="scope">
           <span v-if="scope.row.admin_type == 1">管理员</span>
           <span v-else-if="scope.row.admin_type == 2">调度员</span>
-          <span v-if="scope.row.admin_type == 3">二级调度员</span>
-          <span v-if="scope.row.admin_type == 4">临时账号</span>
+          <span v-else-if="scope.row.admin_type == 3">二级调度员</span>
+          <span v-else-if="scope.row.admin_type == 4">临时账号</span>
+          <span v-else>其他</span>
         </template>
       </el-table-column>
       <el-table-column label="添加时间" align="center">

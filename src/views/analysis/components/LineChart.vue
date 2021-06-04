@@ -105,7 +105,10 @@ export default {
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            type: "cross"
+            type: "cross",
+            label: {
+              backgroundColor: "#6a7985"
+            }
           },
           padding: [5, 10]
         },

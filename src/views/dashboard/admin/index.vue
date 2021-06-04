@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-05-27 15:50:53
+ * @LastEditTime: 2021-06-04 10:45:39
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -12,6 +12,20 @@
     <el-row :gutter="16">
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
+          <el-row>
+            <el-col span="8" offset="8">
+              <div class="div-center">
+                <el-radio-group
+                  v-model="increaseRadio"
+                  size="mini"
+                  @change="increaseChange"
+                >
+                  <el-radio-button label="1">订单增长</el-radio-button>
+                  <el-radio-button label="2">用户增长</el-radio-button>
+                </el-radio-group>
+              </div>
+            </el-col>
+          </el-row>
           <line-chart
             :title="
               type == 'wechat'
@@ -27,6 +41,20 @@
       </el-col>
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
+          <el-row>
+            <el-col span="8" offset="8">
+              <div class="div-center">
+                <el-radio-group
+                  v-model="saleRadio"
+                  size="mini"
+                  @change="saleChange"
+                >
+                  <el-radio-button label="1">最近一周</el-radio-button>
+                  <el-radio-button label="2">今日</el-radio-button>
+                </el-radio-group>
+              </div>
+            </el-col>
+          </el-row>
           <bar-chart
             title="销售"
             :chart-data="saleLineChartData"
@@ -129,6 +157,8 @@ export default {
     return {
       lineChartData: lineChartData,
       XData,
+      saleRadio: "1",
+      increaseRadio: "1",
       saleLineChartData: saleLineChartData,
       saleXData: saleXData,
       type: "order",
@@ -261,7 +291,22 @@ export default {
         this.saleLineChartData.countData = count;
         this.saleLineChartData.totalData = total;
       });
-    }
+    },
+    increaseChange(value) {
+      queryWeek({ type: value == "1" ? "order" : "" }).then(response => {
+        let result = response.data;
+        let days = [];
+        let count = [];
+        for (var i = 0; i < result.length; i++) {
+          let item = result[i];
+          days.push(item.days);
+          count.push(item.count);
+        }
+        this.XData = days;
+        this.lineChartData.expectedData = count;
+      });
+    },
+    saleChange(value) {}
   },
   mounted() {
     this.fetchData();
@@ -289,6 +334,11 @@ export default {
 
   .title-style {
     font-weight: bold;
+  }
+
+  .div-center {
+    text-align: center;
+    margin-bottom: 16px;
   }
 }
 
