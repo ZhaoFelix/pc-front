@@ -11,7 +11,7 @@ export default {
   props: {
     className: {
       type: String,
-      default: "BarChart"
+      default: "TodayBarChart"
     },
     width: {
       type: String,
@@ -71,7 +71,6 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(this.$el, "macarons");
-
       this.setOptions(this.chartData);
     },
     setOptions(chartData) {
@@ -114,7 +113,7 @@ export default {
         },
         series: [
           {
-            name: "实际收入",
+            name: "居民",
             itemStyle: {
               normal: {
                 // color: "#FF005A",
@@ -131,11 +130,11 @@ export default {
             },
             smooth: true,
             type: "bar",
-            data: chartData.actual,
+            data: chartData.usual,
             animationDuration: 2800
           },
           {
-            name: "总收入",
+            name: "垃圾箱",
             itemStyle: {
               normal: {
                 // color: "#FF005A",
@@ -152,7 +151,28 @@ export default {
             },
             smooth: true,
             type: "bar",
-            data: chartData.total,
+            data: chartData.box,
+            animationDuration: 2800
+          },
+          {
+            name: "商业",
+            itemStyle: {
+              normal: {
+                // color: "#FF005A",
+                lineStyle: {
+                  color: "#FF005A",
+                  width: 2
+                }
+              }
+            },
+            label: {
+              show: true,
+              position: "top",
+              color: "black"
+            },
+            smooth: true,
+            type: "bar",
+            data: chartData.business,
             animationDuration: 2800
           }
         ]

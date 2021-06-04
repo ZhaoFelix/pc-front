@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-18 14:45:39
- * @LastEditTime: 2021-05-21 10:10:23
+ * @LastEditTime: 2021-06-04 10:56:25
  * @FilePath: /pc-front/src/api/dashboard/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -19,6 +19,14 @@ export function queryBasic() {
 export function queryWeek(params) {
   return request({
     url: `${base_path}dashboard/week`,
+    method: "get",
+    params
+  });
+}
+
+export function queryToday(params) {
+  return request({
+    url: `${base_path}dashboard/today`,
     method: "get",
     params
   });

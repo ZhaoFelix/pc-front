@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-09 12:49:16
- * @LastEditTime: 2021-06-04 10:45:39
+ * @LastEditTime: 2021-06-04 15:19:21
  * @FilePath: /pc-front/src/views/dashboard/admin/index.vue
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -13,7 +13,7 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <el-row>
-            <el-col span="8" offset="8">
+            <el-col :span="8" :offset="8">
               <div class="div-center">
                 <el-radio-group
                   v-model="increaseRadio"
@@ -42,7 +42,7 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <el-row>
-            <el-col span="8" offset="8">
+            <el-col :span="8" :offset="8">
               <div class="div-center">
                 <el-radio-group
                   v-model="saleRadio"
@@ -56,9 +56,18 @@
             </el-col>
           </el-row>
           <bar-chart
+            v-if="saleRadio == 1"
             title="销售"
             :chart-data="saleLineChartData"
             :x-data="saleXData"
+            :legendData="legendData"
+          />
+          <today-bar-chart
+            v-if="saleRadio == 2"
+            title="销售"
+            :chart-data="saleLineChartData"
+            :x-data="saleXData"
+            :legendData="legendData"
           />
         </div>
       </el-col>
@@ -128,30 +137,37 @@ import PanelGroup from "./components/PanelGroup";
 import LineChart from "./components/LineChart";
 import PieChart from "./components/PieChart";
 import BarChart from "./components/BarChart";
+import TodayBarChart from "./components/TodayBarChart";
 import {
   queryWeek,
   queryOrderRatio,
   queryEstateRatio,
   querySale,
-  queryOrderStatusRatio
+  queryOrderStatusRatio,
+  queryToday
 } from "@/api/dashboard";
 import { request } from "http";
 const lineChartData = {
   expectedData: []
 };
 const saleLineChartData = {
-  countData: [],
-  totalData: []
+  actual: [],
+  total: [],
+  box: [],
+  usual: [],
+  business: []
 };
 const XData = [];
 const saleXData = [];
+const legendData = [];
 export default {
   name: "DashboardAdmin",
   components: {
     PanelGroup,
     LineChart,
     PieChart,
-    BarChart
+    BarChart,
+    TodayBarChart
   },
   data() {
     return {
@@ -168,6 +184,7 @@ export default {
       orderStatusTipData: [],
       orderStatusArr: [],
       todayOrderStatusArr: [],
+      legendData: legendData,
       estateData: ["已认证", "未认证"],
       driverData: ["已认证", "未认证"],
       estateDataArr: [],
@@ -288,8 +305,9 @@ export default {
           total.push(item.total);
         }
         this.saleXData = days;
-        this.saleLineChartData.countData = count;
-        this.saleLineChartData.totalData = total;
+        this.saleLineChartData.actual = count;
+        this.saleLineChartData.total = total;
+        this.legendData = ["实际收入", "总收入"];
       });
     },
     increaseChange(value) {
@@ -306,7 +324,53 @@ export default {
         this.lineChartData.expectedData = count;
       });
     },
-    saleChange(value) {}
+    saleChange(value) {
+      this.saleLineChartData = {
+        actual: [],
+        total: [],
+        box: [],
+        usual: [],
+        business: []
+      };
+      if (value == "1") {
+        querySale().then(response => {
+          let result = response.data;
+          let days = [];
+          let count = [];
+          let total = [];
+          for (var i = 0; i < result.length; i++) {
+            let item = result[i];
+            days.push(item.days);
+            count.push(item.count);
+            total.push(item.total);
+          }
+          this.saleXData = days;
+          this.saleLineChartData.actual = count;
+          this.saleLineChartData.total = total;
+          // this.legendData = ["实际收入", "总收入"];
+        });
+      } else if (value == "2") {
+        queryToday().then(response => {
+          let result = response.data;
+          let days = [];
+          let usual = [];
+          let box = [];
+          let business = [];
+          for (var i = 0; i < result.length; i++) {
+            let item = result[i];
+            days.push(item.days);
+            usual.push(item.usual);
+            box.push(item.box);
+            business.push(item.business);
+          }
+          this.saleXData = days;
+          this.saleLineChartData.usual = usual;
+          this.saleLineChartData.box = box;
+          this.saleLineChartData.business = business;
+          this.legendData = ["居民", "垃圾箱", "商业"];
+        });
+      }
+    }
   },
   mounted() {
     this.fetchData();
