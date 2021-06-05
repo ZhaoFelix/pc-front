@@ -260,9 +260,7 @@ export default {
           }
         ]
       };
-      this.chart.setOption(
-        this.legendData.length == 2 ? weekOptions : todayOptions
-      );
+      this.chart.setOption(weekOptions);
     }
   }
 };
