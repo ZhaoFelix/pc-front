@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-12-30 10:26:26
- * @LastEditTime: 2021-05-24 13:15:21
+ * @LastEditTime: 2021-06-09 11:11:31
  * @FilePath: /pc-front/src/views/current/js/order.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -12,7 +12,8 @@ import {
   assignDriver,
   assignPrice,
   getDriverList,
-  queryCurrentByKeyword
+  queryCurrentByKeyword,
+  cancelSecondOrderByAdmin
 } from "@/api/order";
 
 import { getDriverLeader, setDriverLeader } from "@/api/driver";
@@ -116,27 +117,52 @@ export default {
       });
     },
     // 取消未支付的订单
-    cancelOrder(row) {
-      this.$confirm("此操作将永久取消订单, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          cancelOrderByAdmin({ order_id: row.order_id }).then(response => {
-            this.$message({
-              type: "success",
-              message: "取消成功!"
-            });
-            this.fetchData();
-          });
+    cancelOrder(row, type) {
+      if (type == 0) {
+        this.$confirm("此操作将永久取消订单, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
         })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消操作"
+          .then(() => {
+            cancelOrderByAdmin({ order_id: row.order_id }).then(response => {
+              this.$message({
+                type: "success",
+                message: "取消成功!"
+              });
+              this.fetchData();
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消操作"
+            });
           });
-        });
+      } else if (type == 1) {
+        this.$confirm("此操作将永久取消订单, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            cancelSecondOrderByAdmin({ order_id: row.order_id }).then(
+              response => {
+                this.$message({
+                  type: "success",
+                  message: "取消成功!"
+                });
+                this.fetchData();
+              }
+            );
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消操作"
+            });
+          });
+      }
     },
     showDriverDialog(row) {
       this.driverVisible = true;

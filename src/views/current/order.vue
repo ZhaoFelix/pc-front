@@ -256,32 +256,42 @@
         label="操作"
         align="center"
         class-name="small-padding fixed-width"
-        min-width="120"
+        min-width="150"
         fixed="right"
       >
         <template slot-scope="{ row }">
           <span></span>
-          <!-- 仅未完成支付的订单可以被取消 -->
-          <el-button
-            plain
-            size="mini"
-            type="danger"
-            v-permission="['1', '2']"
-            v-if="row.order_status == 0"
-            @click="cancelOrder(row)"
-            >取消订单</el-button
-          >
-          <!-- 仅完成支付的订单可以指派司机 -->
-          <el-button
-            plain
-            size="mini"
-            v-permission="['1', '2', '3']"
-            v-if="row.order_status == 1 && row.order_third_id == third"
-            @click="showDriverDialog(row)"
-            >指派司机</el-button
-          >
+          <el-button-group>
+            <!-- 仅未完成支付的订单可以被取消 -->
+            <el-button
+              plain
+              size="mini"
+              type="danger"
+              v-permission="['1', '2']"
+              v-if="row.order_status == 0"
+              @click="cancelOrder(row, 0)"
+              >取消</el-button
+            >
+            <el-button
+              plain
+              size="mini"
+              type="danger"
+              v-permission="['1', '2']"
+              v-if="row.order_status == 1 && row.order_type == 11"
+              @click="cancelOrder(row, 1)"
+              >取消</el-button
+            >
+            <!-- 仅完成支付的订单可以指派司机 -->
+            <el-button
+              plain
+              size="mini"
+              v-permission="['1', '2', '3']"
+              v-if="row.order_status == 1 && row.order_third_id == third"
+              @click="showDriverDialog(row)"
+              >指派</el-button
+            >
 
-          <!-- <el-button
+            <!-- <el-button
             plain
             size="mini"
             type="info"
@@ -290,29 +300,30 @@
             @click="showDriverLeaderDialog(row)"
             >指派车队长</el-button
           > -->
-          <!-- 支付后与实际不符的可以调整价格 -->
-          <el-button
-            plain
-            size="mini"
-            type="danger"
-            v-permission="['1', '2']"
-            v-if="row.order_type == 1 && row.order_price == null"
-            @click="assignPriceDialog(row)"
-            >确定价格</el-button
-          >
-          <el-button
-            plain
-            size="mini"
-            type="danger"
-            v-permission="['1', '2']"
-            v-if="
-              row.order_type == 0 &&
-                row.order_gap_price == 0 &&
-                row.order_status == 4
-            "
-            @click="assignPriceDialog(row)"
-            >调整差价</el-button
-          >
+            <!-- 支付后与实际不符的可以调整价格 -->
+            <el-button
+              plain
+              size="mini"
+              type="danger"
+              v-permission="['1', '2']"
+              v-if="row.order_type == 1 && row.order_price == null"
+              @click="assignPriceDialog(row)"
+              >确定价格</el-button
+            >
+            <el-button
+              plain
+              size="mini"
+              type="danger"
+              v-permission="['1', '2']"
+              v-if="
+                row.order_type == 0 &&
+                  row.order_gap_price == 0 &&
+                  row.order_status == 4
+              "
+              @click="assignPriceDialog(row)"
+              >调整差价</el-button
+            >
+          </el-button-group>
         </template>
       </el-table-column>
     </el-table>

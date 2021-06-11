@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2020-11-18 13:29:45
- * @LastEditTime: 2021-05-21 09:13:09
+ * @LastEditTime: 2021-06-09 11:11:09
  * @FilePath: /pc-front/src/api/order/index.js
  * @Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
@@ -34,7 +34,7 @@ export function getCurrentCarByType(params) {
   });
 }
 
-// 调度员取消订单
+// 调度员取消未支付订单
 export function cancelOrderByAdmin(params) {
   return request({
     url: `${base_path}operatedOrder/order/cancel`,
@@ -43,6 +43,14 @@ export function cancelOrderByAdmin(params) {
   });
 }
 
+// 取消二次清运订单
+export function cancelSecondOrderByAdmin(params) {
+  return request({
+    url: `${base_path}operatedOrder/order/second/cancel`,
+    method: "get",
+    params
+  });
+}
 // 指派司机
 export function assignDriver(params) {
   return request({
