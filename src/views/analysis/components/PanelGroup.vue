@@ -8,11 +8,12 @@
                   size="small"
                   @change="selectedChange"
                 >
-                  <el-radio-button label="1">总计</el-radio-button>
+                  <el-radio-button label="1">截止目前</el-radio-button>
                   <el-radio-button label="2">本周</el-radio-button>
                   <el-radio-button label="3">上周</el-radio-button>
                   <el-radio-button label="4">本月</el-radio-button>
                   <el-radio-button label="5">上月</el-radio-button>
+                  <el-radio-button label="5">最近六个月</el-radio-button>
                 </el-radio-group>
               </div>
       </el-col>
