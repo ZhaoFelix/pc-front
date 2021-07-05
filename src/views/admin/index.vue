@@ -63,16 +63,15 @@
       <el-table-column
         label="操作"
         align="center"
-        v-if="roles == 2"
-        width="290"
+        v-if="roles == 1"
+        width="190"
         class-name="small-padding fixed-width"
       >
         <template slot-scope="{ row }">
           <el-tooltip
             class="item"
             effect="dark"
-            v-if="author == row.admin_id"
-            content="密码修改"
+            content="权限修改"
             placement="top"
           >
             <el-button
@@ -86,8 +85,8 @@
           <el-tooltip
             class="item"
             effect="dark"
-            v-if="author == row.admin_id"
             content="删除"
+            v-if="row.admin_type != 1"
             placement="top"
           >
             <el-button
@@ -172,7 +171,6 @@
         >
       </div>
     </el-dialog>
-
     <!-- 添加 -->
   </div>
 </template>
