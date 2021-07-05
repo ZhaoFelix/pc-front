@@ -75,6 +75,7 @@ export default {
           left: "center",
           top: "top"
         },
+        backgroundColor: "#fff",
         legend: {
           data: ["实际收入", "总收入"],
           left: "10%"
@@ -88,17 +89,30 @@ export default {
           }
         },
         grid: {
+          show: false,
           left: "0%",
           right: "5%",
           bottom: "1%",
           top: 40,
           containLabel: true
         },
+        // toolbox: {
+        //   show: true,
+        //   feature: {
+        //     saveAsImage: { show: true }
+        //   }
+        // },
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "cross"
           },
+          // backgroundColor: "#fff",
+          // shadowColor: "rbga(0, 0, 0, 0.2)",
+          // textStyle: {
+          //   color: "#666",
+          //   fontSize: 14
+          // },
           padding: [5, 10]
         },
         yAxis: {
@@ -106,7 +120,7 @@ export default {
             show: false
           },
           splitLine: {
-            show: true
+            show: false
           }
         },
         series: [
@@ -135,7 +149,7 @@ export default {
               data: [
                 {
                   type: "average",
-                  name: "平均值",
+                  name: "均值",
                   label: {
                     normal: {
                       position: "end",
@@ -177,7 +191,7 @@ export default {
               data: [
                 {
                   type: "average",
-                  name: "平均值",
+                  name: "均值",
                   label: {
                     normal: {
                       position: "end",

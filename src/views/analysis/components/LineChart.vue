@@ -156,7 +156,7 @@ export default {
               data: [
                 {
                   type: "average",
-                  name: "平均值",
+                  name: "均值",
                   label: {
                     normal: {
                       position: "end",

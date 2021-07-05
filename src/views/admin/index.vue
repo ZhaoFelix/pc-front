@@ -7,8 +7,8 @@
         v-permission="['1']"
         type="primary"
         icon="el-icon-edit"
-        @click="addAdmin()"
         size="small"
+        @click="addAdmin()"
         >添加</el-button
       >
     </div>
