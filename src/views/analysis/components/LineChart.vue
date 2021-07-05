@@ -123,7 +123,9 @@ export default {
             name: "总计",
             stack: "总计",
             label: {
-              show: !this.chartOptions.isShowLabel
+              show: !this.chartOptions.isShowLabel,
+              fontSize:10,
+              fontWeight:"bold"
             },
             smooth: this.chartOptions.isSmooth, //是否是平滑曲线
             symbol: "emptyCircle",
@@ -162,7 +164,7 @@ export default {
                       position: "end",
                       formatter: "{b}:{c}",
                       color: "black",
-                      fontWeight: "bold"
+                      fontWeight: "bold",
                     }
                   },
                   lineStyle: {

@@ -135,11 +135,12 @@ export default {
                 }
               }
             },
-
             label: {
               show: true,
               position: "top",
-              color: "black"
+              color: "black",
+              fontSize:8,
+              fontWeight:"bold"
             },
             smooth: true,
             type: "bar",
@@ -181,7 +182,9 @@ export default {
             label: {
               show: true,
               position: "top",
-              color: "black"
+              color: "black",
+              fontSize:8,
+              fontWeight:"bold"
             },
             smooth: true,
             type: "bar",
