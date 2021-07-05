@@ -1,6 +1,22 @@
 <template>
-
   <el-row :gutter="16" class="panel-group">
+    <el-row class="segment-style">
+      <el-col :xs="{span: 12, offset: 6}" :sm="{span: 12, offset: 6}" :lg="{span: 8, offset: 8}" >
+        <div class="div-center">
+                <el-radio-group
+                  v-model="selectRadio"
+                  size="small"
+                  @change="selectedChange"
+                >
+                  <el-radio-button label="1">总计</el-radio-button>
+                  <el-radio-button label="2">本周</el-radio-button>
+                  <el-radio-button label="3">上周</el-radio-button>
+                  <el-radio-button label="4">本月</el-radio-button>
+                  <el-radio-button label="5">上月</el-radio-button>
+                </el-radio-group>
+              </div>
+      </el-col>
+    </el-row>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel">
         <div class="card-panel-icon-wrapper icon-people">
@@ -121,7 +137,8 @@ export default {
   },
   data() {
     return {
-      basicData: {}
+      basicData: {},
+      selectRadio:1,
     };
   },
   methods: {
@@ -129,6 +146,9 @@ export default {
       queryAnalysisSale().then(response => {
         this.basicData = response.data[0];
       });
+    },
+    selectedChange() {
+      // 选中后更细数据
     }
   },
   mounted() {
@@ -143,6 +163,16 @@ export default {
 
   .card-panel-col {
     margin-bottom: 20px;
+  }
+  .div-center {
+    text-align: center;
+  }
+  .segment-style {
+    line-height: 48px;
+    background: #fff;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
   }
 
   .card-panel {
