@@ -106,7 +106,7 @@ export const asyncRoutes = [
         path: "car",
         name: "Car",
         component: () => import("@/views/driver/car"),
-        meta: { title: "车辆信息", icon: "peoples", roles: ["1", "2", "3"] }
+        meta: { title: "车辆信息", icon: "guide", roles: ["1", "2", "3"] }
       }
     ]
   },
@@ -154,19 +154,19 @@ export const asyncRoutes = [
     path: "/analysis",
     component: Layout,
     alwaysShow: false, // 总是显示根目录
-    meta: { title: "系统管理", icon: "example", roles: ["1"] },
+    meta: { title: "销售管理", icon: "example", roles: ["1"] },
     children: [
       {
         path: "order",
         name: "order",
         component: () => import("@/views/analysis/index"),
-        meta: { title: "订单分析", icon: "component", roles: ["1"] }
+        meta: { title: "销售统计", icon: "component", roles: ["1"] }
       },
       {
         path: "estate",
         name: "estate",
         component: () => import("@/views/analysis/estate"),
-        meta: { title: "物业分析", icon: "component", roles: ["1"] }
+        meta: { title: "下单统计", icon: "component", roles: ["1"] }
       }
     ]
   },
