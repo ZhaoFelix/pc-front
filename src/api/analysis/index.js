@@ -2,17 +2,18 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-24 14:41:17
- * @LastEditTime: 2021-06-02 18:52:57
+ * @LastEditTime: 2021-07-06 09:17:07
  * @FilePath: /pc-front/src/api/analysis/index.js
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
  */
 import request from "@/utils/request";
 import { base_path } from "@/config/config";
 
-export function queryAnalysisSale() {
+export function queryAnalysisSale(params) {
   return request({
     url: `${base_path}analysis/sale`,
-    method: "get"
+    method: "get",
+    params
   });
 }
 

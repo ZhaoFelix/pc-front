@@ -13,7 +13,7 @@
                   <el-radio-button label="3">上周</el-radio-button>
                   <el-radio-button label="4">本月</el-radio-button>
                   <el-radio-button label="5">上月</el-radio-button>
-                  <el-radio-button label="5">最近六个月</el-radio-button>
+                  <el-radio-button label="6">最近六个月</el-radio-button>
                 </el-radio-group>
               </div>
       </el-col>
@@ -144,12 +144,14 @@ export default {
   },
   methods: {
     fetchData() {
-      queryAnalysisSale().then(response => {
+      queryAnalysisSale({selectedRadio:this.selectRadio}).then(response => {
         this.basicData = response.data[0];
       });
     },
     selectedChange() {
-      // 选中后更细数据
+      console.log(this.selectRadio)
+      // 选中后更新数据
+      this.fetchData()
     }
   },
   mounted() {
