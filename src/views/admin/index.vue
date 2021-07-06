@@ -68,7 +68,7 @@
         class-name="small-padding fixed-width"
       >
         <template slot-scope="{ row }">
-          <el-tooltip
+          <!-- <el-tooltip
             class="item"
             effect="dark"
             content="权限修改"
@@ -79,9 +79,9 @@
               icon="el-icon-edit"
               circle
               plain
-              @click="handleDelete(row)"
+              @click="handleEdit(row)"
             ></el-button>
-          </el-tooltip>
+          </el-tooltip> -->
           <el-tooltip
             class="item"
             effect="dark"
@@ -94,6 +94,7 @@
               icon="el-icon-delete"
               circle
               plain
+
               @click="handleDelete(row)"
             ></el-button>
           </el-tooltip>
@@ -171,7 +172,20 @@
         >
       </div>
     </el-dialog>
-    <!-- 添加 -->
+    <!-- 账号升级 -->
+    <el-dialog title="权限修改" :visible.sync="dialogUpgradeVisible" width="25%">
+      <el-radio-group v-model="upgradeRadio">
+        <el-radio  v-for="(item,index) in typeList"  :key="item.admin_type_id" :label="index">{{ item.admin_type_name }}</el-radio>
+      </el-radio-group>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogUpgradeVisible = false">取消</el-button>
+        <el-button
+          type="primary"
+          @click="updateAdmin()"
+          >确定</el-button
+        >
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -179,6 +193,7 @@
 import {
   addAdmin,
   queryAdmin,
+  deleteAdmin,
   getAdminTypeList,
   queryThirdList
 } from "@/api/admin/admin";
@@ -251,7 +266,9 @@ export default {
       page: 1,
       keyword: "",
       existID: 0,
+      upgradeRadio:"1",
       dialogFormVisible: false,
+      dialogUpgradeVisible:false,
       temp: {
         admin_name: "",
         admin_login_name: "",
@@ -298,6 +315,13 @@ export default {
           this.isThird = false;
         }
       }
+    },
+    "dialogUpgradeVisible": {
+      handler(newVal, oldVal) {
+        if (newVal) {
+          this.fetchCategoryList()
+        }
+      }
     }
   },
   computed: {
@@ -329,10 +353,36 @@ export default {
     },
     //  编辑
     handleEdit(row) {
+      this.dialogUpgradeVisible = true;
       console.log(row);
+      console.log(this.typeList);
     },
     // 撤销
     handleCancel() {},
+    // 删除
+    handleDelete(row) {
+        this.$confirm("此操作将永久删除该账号, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            deleteAdmin({ id: row.admin_id }).then(response => {
+              this.$message({
+                type: "success",
+                message: "删除成功!"
+              });
+              this.fetchData();
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消操作"
+            });
+          });
+      console.log(row)
+    }, 
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
       this.temp.avatar_url = res.data;
@@ -379,7 +429,9 @@ export default {
         }
       });
     },
-    updateAdmin() {}
+    updateAdmin() {
+
+    }
   }
 };
 </script>
