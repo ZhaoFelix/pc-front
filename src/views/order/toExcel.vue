@@ -2,7 +2,7 @@
  * @Author: Felix
  * @Email: felix@qingmaoedu.com
  * @Date: 2021-05-14 14:27:14
- * @LastEditTime: 2021-06-03 11:37:10
+ * @LastEditTime: 2021-07-21 10:37:33
  * @FilePath: /pc-front/src/views/order/toExcel.vue
  * Copyright © 2019 Shanghai Qingmao Network Technology Co.,Ltd All rights reserved.
 -->
@@ -449,6 +449,7 @@ const tHeader = [
   "下单手机号",
   "物业小区",
   "接单司机",
+  "订单价格",
   "支付价格",
   "订单类型",
   "用户预约时间",
@@ -461,6 +462,7 @@ const filterVal = [
   "user_phone",
   "estate_plot",
   "driver_name",
+  "order_price",
   "order_final_price",
   "order_type",
   "user_reserve_time",
